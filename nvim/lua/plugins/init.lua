@@ -1,9 +1,14 @@
+vim.cmd [[packadd packer.nvim]]
+
 return require('packer').startup(function(use)
     -- Packer can manage itself
     use { 'wbthomason/packer.nvim'}
 
     --ColorScheme
     use { "ellisonleao/gruvbox.nvim" }
+
+    --Dashboard
+    use {'glepnir/dashboard-nvim'}
 
     --DevIcons
     use { 'kyazdani42/nvim-web-devicons' }
@@ -21,8 +26,7 @@ return require('packer').startup(function(use)
     --NvimTree
     use {
       'kyazdani42/nvim-tree.lua',
-      requires = { 'kyazdani42/nvim-web-devicons', },
-      tag = 'nightly' 
+      requires = { 'kyazdani42/nvim-web-devicons',}, tag = 'nightly' 
     }
 
     --Telescope
@@ -36,11 +40,12 @@ return require('packer').startup(function(use)
     use {"hrsh7th/cmp-buffer"}
     use {"hrsh7th/cmp-path"}
 	use {"hrsh7th/cmp-nvim-lsp"}
-	use {"hrsh7th/nvim-cmp"}
     use {"neovim/nvim-lspconfig"}
 	use {"glepnir/lspsaga.nvim"}
+
 	use {"L3MON4D3/LuaSnip"}
-	use {"simrat39/rust-tools.nvim"}
+	use {"hrsh7th/nvim-cmp"}
+    use { 'saadparwaiz1/cmp_luasnip' }
 
     --BlankLine
     use { "lukas-reineke/indent-blankline.nvim" }

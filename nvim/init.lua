@@ -1,9 +1,8 @@
 require ('plugins')
-require ('config')
+require('config')
 
-vim.cmd('filetype plugin indent on')                                                                 
 vim.cmd('colorscheme gruvbox')
-                                                                                
+
 ------------------------General options--------------------------------
 local set = vim.opt      
 local let = vim.g        
@@ -12,13 +11,13 @@ set.expandtab = true
 set.smarttab = true      
 set.shiftwidth = 4       
 set.tabstop = 4          
-                         
+
 set.wrap = false         
 set.scrolloff = 10       
 set.fileencoding = 'utf-8'
 set.termguicolors = true 
 set.colorcolumn = {80}   
-                         
+
 set.number = true        
 set.cursorline = true    
 set.hidden = true   
