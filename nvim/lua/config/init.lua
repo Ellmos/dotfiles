@@ -2,7 +2,6 @@ require("gruvbox").setup({ contrast = "hard" })
 
 require'nvim-web-devicons'.setup{}
 
-require("nvim-tree").setup()
 require('telescope').setup{}
 
 require('nvim-autopairs').setup({ disable_filetype = { "TelescopePrompt" , "vim" },})
@@ -12,8 +11,6 @@ require("lualine").setup({ options = { theme = "nord" }})
 
 
 require("indent_blankline").setup {
-    show_current_context = true,
-    show_current_context_start = true,
     filetype_exclude = { "dashboard" }
 }
 
@@ -24,11 +21,8 @@ require'lspconfig'.pyright.setup{}
 require('lspkind').init()
 require'lspconfig'.pyright.setup{}
 
-require'cmp'.setup({ sources = {{ name = 'buffer' },},})
-require'cmp'.setup { sources = {{ name = 'nvim_lsp' }}}
-require'cmp'.setup {sources = {{ name = 'path' }}}
 
-
+--------------------------------Dashboard-------------------------------
 local home = os.getenv('HOME')
 local db = require('dashboard')
 db.preview_command = 'cat | lolcat -F 0.3'
@@ -61,3 +55,42 @@ db.custom_center = {
     action = 'Telescope dotfiles path=' .. home ..'/.dotfiles',
     shortcut = 'SPC f d'},
 }
+
+
+--------------------------------Prettier-----------------------------
+local null_ls = require("null-ls")
+
+null_ls.setup({
+  on_attach = function(client, bufnr)
+    if client.server_capabilities.documentFormattingProvider then
+      vim.cmd("nnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.formatting()<CR>")
+
+      -- format on save
+      vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()")
+    end
+
+    if client.server_capabilities.documentRangeFormattingProvider then
+      vim.cmd("xnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.range_formatting({})<CR>")
+    end
+  end,
+})
+
+local prettier = require("prettier")
+
+prettier.setup({
+  bin = 'prettier', -- or `'prettierd'` (v0.22+)
+  filetypes = {
+    "css",
+    "graphql",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "less",
+    "markdown",
+    "scss",
+    "typescript",
+    "typescriptreact",
+    "yaml",
+  },
+})

@@ -1,5 +1,7 @@
 require ('plugins')
 require('config')
+require('config/cmp')
+require('config/tree')
 
 vim.cmd('colorscheme gruvbox')
 
@@ -29,3 +31,6 @@ local opts = {noremap = true, silent = true}
 
 map("n", "<leader><Tab>", ":NvimTreeToggle<CR>", opts)
 map("n", "<leader>f", ":Telescope find_files<CR>", opts)
+
+map("n", "<leader>l", ":BufferLineCycleNext<CR>", opts)
+map("n", "<leader>h", ":BufferLineCyclePrev<CR>", opts)

@@ -47,6 +47,9 @@ return require('packer').startup(function(use)
 	use {"hrsh7th/nvim-cmp"}
     use { 'saadparwaiz1/cmp_luasnip' }
 
+    use {'jose-elias-alvarez/null-ls.nvim'}
+    use {'MunifTanjim/prettier.nvim'}
+
     --BlankLine
     use { "lukas-reineke/indent-blankline.nvim" }
 
