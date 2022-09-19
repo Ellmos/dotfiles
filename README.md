@@ -2,10 +2,10 @@
 
 Hello There!
 
-That's my nvim config, hope you'll enjoy it :)
+That's the config I use on my personal laptop, hope you'll enjoy it :)
 
-Before getting started we some requierments to chesk:\n
-    -neovim > 0.5\n
-    -Packer.nvim installed (https://github.com/wbthomason/packer.nvim)\n
-    -Install a Nerd Font and a terminal that can display all the icons\n
+Before getting started there is some requirements to check:<br/>
+    -neovim > 0.5<br/>
+    -Packer.nvim installed (https://github.com/wbthomason/packer.nvim)<br/>
+    -Install a Nerd Font and a terminal that can display all the icons<br/>
 
