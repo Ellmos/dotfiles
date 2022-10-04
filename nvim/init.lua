@@ -34,3 +34,4 @@ map("n", "<leader>f", ":Telescope find_files<CR>", opts)
 
 map("n", "<leader>l", ":BufferLineCycleNext<CR>", opts)
 map("n", "<leader>h", ":BufferLineCyclePrev<CR>", opts)
+map("n", "<leader>w", ":bd<CR>", opts)

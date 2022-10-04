@@ -1,5 +1,6 @@
 #!/bin/sh
 export ZDOTDIR=$HOME/.config/zsh
+SAVEHIST=10000
 HISTFILE=~/.zsh_history
 setopt appendhistory
 
@@ -16,8 +17,16 @@ unsetopt BEEP
 # completions
 autoload -Uz compinit
 zstyle ':completion:*' menu select
+
+# Git completion
+zstyle ':completion:*:*:git:*' script ~/.config/zsh//git-completion.bash
+fpath=(~/.config/zsh $fpath)
+autoload -Uz compinit && compinit
+
 # zstyle ':completion::complete:lsof:*' menu yes select
 zmodload zsh/complist
+
+
 # compinit
 _comp_options+=(globdots)		# Include hidden files.
 
@@ -62,5 +71,7 @@ alias la='ls -A --color=auto'
 alias c='clear'
 alias nv='nvim'
 alias dz='cd /snap/deezer-unofficial-player/current && ./deezer-unofficial-player &'
-alias otp='bash ~/.config/i3/changeoutput.sh'
+alias ocr='cd ~/Desktop/ocr-epita/'
+alias shut='sudo shutdown now'
 
+neofetch
