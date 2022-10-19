@@ -1,1 +1,0 @@
-/home/elmos/.config/i3
