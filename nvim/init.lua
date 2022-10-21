@@ -49,3 +49,4 @@ map("n", "<leader>f", ":Telescope find_files<CR>", opts)
 map("n", "<leader>d", ":Telescope live_grep<CR>", opts)
 
 map("n", "<leader>;", "<s-a>;<ESC>", opts)
+map("n", "<s-l>", ":noh<CR>", opts);

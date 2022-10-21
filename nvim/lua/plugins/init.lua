@@ -47,6 +47,7 @@ return require('packer').startup(function(use)
 
     use {"onsails/lspkind-nvim"}
 	use {"glepnir/lspsaga.nvim"}
+
 	use {"L3MON4D3/LuaSnip"}
     use { 'saadparwaiz1/cmp_luasnip' }
 

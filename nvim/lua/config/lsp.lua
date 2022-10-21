@@ -54,7 +54,7 @@ cmp.setup({
     },
     sources = {
         { name = 'nvim_lsp' },
-        -- { name = 'nvim_lua' },
+        { name = 'nvim_lua' },
         { name = 'luasnip' },    
         { name = 'buffer' },
         { name = 'emoji' },
@@ -93,7 +93,6 @@ cmp.setup({
 
             vim_item.menu = ({
                 nvim_lsp = "[LSP]",
-                nvim_lua = "[Lua]",
                 buffer = "[BUF]",
             })[entry.source.name]
 
@@ -121,8 +120,10 @@ cmp.setup.cmdline(':', {
 })
 
 
+require("lspconfig").clangd.setup{}
+require('lspconfig').pyright.setup{}
+
+
 require('nvim-autopairs').setup({ disable_filetype = { "TelescopePrompt" , "vim" },})
 require("gitsigns").setup()
 
-require("lspconfig").clangd.setup{}
-require('lspconfig').pyright.setup{}
