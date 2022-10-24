@@ -60,7 +60,7 @@ autoload edit-command-line; zle -N edit-command-line
 # Environment variables set everywhere
 export EDITOR="nvim"
 export TERMINAL="alacritty"
-export BROWSER="brave"
+export BROWSER="brave-browser"
 
 # For QT Themes
 export QT_QPA_PLATFORMTHEME=qt5ct
@@ -73,8 +73,8 @@ alias c='clear'
 alias nv='nvim'
 alias brave='brave-browser'
 
-alias shut='sudo shutdown now'
-alias reboot='sudo reboot'
+alias shut='systemctl poweroff'
+alias reboot='systemctl reboot'
 
 alias gita='git add .'
 alias gitc='git commit -m'
