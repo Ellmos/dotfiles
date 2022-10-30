@@ -16,7 +16,7 @@ return require('packer').startup(function(use)
     use { 'kyazdani42/nvim-web-devicons' }
 
     --Ouaip ce package est partout mais je sais pas a quoi il sert xD
-    use { 'nvim-treesitter/nvim-treesitter', run = ":TSUpdate" }
+    use { 'nvim-treesitter/nvim-treesitter' }
 
     --ToolBars
     use {
