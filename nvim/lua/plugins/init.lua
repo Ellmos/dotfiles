@@ -5,7 +5,10 @@ return require('packer').startup(function(use)
     use { 'wbthomason/packer.nvim'}
 
     --ColorScheme
-    use { "ellisonleao/gruvbox.nvim" }
+    use {
+        'ellisonleao/gruvbox.nvim',
+        commit = 'cb7a8a867cfaa7f0e8ded57eb931da88635e7007'
+    }
 
     --Dashboard
     use {'glepnir/dashboard-nvim'}
