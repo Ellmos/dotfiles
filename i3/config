@@ -77,6 +77,11 @@ bindsym $mod+Return exec --no-startup-id alacritty
 # start a browser 
 bindsym $mod+b exec --no-startup-id brave-browser
 
+# start a calculator
+bindsym XF86Calculator exec --no-startup-id qalculate
+
+for_window [class="Qalculate-gtk"] floating enable
+
 # Polybar 
 exec_always --no-startup-id "bash ~/.config/polybar/launch.sh"
 

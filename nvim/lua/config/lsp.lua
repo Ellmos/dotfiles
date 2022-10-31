@@ -122,6 +122,7 @@ cmp.setup.cmdline(':', {
 
 require("lspconfig").clangd.setup{}
 require('lspconfig').pyright.setup{}
+require('lspconfig').tsserver.setup{}
 
 
 require('nvim-autopairs').setup({ disable_filetype = { "TelescopePrompt" , "vim" },})
