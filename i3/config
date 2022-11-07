@@ -66,7 +66,7 @@ exec_always --no-startup-id numlockx on
 exec --no-startup-id "feh --bg-fill ~/.config/i3/img/bg.png"
 
 # lock (work on multi-screen) 
-bindsym $mod+l exec --no-startup-id "bash ~/.config/i3/i3lock.sh"
+bindsym $mod+p exec --no-startup-id "bash ~/.config/i3/i3lock.sh"
 
 # disable border
 default_border none
@@ -85,6 +85,10 @@ for_window [class="Qalculate-gtk"] floating enable
 # Polybar 
 exec_always --no-startup-id "bash ~/.config/polybar/launch.sh"
 
+# start rofi
+bindsym $mod+d exec --no-startup-id  "rofi -show drun"
+bindsym $mod+Shift+d exec --no-startup-id  "rofi -show run"
+bindsym $mod+w exec --no-startup-id  "rofi -show window"
 ################################################
 
 
@@ -94,17 +98,15 @@ exec_always --no-startup-id "bash ~/.config/polybar/launch.sh"
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-
 # kill focused window
 bindsym $mod+Shift+A kill
 
-# start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id  "rofi -show drun"
-bindsym $mod+Shift+d exec --no-startup-id  "rofi -show run"
-bindsym $mod+w exec --no-startup-id  "rofi -show window"
+# Use vim like keys to move the focus around 
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
-# A more modern dmenu replacement is rofi:
-# bindcode $mod+40 exec 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
@@ -112,10 +114,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+M move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -124,7 +126,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+c split h
 
 # split in vertical orientation
 bindsym $mod+v split v
