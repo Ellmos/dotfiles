@@ -19,19 +19,22 @@ return require('packer').startup(function(use)
     use { 'kyazdani42/nvim-web-devicons' }
 
     --Ouaip ce package est partout mais je sais pas a quoi il sert xD
-    use { 'nvim-treesitter/nvim-treesitter' }
+    use { 
+        'nvim-treesitter/nvim-treesitter',
+        commit = '80503a99104e461599ef8810a64bce1b6d235f6a'
+    }
 
     --ToolBars
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-	}
+    }
     use {'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons'}
 
     --NvimTree
     use {
-      'kyazdani42/nvim-tree.lua',
-      requires = { 'kyazdani42/nvim-web-devicons',}, tag = 'nightly' 
+        'kyazdani42/nvim-tree.lua',
+        requires = { 'kyazdani42/nvim-web-devicons',}, tag = 'nightly' 
     }
 
     --Telescope
@@ -41,17 +44,20 @@ return require('packer').startup(function(use)
     }
 
     --LSP
-    use {"neovim/nvim-lspconfig"}
-	use {"hrsh7th/cmp-nvim-lsp"}
+    use {
+        "williamboman/nvim-lsp-installer",
+        "neovim/nvim-lspconfig",
+    }
+    use {"hrsh7th/cmp-nvim-lsp"}
     use {"hrsh7th/cmp-buffer"}
     use {"hrsh7th/cmp-path"}
     use {"hrsh7th/cmp-cmdline"}
-	use {"hrsh7th/nvim-cmp"}
+    use {"hrsh7th/nvim-cmp"}
 
     use {"onsails/lspkind-nvim"}
-	use {"glepnir/lspsaga.nvim"}
+    use {"glepnir/lspsaga.nvim"}
 
-	use {"L3MON4D3/LuaSnip"}
+    use {"L3MON4D3/LuaSnip"}
     use { 'saadparwaiz1/cmp_luasnip' }
 
     use {'MunifTanjim/prettier.nvim'}

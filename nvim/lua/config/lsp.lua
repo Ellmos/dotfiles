@@ -1,3 +1,6 @@
+require("nvim-lsp-installer").setup {}
+
+
 vim.cmd([[
 set completeopt=menuone,noinsert,noselect
 highlight! default link CmpItemKind CmpItemMenuDefault
@@ -121,7 +124,7 @@ cmp.setup.cmdline(':', {
 
 
 require("lspconfig").clangd.setup{}
-require('lspconfig').pyright.setup{}
+--require('lspconfig').pyright.setup{}
 require('lspconfig').tsserver.setup{}
 
 
