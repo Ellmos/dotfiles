@@ -28,7 +28,7 @@ if [ "$arg_image" ]; then
 elif [ -f "/usr/share/i3lock-multimonitor/img/background.png" ]; then
     BKG_IMG="/usr/share/i3lock-multimonitor/img/background.png"  # Default image
 else
-    BKG_IMG="$(dirname "$BASH_SOURCE")/img/lockBg.png"  # Fallback to current folder
+    BKG_IMG="$HOME/.config/i3/img/lockBg.png"  # Fallback to current folder
 fi
 
 if ! [ -e "$BKG_IMG" ]; then

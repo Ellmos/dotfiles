@@ -59,14 +59,10 @@ bindsym Shift+Print exec --no-startup-id maim --select | xclip -selection clipbo
 # Run a script on startup
 exec_always --no-startup-id bash ~/.config/i3/startup.sh
 
-# Enable NumLock on startup
-exec_always --no-startup-id numlockx on
-
-# Setup bg image
-exec --no-startup-id "feh --bg-fill ~/.config/i3/img/bg.png"
-
 # lock (work on multi-screen) 
-bindsym $mod+p exec --no-startup-id "bash ~/.config/i3/i3lock.sh"
+bindsym $mod+p exec --no-startup-id "bash ~/.config/i3/powermenu/lock.sh"
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec --no-startup-id "bash ~/.config//i3/powermenu/powermenu.sh"
 
 # disable border
 default_border none
@@ -192,8 +188,6 @@ bindsym $mod+Shift+agrave move container to workspace number $ws10
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Ayo ma brudda you leavin?' -B 'YES SIR!' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {

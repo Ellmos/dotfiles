@@ -3,8 +3,6 @@ configuration {
     show-icons:                     true;
 	icon-theme: 					"Papirus";
     display-drun: 					"";
-    display-run: 					"";
-    display-window:					"";
     drun-display-format:            "{name}";
     disable-history:                false;
     fullscreen:                     false;
@@ -92,6 +90,7 @@ element-icon {
     text-color:               		inherit;
     size:                           30;
     border:                         0px;
+    margin-right: 10px;
 }
 
 element-text {
