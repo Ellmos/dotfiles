@@ -1,5 +1,3 @@
-# dotfiles
+# Dotfiles
 
-Hello There!
-
-That's the config I use on my personal laptop, hope you'll enjoy it :)
+Have a good time trying to understand all this shit ;)
