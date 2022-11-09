@@ -18,10 +18,10 @@ return require('packer').startup(function(use)
     --DevIcons
     use { 'kyazdani42/nvim-web-devicons' }
 
-    --Ouaip ce package est partout mais je sais pas a quoi il sert xD
+    -- Highlights
     use { 
         'nvim-treesitter/nvim-treesitter',
-        commit = '80503a99104e461599ef8810a64bce1b6d235f6a'
+        commit = 'd47f3469e3a783e7d1382ab3fe95ba2fa3021ec0'
     }
 
     --ToolBars

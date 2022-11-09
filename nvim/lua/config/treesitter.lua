@@ -2,15 +2,12 @@ require("nvim-treesitter.configs").setup({
 	auto_install = true,
 	ensure_installed = {
 		"c",
+        "python",
 		"lua",
 		"make",
-		"markdown",
-		"nix",
 		"javascript",
 		"html",
 		"css",
-		"cmake",
-		"rust",
 	},
 	sync_install = false,
 
@@ -19,7 +16,6 @@ require("nvim-treesitter.configs").setup({
 		disable = {},
 		additional_vim_regex_highlighting = false,
 	},
-
 	rainbow = {
 		enable = true,
 		extended_mode = true,
