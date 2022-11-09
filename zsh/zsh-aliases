@@ -1,0 +1,30 @@
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+bindkey '^H' backward-kill-word
+bindkey '^[[3;5~' kill-word
+
+
+
+
+alias shut='systemctl poweroff'
+alias reboot='systemctl reboot'
+alias :q='exit'
+
+alias ls='ls --color=auto'
+alias la='ls -A --color=auto'
+alias tree='tree -C'
+alias c='clear'
+
+alias nv='nvim'
+alias brave='brave-browser'
+
+alias gita='git add .'
+alias gitc='git commit -m'
+alias gitp='git push'
+alias gits='git status'
+
+alias ocr='cd ~/Desktop/spe/ocr-epita/'
+
+alias laptop='./.config/i3/arandr/laptop.sh'
+alias monitor='./.config/i3/arandr/monitor.sh'
+alias both='./.config/i3/arandr/both.sh'

@@ -32,8 +32,6 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
 
 
-
-
 ################CONFIG PERSO#####################
 
 #in case mic doesn't work check run pacvontrol in a terminal
@@ -73,11 +71,6 @@ bindsym $mod+Return exec --no-startup-id alacritty
 # start a browser 
 bindsym $mod+b exec --no-startup-id brave-browser
 
-# start a calculator
-bindsym XF86Calculator exec --no-startup-id qalculate
-
-for_window [class="Qalculate-gtk"] floating enable
-
 # Polybar 
 exec_always --no-startup-id "bash ~/.config/polybar/launch.sh"
 
@@ -85,6 +78,14 @@ exec_always --no-startup-id "bash ~/.config/polybar/launch.sh"
 bindsym $mod+d exec --no-startup-id  "rofi -show drun"
 bindsym $mod+Shift+d exec --no-startup-id  "rofi -show run"
 bindsym $mod+w exec --no-startup-id  "rofi -show window"
+
+
+# start a calculator
+bindsym XF86Calculator exec --no-startup-id qalculate
+for_window [class="Qalculate-gtk"] floating enable
+
+for_window [class="^.*"] border pixel 2
+
 ################################################
 
 

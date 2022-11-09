@@ -44,6 +44,7 @@ source "$ZDOTDIR/zsh-functions"
 # Normal files to source
 zsh_add_file "zsh-exports"
 zsh_add_file "zsh-prompt"
+zsh_add_file "zsh-aliases"
 
 # Plugins
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
@@ -65,26 +66,5 @@ export BROWSER="brave-browser"
 # For QT Themes
 export QT_QPA_PLATFORMTHEME=qt5ct
 
-# ------------------------------ALIASES--------------------------------
-alias ls='ls --color=auto'
-alias la='ls -A --color=auto'
-alias c='clear'
-
-alias nv='nvim'
-alias brave='brave-browser'
-
-alias shut='systemctl poweroff'
-alias reboot='systemctl reboot'
-
-alias gita='git add .'
-alias gitc='git commit -m'
-alias gitp='git push'
-alias gits='git status'
-
-alias ocr='cd ~/Desktop/spe/ocr-epita/'
-
-alias laptop='./.config/i3/arandr/laptop.sh && i3-msg restart'
-alias monitor='./.config/i3/arandr/monitor.sh && i3-msg restart'
-alias both='./.config/i3/arandr/both.sh && i3-msg restart'
 
 neofetch

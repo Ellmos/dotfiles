@@ -46,7 +46,7 @@ textbox-prompt-colon {
 	background-color: 				@al;
 	text-color: 					@bar;
 	expand:                         false;
-	str:                            "";
+	str:                            "";
 }
 
 entry {
