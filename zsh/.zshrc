@@ -66,5 +66,9 @@ export BROWSER="brave-browser"
 # For QT Themes
 export QT_QPA_PLATFORMTHEME=qt5ct
 
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+bindkey '^H' backward-kill-word
+bindkey '^[[3;5~' kill-word
 
 neofetch
