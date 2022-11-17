@@ -13,7 +13,6 @@ while read line; do
     sinks[${#sinks[@]}]=$index
 
     # Find the current DEFAULT_SINK
-    echo "$line"
     if grep -q "$defaultSink" <<< "$line"; then
         defaultIndex=$index
         defaultPos=$i

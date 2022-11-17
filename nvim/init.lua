@@ -12,7 +12,7 @@ vim.cmd('colorscheme gruvbox')
 local set = vim.opt      
 local let = vim.g        
 
-set.expandtab = true     
+set.expandtab = true
 set.smarttab = true      
 set.shiftwidth = 4       
 set.tabstop = 4          
@@ -49,4 +49,5 @@ map("n", "<leader>f", ":Telescope find_files<CR>", opts)
 map("n", "<leader>d", ":Telescope live_grep<CR>", opts)
 
 map("n", "<leader>;", "<s-a>;<ESC>", opts)
+map("n", "<leader>,", "<s-a>,<ESC>", opts)
 map("n", "<s-l>", ":noh<CR>", opts);
