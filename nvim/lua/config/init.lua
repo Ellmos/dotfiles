@@ -5,7 +5,8 @@ require'nvim-web-devicons'.setup{}
 require('telescope').setup{}
 
 
-require("bufferline").setup()
+require("bufferline").setup({ })
+
 require("lualine").setup({ options = { theme = "nord" }})
 
 

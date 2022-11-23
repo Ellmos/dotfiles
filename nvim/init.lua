@@ -43,6 +43,16 @@ map("n", "<C-w>", ":bd<CR>", opts)
 map('n', '<TAB>', ':BufferLineCycleNext<CR>', opts)
 map('n', '<s-TAB>', ':BufferLineCyclePrev<CR>', opts)
 
+
+--Move Lines
+map('n', '<A-j>', ':m +1<CR>==', opts)
+map('n', '<A-k>', ':m -2<CR>==', opts)
+
+map('v', '<A-j>', ':m \'>+1<CR>gv=gv', opts)
+map('v', '<A-k>', ':m \'<-2<CR>gv=gv', opts)
+
+
+
 --La aussi casse pas les couilles
 map("n", "<leader><Tab>", ":NvimTreeToggle<CR>", opts)
 map("n", "<leader>f", ":Telescope find_files<CR>", opts)

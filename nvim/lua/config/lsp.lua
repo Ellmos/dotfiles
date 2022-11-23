@@ -124,7 +124,7 @@ cmp.setup.cmdline(':', {
 
 
 require("lspconfig").clangd.setup{}
---require('lspconfig').pyright.setup{}
+require('lspconfig').pyright.setup{}
 require('lspconfig').tsserver.setup{}
 
 
