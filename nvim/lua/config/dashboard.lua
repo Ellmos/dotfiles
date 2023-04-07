@@ -18,11 +18,6 @@ db.custom_center = {
     shortcut = 'SPC l',
     action = 'SessionLoad'},
 
-    {icon = '  ',
-    desc = 'Recently opened files                 ',
-    action = 'DashboardFindHistory',
-    shortcut = 'SPC h'},
-
     {icon = '  ',
     desc = 'Find  File                            ',
     action = 'Telescope find_files find_command=rg,--hidden,--files',
@@ -31,6 +26,11 @@ db.custom_center = {
     {icon = '  ',
     desc = 'Find  word                            ',
     action = 'Telescope live_grep',
-    shortcut = 'SPC w'},
+    shortcut = 'SPC d'},
+
+    {icon = '  ',
+    desc = 'Edit Dotfiles                         ',
+    action = ':e ~/Desktop/dotfiles/',
+    shortcut = 'SPC e'},
 }
 

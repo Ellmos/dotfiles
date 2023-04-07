@@ -83,7 +83,7 @@ bindsym $mod+w exec --no-startup-id  "rofi -show window"
 # start a calculator
 bindsym XF86Calculator exec --no-startup-id qalculate
 for_window [class="Qalculate-gtk"] floating enable
-for_window [class="Duel"] floating enable
+for_window [class="Ui"] floating enable
 
 for_window [class="^.*"] border pixel 2
 
@@ -110,15 +110,15 @@ mode "resize" {
 # create a new mode to move floating windows around
 bindsym $mod+space mode "move" focus floating
 mode "move" {
-    bindsym h     move left
-    bindsym j     move down
-    bindsym k     move up
-    bindsym l     move right
+    bindsym h     move left 20
+    bindsym j     move down 20
+    bindsym k     move up 20
+    bindsym l     move right 20
 
-    bindsym Left  move left
-    bindsym Down  move down
-    bindsym Up    move up
-    bindsym Right move right
+    bindsym Left  move left 20
+    bindsym Down  move down 20
+    bindsym Up    move up 20
+    bindsym Right move right 20
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"

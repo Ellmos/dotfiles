@@ -4,10 +4,13 @@ alias :q='exit'
 
 alias ls='ls --color=auto'
 alias la='ls -A --color=auto'
+alias ll='ls -l --color=auto'
+alias grep='grep --color=always'
 alias tree='tree -C'
 alias c='clear'
 
 alias nv='nvim'
+alias vim='nvim'
 alias brave='brave-browser'
 
 alias gita='git add .'
@@ -15,8 +18,9 @@ alias gitc='git commit -m'
 alias gitp='git push'
 alias gits='git status'
 
-alias ocr='cd ~/Desktop/spe/ocr-epita/'
+alias laptop='bash ~/.config/i3/arandr/laptop.sh'
+alias monitor='bash ~/.config/i3/arandr/monitor.sh'
+alias both='bash ~/.config/i3/arandr/both.sh'
 
-alias laptop='./.config/i3/arandr/laptop.sh'
-alias monitor='./.config/i3/arandr/monitor.sh'
-alias both='./.config/i3/arandr/both.sh'
+alias banquise='sudo tailscale up && sudo swanctl -q && sudo swanctl -i --child banquise'
+alias bluetooth='sudo hciconfig hci0 down && sudo rmmod btusb && sudo modprobe btusb && sudo hciconfig hci0 up && sudo bluetoothctl'
