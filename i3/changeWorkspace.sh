@@ -1,6 +1,5 @@
 #! /usr/bin/env bash
 
-echo $1 arg
 set -eu
 
 activeWp=$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).num')
@@ -25,15 +24,15 @@ done
 len=${#wps[@]}
 len=$((len-1))
 
-echo $len len
-echo $activeWpIndex wpIndex
+#echo $len len
+#echo $activeWpIndex wpIndex
 
 
 if [[ $1 == "next" ]]; then
     if [[ $activeWpIndex < $len ]]; then
         j=$((activeWpIndex+1))
         next=${wps[j]}
-        echo $next next
+        #echo $next next
         i3-msg -q workspace number $next
     fi;
 
@@ -41,7 +40,7 @@ elif [[ $1 == "previous" ]]; then
     if [[ $activeWpIndex > 0 ]]; then
         j=$((activeWpIndex-1))
         prev=${wps[j]}
-        echo $prev prev
+        #echo $prev prev
         i3-msg -q workspace number $prev
     fi;
 fi;

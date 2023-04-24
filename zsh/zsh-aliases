@@ -24,3 +24,5 @@ alias both='bash ~/.config/i3/arandr/both.sh'
 
 alias banquise='sudo tailscale up && sudo swanctl -q && sudo swanctl -i --child banquise'
 alias bluetooth='sudo hciconfig hci0 down && sudo rmmod btusb && sudo modprobe btusb && sudo hciconfig hci0 up && sudo bluetoothctl'
+
+alias changeoutput='bash ~/.config/i3/changeoutput.sh'

@@ -38,3 +38,5 @@ while read stream; do
     streamId=$(echo $stream | awk '{ print $1 }')
     pactl move-sink-input $streamId @DEFAULT_SINK@
 done <<< "$(pactl list short sink-inputs)"
+
+bash "$HOME"/.config/polybar/launch.sh
