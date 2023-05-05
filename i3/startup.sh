@@ -17,10 +17,10 @@ libinput-gestures-setup autostart start
 
 while true
 do
-   export DISPLAY=:0.0
-   battery_level=`acpi -b | grep -P -o '[0-9]+(?=%)'`
-   if [ $battery_level -le 15 ]; then
-      notify-send --urgency=CRITICAL "Battery Low" "Level: ${battery_level}%"
-   fi
- sleep 60
+    export DISPLAY=:0.0
+    battery_level=`acpi -b | grep -P -o '[0-9]+(?=%)'`
+    if [ $battery_level -le 15 ]; then
+    notify-send --urgency=CRITICAL "Battery Low" "Level: ${battery_level}%"
+    fi
+    sleep 60
 done
