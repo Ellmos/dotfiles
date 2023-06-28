@@ -2,7 +2,6 @@ require("indent_blankline").setup {
     filetype_exclude = { "dashboard" }
 }
 
-
 --------------------------------Dashboard-------------------------------
 local home = os.getenv('HOME')
 local db = require('dashboard')
@@ -30,7 +29,7 @@ db.custom_center = {
 
     {icon = '  ',
     desc = 'Edit Dotfiles                         ',
-    action = ':e ~/Desktop/dotfiles/',
+    action = ':e /home/elmos/Documents/dotfiles/',
     shortcut = 'SPC e'},
 }
 

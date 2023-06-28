@@ -1,39 +1,16 @@
-require("gruvbox").setup({ contrast = "hard" })
+require('gruvbox').setup({ contrast = 'hard' })
 
-require'nvim-web-devicons'.setup{}
+require('bufferline').setup({ })
+require('lualine').setup({ options = { theme = 'nord' }})
 
+require('nvim-web-devicons').setup{}
 require('telescope').setup{}
+require('nvim-autopairs').setup({ disable_filetype = { 'TelescopePrompt' , 'vim' },})
+require('gitsigns').setup()
 
-
-require("bufferline").setup({ })
-
-require("lualine").setup({ options = { theme = "nord" }})
-
-
-require("lspsaga").init_lsp_saga()
-require('lspkind').init()
-
-
-
-
---------------------------------Prettier-----------------------------
-local prettier = require("prettier")
-
-prettier.setup({
-  bin = 'prettier', -- or `'prettierd'` (v0.22+)
-  filetypes = {
-    "css",
-    "graphql",
-    "html",
-    "javascript",
-    "javascriptreact",
-    "json",
-    "less",
-    "markdown",
-    "scss",
-    "typescript",
-    "typescriptreact",
-    "yaml",
-    "python",
-  },
-})
+require('config/lsp')
+require('config/cmp')
+require('config/treesitter')
+require('config/tree')
+require('config/dashboard')
+require('config/neoscroll')

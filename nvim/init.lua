@@ -1,10 +1,5 @@
 require ('plugins')
-
 require('config')
-require('config/lsp')
-require('config/tree')
-require('config/dashboard')
-require('config/treesitter')
 
 vim.cmd('colorscheme gruvbox')
 
@@ -26,38 +21,42 @@ set.colorcolumn = {80}
 set.number = true        
 set.cursorline = true    
 set.hidden = true   
+set.clipboard = 'unnamedplus'
+set.filetype.plugin = 'on'
 
---------------------------Keympas-------------------------------------
-let.mapleader = " "
+--------------------------Keympas--------------------------
 local map = vim.api.nvim_set_keymap
 local opts = {noremap = true, silent = true}
+let.mapleader = " "
 
---Move trhough different buffer
+--Move through different buffers
 map('n', '<C-h>', '<C-w>h', opts)
 map('n', '<C-l>', '<C-w>l', opts)
 map('n', '<C-j>', '<C-w>j', opts)
 map('n', '<C-k>', '<C-w>k', opts)
 map("n", "<C-w>", ":bd<CR>", opts)
 
---Ouais t'as capte ce qui se passe la fait pas chier
+--Switch windows
 map('n', '<TAB>', ':BufferLineCycleNext<CR>', opts)
-map('n', '<s-TAB>', ':BufferLineCyclePrev<CR>', opts)
+map('n', '<S-TAB>', ':BufferLineCyclePrev<CR>', opts)
 
-
---Move Lines
+--Move lines with alt key
 map('n', '<A-j>', ':m +1<CR>==', opts)
 map('n', '<A-k>', ':m -2<CR>==', opts)
 
 map('v', '<A-j>', ':m \'>+1<CR>gv=gv', opts)
 map('v', '<A-k>', ':m \'<-2<CR>gv=gv', opts)
 
+--Fast scroll
+map('n', '<S-l>', 'zL', opts)
+map('n', '<S-h>', 'zH', opts)
 
-
---La aussi casse pas les couilles
+--Telescope and NvimTree shortcut
 map("n", "<leader><Tab>", ":NvimTreeToggle<CR>", opts)
 map("n", "<leader>f", ":Telescope find_files<CR>", opts)
 map("n", "<leader>d", ":Telescope live_grep<CR>", opts)
 
+--Some cool random stuff
 map("n", "<leader>;", "<s-a>;<ESC>", opts)
 map("n", "<leader>,", "<s-a>,<ESC>", opts)
-map("n", "<s-l>", ":noh<CR>", opts);
+map("n", "µ", ":noh<CR>", opts);
