@@ -27,4 +27,5 @@ alias bluetooth='sudo hciconfig hci0 down && sudo rmmod btusb && sudo modprobe b
 
 alias changeoutput='bash ~/.config/i3/changeoutput.sh'
 
-alias gi='gita && gitc'
+alias py='python3'
+alias up='nmcli con up'

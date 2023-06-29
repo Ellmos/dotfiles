@@ -15,12 +15,19 @@ xinput set-prop "pointer:DELL0A78:00 04F3:3147 Touchpad" "Synaptics Click Action
 libinput-gestures-setup autostart start
 
 
+warningDisplayed=false
+
 while true
 do
     export DISPLAY=:0.0
     battery_level=`acpi -b | grep -P -o '[0-9]+(?=%)'`
     if [ $battery_level -le 15 ]; then
-    notify-send --urgency=CRITICAL "Battery Low" "Level: ${battery_level}%"
+        if ! $warningDisplayed; then
+            notify-send --urgency=CRITICAL "Battery Low" "Level: ${battery_level}%"
+            warningDisplayed=true
+        fi
+    else
+        warningDisplayed=false
     fi
     sleep 60
 done
