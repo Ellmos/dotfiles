@@ -1,8 +1,3 @@
-require("indent_blankline").setup {
-    filetype_exclude = { "dashboard" }
-}
-----------------------------------Dashboard-------------------------------
-
 local home = os.getenv('HOME')
 
 require('dashboard').setup {
@@ -12,9 +7,9 @@ require('dashboard').setup {
         center = {
             {
                 icon = '  ',
-                desc = 'Recently latest session               ',
-                action = 'Leaderf mru --popup',
-                key = 'l',
+                desc = 'Recent projects                      ',
+                action = 'Telescope projects',
+                key = 'p',
                 icon_hl = 'Title',
                 desc_hl = 'String',
                 key_hl = 'Number',
@@ -41,7 +36,7 @@ require('dashboard').setup {
                 icon = '  ',
                 desc = 'Edit Dotfiles                         ',
                 action = ':e /home/elmos/Documents/dotfiles/',
-                key = 'e',
+                key = 'd',
                 icon_hl = 'Title',
                 desc_hl = 'String',
                 key_hl = 'Number',
