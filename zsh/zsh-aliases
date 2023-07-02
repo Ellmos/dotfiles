@@ -29,3 +29,5 @@ alias changeoutput='bash ~/.config/i3/changeoutput.sh'
 
 alias py='python3'
 alias up='nmcli con up'
+
+alias delete-log='sudo find /var/log -mtime +30 -type f -delete'

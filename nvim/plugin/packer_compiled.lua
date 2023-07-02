@@ -74,6 +74,11 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["Comment.nvim"] = {
+    loaded = true,
+    path = "/home/elmos/.local/share/nvim/site/pack/packer/start/Comment.nvim",
+    url = "https://github.com/numToStr/Comment.nvim"
+  },
   LuaSnip = {
     loaded = true,
     path = "/home/elmos/.local/share/nvim/site/pack/packer/start/LuaSnip",
@@ -84,6 +89,11 @@ _G.packer_plugins = {
     path = "/home/elmos/.local/share/nvim/site/pack/packer/start/bufferline.nvim",
     url = "https://github.com/akinsho/bufferline.nvim"
   },
+  ["cinnamon.nvim"] = {
+    loaded = true,
+    path = "/home/elmos/.local/share/nvim/site/pack/packer/start/cinnamon.nvim",
+    url = "https://github.com/declancm/cinnamon.nvim"
+  },
   ["cmp-buffer"] = {
     loaded = true,
     path = "/home/elmos/.local/share/nvim/site/pack/packer/start/cmp-buffer",
@@ -93,6 +103,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/elmos/.local/share/nvim/site/pack/packer/start/cmp-cmdline",
     url = "https://github.com/hrsh7th/cmp-cmdline"
+  },
+  ["cmp-git"] = {
+    loaded = true,
+    path = "/home/elmos/.local/share/nvim/site/pack/packer/start/cmp-git",
+    url = "https://github.com/petertriho/cmp-git"
   },
   ["cmp-nvim-lsp"] = {
     loaded = true,
@@ -114,6 +129,11 @@ _G.packer_plugins = {
     path = "/home/elmos/.local/share/nvim/site/pack/packer/start/dashboard-nvim",
     url = "https://github.com/glepnir/dashboard-nvim"
   },
+  ["fold-cycle.nvim"] = {
+    loaded = true,
+    path = "/home/elmos/.local/share/nvim/site/pack/packer/start/fold-cycle.nvim",
+    url = "https://github.com/jghauser/fold-cycle.nvim"
+  },
   ["gitsigns.nvim"] = {
     loaded = true,
     path = "/home/elmos/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
@@ -134,15 +154,20 @@ _G.packer_plugins = {
     path = "/home/elmos/.local/share/nvim/site/pack/packer/start/lualine.nvim",
     url = "https://github.com/nvim-lualine/lualine.nvim"
   },
-  ["neoscroll.nvim"] = {
+  ["mason-lspconfig.nvim"] = {
     loaded = true,
-    path = "/home/elmos/.local/share/nvim/site/pack/packer/start/neoscroll.nvim",
-    url = "https://github.com/karb94/neoscroll.nvim"
+    path = "/home/elmos/.local/share/nvim/site/pack/packer/start/mason-lspconfig.nvim",
+    url = "https://github.com/williamboman/mason-lspconfig.nvim"
   },
-  nerdcommenter = {
+  ["mason.nvim"] = {
     loaded = true,
-    path = "/home/elmos/.local/share/nvim/site/pack/packer/start/nerdcommenter",
-    url = "https://github.com/preservim/nerdcommenter"
+    path = "/home/elmos/.local/share/nvim/site/pack/packer/start/mason.nvim",
+    url = "https://github.com/williamboman/mason.nvim"
+  },
+  ["neodev.nvim"] = {
+    loaded = true,
+    path = "/home/elmos/.local/share/nvim/site/pack/packer/start/neodev.nvim",
+    url = "https://github.com/folke/neodev.nvim"
   },
   ["nvim-autopairs"] = {
     loaded = true,
@@ -189,6 +214,24 @@ _G.packer_plugins = {
     path = "/home/elmos/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
+  ["project.nvim"] = {
+    loaded = true,
+    path = "/home/elmos/.local/share/nvim/site/pack/packer/start/project.nvim",
+    url = "https://github.com/ahmedkhalf/project.nvim"
+  },
+  ["telescope-fzf-native.nvim"] = {
+    cond = { "\27LJ\2\nK\0\0\3\0\4\1\v6\0\0\0009\0\1\0009\0\2\0'\2\3\0B\0\2\2\b\0\0\0X\0\2€+\0\1\0X\1\1€+\0\2\0L\0\2\0\tmake\15executable\afn\bvim\2\0" },
+    loaded = false,
+    needs_bufread = false,
+    only_cond = true,
+    path = "/home/elmos/.local/share/nvim/site/pack/packer/opt/telescope-fzf-native.nvim",
+    url = "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
+  },
+  ["telescope-ui-select.nvim"] = {
+    loaded = true,
+    path = "/home/elmos/.local/share/nvim/site/pack/packer/start/telescope-ui-select.nvim",
+    url = "https://github.com/nvim-telescope/telescope-ui-select.nvim"
+  },
   ["telescope.nvim"] = {
     loaded = true,
     path = "/home/elmos/.local/share/nvim/site/pack/packer/start/telescope.nvim",
@@ -197,6 +240,10 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Conditional loads
+time([[Conditional loading of telescope-fzf-native.nvim]], true)
+  require("packer.load")({"telescope-fzf-native.nvim"}, {}, _G.packer_plugins)
+time([[Conditional loading of telescope-fzf-native.nvim]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

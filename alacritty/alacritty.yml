@@ -22,7 +22,7 @@ window_opacity: 0.8
 
 font:
   normal:
-    family: Hack Nerd Font 
+    family: Hack Nerd Font
     style: Regular
 
   bold:

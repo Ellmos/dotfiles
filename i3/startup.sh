@@ -12,7 +12,11 @@ xinput set-prop "pointer:DELL0A78:00 04F3:3147 Touchpad" "Synaptics Two-Finger S
 xinput set-prop "pointer:DELL0A78:00 04F3:3147 Touchpad" "Synaptics Tap Action" 2 3 1 1 1 3 0
 xinput set-prop "pointer:DELL0A78:00 04F3:3147 Touchpad" "Synaptics Click Action" 1 0 0
 
+xset r rate 250
+
 libinput-gestures-setup autostart start
+
+
 
 
 warningDisplayed=false

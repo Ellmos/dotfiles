@@ -1,5 +1,5 @@
 configuration {
-	font:							"hack 12";
+	font:							"Hack Nerd Font:style=Bold 12";
     show-icons:                     true;
 	icon-theme: 					"Papirus";
     display-drun: 					"";
