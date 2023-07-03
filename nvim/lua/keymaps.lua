@@ -21,10 +21,6 @@ map('n', '<A-k>', ':m -2<CR>==', 'Move the current line one upward')
 map('v', '<A-j>', ':m \'>+1<CR>gv=gv', 'move the selected lines one downward')
 map('v', '<A-k>', ':m \'<-2<CR>gv=gv', 'move the selected line one upward')
 
--- Fast scroll
-map('n', '<S-l>', 'zL', 'Scroll the tab to the right')
-map('n', '<S-h>', 'zH', 'Scroll the tab to the left')
-
 -- Some cool shotcut to add line ends
 map('n', '<leader>;', '<s-a>;<ESC>', 'Add ";" at the end of the current line')
 map('n', '<leader>,', '<s-a>,<ESC>', 'Add "," at the end of the current line')
@@ -41,7 +37,6 @@ map('n', '<leader><CR>', ':lua require("fold-cycle").open()<CR>', 'Open folder')
 map('n', '<leader><BS>', ':lua require("fold-cycle").close()<CR>', 'Close folder')
 map('n', '<leader>a<CR>', ':lua require("fold-cycle").open_all()<CR>', 'Open all folders')
 map('n', '<leader>a<BS>', ':lua require("fold-cycle").close_all()<CR>', 'Close all folders')
-
 
 
 -------------------Telescope------------------
@@ -78,11 +73,11 @@ map({'n', 'v'}, '<S-k>', "<Cmd>lua Scroll('<C-u>', 1, 1)<CR>", 'Scroll cursor do
 map({'n', 'v'}, '<S-h>', "<S-b>", 'Fast movement left')
 map({'n', 'v'}, '<S-l>', "<S-w>", 'Fast movement right')
 
-map({'n', 'v'}, 'zz', "<Cmd>lua Scroll('zz', 0, 1)<CR>", 'Center window on cusror')
-map({'n', 'v'}, 'zj', "<Cmd>lua Scroll('zt', 0, 1)<CR>", 'Scroll window down')
-map({'n', 'v'}, 'zk', "<Cmd>lua Scroll('zb', 0, 1)<CR>", 'Scroll window up')
-map({'n', 'v'}, 'zh', "<Cmd>lua Scroll('ze')<CR>", 'Scroll window left')
-map({'n', 'v'}, 'zl', "<Cmd>lua Scroll('zs')<CR>", 'Scroll window right')
+map({'n', 'v'}, 'zz', ":lua Scroll('zz', 0, 1)<CR>", 'Center window on cusror')
+map({'n', 'v'}, 'zj', ":lua Scroll('zt', 0, 1)<CR>", 'Scroll window down')
+map({'n', 'v'}, 'zk', ":lua Scroll('zb', 0, 1)<CR>", 'Scroll window up')
+map({'n', 'v'}, 'zh', ":lua Scroll('zH')<CR>", 'Scroll window left')
+map({'n', 'v'}, 'zl', ":lua Scroll('zL')<CR>", 'Scroll window right')
 
 
 

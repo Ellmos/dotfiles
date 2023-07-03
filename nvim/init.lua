@@ -11,8 +11,9 @@ local set = vim.opt
 
 set.expandtab = true
 set.smarttab = true
-set.shiftwidth = 4
+set.autoindent = true
 set.tabstop = 4
+set.shiftwidth = 4
 set.foldmethod="indent"
 set.foldlevel=1000
 
