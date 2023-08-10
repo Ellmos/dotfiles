@@ -13,7 +13,7 @@ return require('packer').startup(function(use)
 
 	-- Lines
 	use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons' }}
-	use { 'akinsho/bufferline.nvim', requires = { 'kyazdani42/nvim-web-devicons' }, tag = 'v2.*' }
+	use { 'akinsho/bufferline.nvim', requires = { 'kyazdani42/nvim-web-devicons' }, tag = '*' }
 
 	-- Highlighting
 	use { 'nvim-treesitter/nvim-treesitter', commit = 'd47f3469e3a783e7d1382ab3fe95ba2fa3021ec0', build = ':TSUpdate' }
@@ -50,7 +50,6 @@ return require('packer').startup(function(use)
 	use { 'williamboman/mason-lspconfig.nvim' }
 	use { 'folke/neodev.nvim'}
 
-
 	-- Completion
 	use { 'hrsh7th/nvim-cmp' }
 	use { 'hrsh7th/cmp-nvim-lsp'}
@@ -62,4 +61,7 @@ return require('packer').startup(function(use)
 	-- Snippet
 	use { 'L3MON4D3/LuaSnip' }
 	use { 'saadparwaiz1/cmp_luasnip' }
+
+    -- Debugger
+    use { 'mfussenegger/nvim-dap' }
 end)

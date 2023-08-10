@@ -2,14 +2,13 @@
 require('gruvbox').setup({ contrast = 'hard' })
 
 -- Lines
-require('bufferline').setup()
 require('lualine').setup({ options = { theme = 'nord' }})
+require("bufferline").setup()
 
 -- Indentation visualisation
 require('indent_blankline').setup({ filetype_exclude = { 'dashboard' }})
 
 -- Code commenting
---require('Comment').setup({ opleader = { line = '<leader>cc', block = '<leader>cb' }})
 require('Comment').setup()
 
 -- Smooth scroll

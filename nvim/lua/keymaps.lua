@@ -3,6 +3,9 @@ local map = function(mode, keymap, action, description)
 end
 
 -------------------Utils------------------
+map('i', '<M-BS>', '<C-w>', 'Delete previous word')
+
+
 -- Move through buffers
 map('n', '<C-h>', '<C-w>h', 'Move to left buffer')
 map('n', '<C-l>', '<C-w>l', 'Move to right buffer')
