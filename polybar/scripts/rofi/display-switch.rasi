@@ -1,7 +1,6 @@
 configuration {
 	font:							"Hack Nerd Font 11";
     show-icons:                     true;
-    drun-display-format:            "{name}";
     disable-history:                false;
     fullscreen:                     false;
 	hide-scrollbar: 				true;
@@ -35,8 +34,8 @@ textbox-prompt-colon {
 	font:							"Hack Nerd Font 11";
 	background-color: 				@al;
 	text-color: 					@bar;
-	expand: false;
-	str: "⏻ ";
+	expand:                         false;
+	str:                            "󰍉 ";
 }
 
 entry {
@@ -45,13 +44,13 @@ entry {
     placeholder-color:              @bar;
     expand:                         true;
     horizontal-align:               0;
-    placeholder:                    "Search...";
-    padding:                        1px;
+    placeholder:                    "Search";
+    padding:                        2px;
     blink:                          true;
 }
 
 inputbar {
-	children: 						[ textbox-prompt-colon, prompt ];
+	children: 						[ textbox-prompt-colon, entry ];
     background-color:               @ac;
     text-color:                     @bar;
     expand:                         false;

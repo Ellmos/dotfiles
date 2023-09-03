@@ -6,7 +6,7 @@ require('dashboard').setup {
         header = {},
         center = {
             {
-                icon = '  ',
+                icon = '  ',
                 desc = 'Recent Files                          ',
                 action = 'Telescope oldfiles',
                 key = 'a',
@@ -15,7 +15,7 @@ require('dashboard').setup {
                 key_hl = 'Number',
             },
             {
-                icon = '  ',
+                icon = '󰥨  ',
                 desc = 'Recent Projects                      ',
                 action = 'Telescope projects',
                 key = 'b',
@@ -24,7 +24,7 @@ require('dashboard').setup {
                 key_hl = 'Number',
             },
             {
-                icon = '󰮗  ',
+                icon = '󰱼  ',
                 desc = 'Find  File                            ',
                 action = 'Telescope find_files find_command=rg,--hidden,--files',
                 key = 'c',

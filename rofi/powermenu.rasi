@@ -1,16 +1,6 @@
-/*
- *
- * Author  : Aditya Shakya
- * Mail    : adi1090x@gmail.com
- * Github  : @adi1090x
- * Twitter : @adi1090x
- *
- */
-
 configuration {
-	font:							"Fantasque Sans Mono 10";
+	font:							"Hack Nerd Font 11";
     show-icons:                     true;
-	icon-theme: 					"Papirus";
     drun-display-format:            "{name}";
     disable-history:                false;
     fullscreen:                     false;
@@ -27,7 +17,7 @@ window {
 	border:							0px;
 	border-color:					@ac;
     border-radius:                  0px;
-	width:							400px;
+	width:							300px;
     location:                       center;
     x-offset:                       0;
     y-offset:                       0;
@@ -41,12 +31,12 @@ prompt {
 }
 
 textbox-prompt-colon {
-	padding: 						-2px 5px 5px -10px;
-	font:							"Material\-Design\-Iconic\-Font 12";
+	padding: 						-1px 0px 0px 0px;
+	font:							"Hack Nerd Font 11";
 	background-color: 				@al;
 	text-color: 					@bar;
 	expand: false;
-	str: "";
+	str: "⏻ ";
 }
 
 entry {
@@ -76,7 +66,7 @@ listview {
     background-color:               @al;
     padding:                        0px;
     columns:                        1;
-    lines:                          8;
+    lines:                          5;
     spacing:                        5px;
     cycle:                          true;
     dynamic:                        true;
@@ -114,7 +104,7 @@ element-text {
     expand:                         true;
     horizontal-align:               0;
     vertical-align:                 0.5;
-    margin:                         0px 0px 0px -3px;
+    margin:                         0px 0px 0px -5px;
 }
 
 element selected {

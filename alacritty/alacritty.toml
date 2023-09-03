@@ -1,0 +1,79 @@
+live_config_reload = true
+# window_opacity = 0.8
+
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[colors.bright]
+black = "#5e5d65"
+blue = "#247ddf"
+cyan = "#2ec8de"
+green = "#2eda7b"
+magenta = "#c161cc"
+red = "#f76151"
+white = "#ffffff"
+yellow = "#ebae05"
+
+[colors.normal]
+black = "#100c1b"
+blue = "#0a468c"
+cyan = "#24a3b4"
+green = "#21a268"
+magenta = "#a444ba"
+red = "#c11623"
+white = "#d1d1cc"
+yellow = "#a2744a"
+
+[colors.primary]
+background = "0x222222"
+foreground = "0xebdbb2"
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 11.0
+
+[font.bold]
+family = "Hack Nerd Font"
+style = "Bold"
+
+[font.bold_italic]
+family = "Hack Nerd Font"
+style = "Bold Italic"
+
+[font.italic]
+family = "Hack Nerd Font"
+style = "Italic"
+
+[font.normal]
+family = "Hack Nerd Font"
+style = "Regular"
+
+[[keyboard.bindings]]
+action = "SpawnNewInstance"
+key = "Return"
+mods = "Super"
+
+[[mouse.bindings]]
+action = "PasteSelection"
+mouse = "Middle"
+
+[scrolling]
+history = 10000
+multiplier = 2
+
+[selection]
+save_to_clipboard = false
+
+[window.class]
+general = "Alacritty"
+instance = "Alacritty"
+
+[window.dimensions]
+columns = 80
+lines = 24
+
+[window.padding]
+x = 9
+y = 9

@@ -1,5 +1,5 @@
 configuration {
-	font:							"Hack Nerd Font:style=Bold 12";
+	font:							"Hack Nerd Font 12";
     show-icons:                     true;
 	icon-theme: 					"Papirus";
     display-drun: 					"";
@@ -30,7 +30,7 @@ prompt {
 	padding: 						0px 5px 0px 0px;
 	background-color: 				@al;
 	text-color: 					@bar;
-	font:							"Material\-Design\-Iconic\-Font 12";
+	font:							"Hack Nerd Font 12";
 }
 
 entry {

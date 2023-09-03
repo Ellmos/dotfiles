@@ -12,7 +12,9 @@ require('nvim-treesitter.configs').setup({
 		'css',
         'markdown',
         'vimdoc',
-        'vim'
+        'vim',
+        'rasi',
+        'bash'
 	},
 	sync_install = false,
     indent = { enable = true },

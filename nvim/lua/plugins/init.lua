@@ -16,7 +16,7 @@ return require('packer').startup(function(use)
 	use { 'akinsho/bufferline.nvim', requires = { 'kyazdani42/nvim-web-devicons' }, tag = '*' }
 
 	-- Highlighting
-	use { 'nvim-treesitter/nvim-treesitter', commit = 'd47f3469e3a783e7d1382ab3fe95ba2fa3021ec0', build = ':TSUpdate' }
+	use { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' }
 
 	-- File explorer
 	use { 'kyazdani42/nvim-tree.lua', requires = { 'kyazdani42/nvim-web-devicons' }, tag = 'nightly' }
@@ -25,10 +25,10 @@ return require('packer').startup(function(use)
 	use { 'nvim-telescope/telescope.nvim', tag = '0.1.1', requires = { 'nvim-lua/plenary.nvim' }}
 	use { 'nvim-telescope/telescope-ui-select.nvim' }
 	use { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make',
-	cond = function()
-		return vim.fn.executable 'make' == 1
-	end}
-
+        cond = function()
+            return vim.fn.executable 'make' == 1
+        end
+    }
 	-- Utils
 	use { 'lewis6991/gitsigns.nvim' }
 	use { 'lukas-reineke/indent-blankline.nvim' }
@@ -56,7 +56,8 @@ return require('packer').startup(function(use)
 	use { 'hrsh7th/cmp-buffer'}
 	use { 'hrsh7th/cmp-path'}
 	use { 'hrsh7th/cmp-cmdline' }
-    use {"petertriho/cmp-git", requires = "nvim-lua/plenary.nvim"}
+    use { 'chrisgrieser/cmp-nerdfont' }
+    use { 'petertriho/cmp-git', requires = 'nvim-lua/plenary.nvim'}
 
 	-- Snippet
 	use { 'L3MON4D3/LuaSnip' }

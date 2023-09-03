@@ -58,9 +58,10 @@ bindsym Shift+Print exec --no-startup-id maim --select | xclip -selection clipbo
 exec_always --no-startup-id bash ~/.config/i3/startup.sh
 
 # lock (work on multi-screen) 
-bindsym $mod+p exec --no-startup-id "bash ~/.config/i3/powermenu/lock.sh"
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec --no-startup-id "bash ~/.config//i3/powermenu/powermenu.sh"
+bindsym $mod+p exec --no-startup-id "bash ~/.config/i3/lock.sh"
+
+# powermenu
+bindsym $mod+Shift+e exec --no-startup-id "bash ~/.config/rofi/powermenu.sh"
 
 # disable border
 default_border none
@@ -75,13 +76,13 @@ bindsym $mod+b exec --no-startup-id brave-browser
 exec_always --no-startup-id "bash ~/.config/polybar/launch.sh"
 
 # start rofi
-bindsym $mod+d exec --no-startup-id  "rofi -show drun"
-bindsym $mod+Shift+d exec --no-startup-id  "rofi -show run"
-bindsym $mod+w exec --no-startup-id  "rofi -show window"
+bindsym $mod+d exec --no-startup-id  "rofi -show drun -theme ~/.config/rofi/drun.rasi"
+bindsym $mod+Shift+d exec --no-startup-id  "rofi -show run -theme ~/.config/rofi/run.rasi" 
+bindsym $mod+w exec --no-startup-id  "rofi -show window -theme ~/.config/rofi/window.rasi"
 
 
 # start a calculator
-bindsym XF86Calculator exec --no-startup-id qalculate
+# bindsym XF86Calculator exec --no-startup-id qalculate
 for_window [class="Qalculate-gtk"] floating enable
 for_window [class="Ui"] floating enable
 

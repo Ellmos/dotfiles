@@ -35,6 +35,12 @@ local servers = {
     rust_analyzer = {},
     html = {},
     jsonls = {},
+    bashls = {
+        default_config = {
+            cmd = {"bash-language-server", "start"};
+            filetypes = {"sh"};
+        };
+    },
 
     lua_ls = {
         Lua = {
@@ -69,34 +75,3 @@ mason_lspconfig.setup_handlers {
     end,
 }
 
---[[
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
-local lspconfig = require('lspconfig')
-
--- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'clangd', 'pyright', 'tsserver', 'rust_analyzer', 'html', 'jsonls', "lua_ls"  }
-for _, lsp in ipairs(servers) do
-    lspconfig[lsp].setup {
-        capabilities = capabilities,
-    }
-end
-
-
-lspconfig.lua_ls.setup({
-    settings = {
-        Lua = {
-            runtime = {
-                version = 'LuaJIT',
-            },
-            diagnostics = {
-                globals = {'vim'},
-            },
-            telemetry = {
-                enable = false,
-            },
-        },
-    },
-}) ]]

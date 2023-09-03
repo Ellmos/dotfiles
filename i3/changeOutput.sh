@@ -26,7 +26,8 @@ newDefaultPos=$(( ($defaultPos + 1) % ${#sinks[@]} ))
 newDefaultSink=${sinks[$newDefaultPos]}
 
 # Update the DEFAULT_SINK
-pacmd set-default-sink $newDefaultSink
+echo  $newDefaultSink
+pactl set-default-sink $newDefaultSink
 
 # Move all current playing streams to the new DEFAULT_SINK
 while read stream; do

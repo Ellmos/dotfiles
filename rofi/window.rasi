@@ -1,11 +1,7 @@
 configuration {
-	font:							"Hack Nerd Font:style=Bold 13";
+	font:							"Hack Nerd Font 12";
     show-icons:                     true;
-	icon-theme: 					"Papirus";
-    display-drun: 					"";
-    display-run: 					"";
-    display-window:					"";
-    drun-display-format:            "{name}";
+    display-window:					"󰍉 ";
     disable-history:                false;
     fullscreen:                     false;
 	hide-scrollbar: 				true;
@@ -32,7 +28,7 @@ prompt {
 	padding: 						0px 5px 0px 0px;
 	background-color: 				@al;
 	text-color: 					@bar;
-	font:							"Material\-Design\-Iconic\-Font 12";
+	font:							"Hack Nerd Font 12";
 }
 
 entry {
@@ -92,6 +88,7 @@ element-icon {
     text-color:               		inherit;
     size:                           30;
     border:                         0px;
+    margin-right: 10px;
 }
 
 element-text {
