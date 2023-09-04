@@ -100,6 +100,32 @@ if [ ! -e /usr/local/share/fonts/HackNerdFont ]; then
 fi
 
 
+#---------------Polybar
+PrintBlock "Copying i3 config"
+if [ -e ~/.config/i3 ]; then
+    mv ~/.config/i3 "$DOTFILES_DIR/backupDotfiles/"
+fi
+ln -s "$DOTFILES_DIR/i3" ~/.config/
+
+#---------------Polybar
+PrintBlock "Installing Polybar"
+sudo apt install polybar
+
+if [ -e ~/.config/polybar ]; then
+    mv ~/.config/polybar "$DOTFILES_DIR/backupDotfiles/"
+fi
+ln -s "$DOTFILES_DIR/polybar" ~/.config/
+
+
+
+#---------------Rofi
+PrintBlock "Installing Rofi"
+sudo apt install rofi
+if [ -e ~/.config/rofi ]; then
+    mv ~/.config/rofi "$DOTFILES_DIR/backupDotfiles/"
+fi
+ln -s "$DOTFILES_DIR/rofi" ~/.config/
+
 
 
 #---------------Alacritty
@@ -147,23 +173,6 @@ fi
 ln -s ~/.config/zsh/.zshrc ~/.zshrc
 
 
-#---------------Polybar
-PrintBlock "Installing Polybar"
-sudo apt install polybar
-
-if [ -e ~/.config/polybar ]; then
-    mv ~/.config/polybar "$DOTFILES_DIR/backupDotfiles/"
-fi
-ln -s "$DOTFILES_DIR/polybar" ~/.config/
-
-
-#---------------Rofi
-PrintBlock "Installing Rofi"
-sudo apt install rofi
-if [ -e ~/.config/rofi ]; then
-    mv ~/.config/rofi "$DOTFILES_DIR/backupDotfiles/"
-fi
-ln -s "$DOTFILES_DIR/rofi" ~/.config/
 
 
 #---------------NeoVim
