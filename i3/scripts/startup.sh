@@ -12,8 +12,8 @@ feh --no-fehbg --bg-fill ~/.config/i3/img/bg.png
 # xinput set-prop "pointer:DELL0A78:00 04F3:3147 Touchpad" "Synaptics Tap Action" 2 3 1 1 1 3 0
 # xinput set-prop "pointer:DELL0A78:00 04F3:3147 Touchpad" "Synaptics Click Action" 1 0 0
 
-xinput set-prop 12 "libinput Tapping Enabled" 1
-xinput set-prop 12 "libinput Natural Scrolling Enabled" 1
+xinput set-prop "DELL0A78:00 04F3:3147 Touchpad" "libinput Tapping Enabled" 1
+xinput set-prop "DELL0A78:00 04F3:3147 Touchpad" "libinput Natural Scrolling Enabled" 1
 
 xset r rate 250
 
@@ -26,7 +26,6 @@ warningDisplayed=false
 
 while true
 do
-    export DISPLAY=:0.0
     battery_level=`acpi -b | grep -P -o '[0-9]+(?=%)'`
     if [ $battery_level -le 15 ]; then
         if ! $warningDisplayed; then

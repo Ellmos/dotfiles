@@ -109,6 +109,11 @@ _G.packer_plugins = {
     path = "/home/elmos/.local/share/nvim/site/pack/packer/start/cmp-git",
     url = "https://github.com/petertriho/cmp-git"
   },
+  ["cmp-nerdfont"] = {
+    loaded = true,
+    path = "/home/elmos/.local/share/nvim/site/pack/packer/start/cmp-nerdfont",
+    url = "https://github.com/chrisgrieser/cmp-nerdfont"
+  },
   ["cmp-nvim-lsp"] = {
     loaded = true,
     path = "/home/elmos/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",

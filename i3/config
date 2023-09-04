@@ -42,7 +42,7 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
-bindsym $Mod+F1 exec --no-startup-id "bash ~/.config/i3/changeoutput.sh"
+bindsym $Mod+F1 exec --no-startup-id "bash ~/.config/i3/scripts/change-output.sh"
 
 
 # Use brightnessctl to adjust brightness with keys
@@ -55,10 +55,10 @@ bindsym Ctrl+Print exec --no-startup-id maim --window $(xdotool getactivewindow)
 bindsym Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
 
 # Run a script on startup
-exec_always --no-startup-id bash ~/.config/i3/startup.sh
+exec_always --no-startup-id "bash ~/.config/i3/scripts/startup.sh"
 
 # lock (work on multi-screen) 
-bindsym $mod+p exec --no-startup-id "bash ~/.config/i3/lock.sh"
+bindsym $mod+p exec --no-startup-id "bash ~/.config/i3/scripts/lock.sh"
 
 # powermenu
 bindsym $mod+Shift+e exec --no-startup-id "bash ~/.config/rofi/powermenu.sh"
@@ -76,9 +76,9 @@ bindsym $mod+b exec --no-startup-id brave-browser
 exec_always --no-startup-id "bash ~/.config/polybar/launch.sh"
 
 # start rofi
-bindsym $mod+d exec --no-startup-id  "rofi -show drun -theme ~/.config/rofi/drun.rasi"
-bindsym $mod+Shift+d exec --no-startup-id  "rofi -show run -theme ~/.config/rofi/run.rasi" 
-bindsym $mod+w exec --no-startup-id  "rofi -show window -theme ~/.config/rofi/window.rasi"
+bindsym $mod+d exec --no-startup-id  "rofi -show drun -theme ~/.config/rofi/themes/drun.rasi"
+bindsym $mod+Shift+d exec --no-startup-id  "rofi -show run -theme ~/.config/rofi/themes/run.rasi" 
+bindsym $mod+w exec --no-startup-id  "rofi -show window -theme ~/.config/rofi/themes/window.rasi"
 
 
 # start a calculator
