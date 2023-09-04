@@ -73,8 +73,8 @@ map('n', 'gsD', vim.lsp.buf.signature_help, '[G]o [S]ignature [D]ocumentation')
 -------------------Smooth Scrolling------------------
 map({'n', 'v'}, '<S-j>', "<Cmd>lua Scroll('<C-d>', 1, 1)<CR>", 'Scroll cursor down')
 map({'n', 'v'}, '<S-k>', "<Cmd>lua Scroll('<C-u>', 1, 1)<CR>", 'Scroll cursor down')
-map({'n', 'v'}, '<S-h>', "<S-b>", 'Fast movement left')
-map({'n', 'v'}, '<S-l>', "<S-w>", 'Fast movement right')
+map({'n', 'v'}, '<S-h>', "b", 'Fast movement left')
+map({'n', 'v'}, '<S-l>', "w", 'Fast movement right')
 
 map({'n', 'v'}, 'zz', ":lua Scroll('zz', 0, 1)<CR>", 'Center window on cusror')
 map({'n', 'v'}, 'zj', ":lua Scroll('zt', 0, 1)<CR>", 'Scroll window down')
