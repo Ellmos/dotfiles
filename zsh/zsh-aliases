@@ -17,6 +17,7 @@ alias gita='git add .'
 alias gitc='git commit -m'
 alias gitp='git push'
 alias gits='git status'
+alias gitl='git log'
 
 alias laptop='bash ~/.config/i3/arandr/laptop.sh'
 alias monitor='bash ~/.config/i3/arandr/monitor.sh'
