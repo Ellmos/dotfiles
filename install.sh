@@ -147,13 +147,17 @@ if ! which alacritty &>/dev/null; then
 
     # Installing Rustup
     if ! which rustup &>/dev/null; then
-        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+        wget -O rustup-init.sh https://sh.rustup.rs
+        chmod +x rustup-init.sh
+        ./rustup-init.sh -y
+        source "$HOME/.cargo/env"
     fi
+
     rustup override set stable
     rustup update stable
 
     # Dependencies
-    sudo apt install -y \ 
+    sudo apt install -y \
         cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3
 
     # Build
