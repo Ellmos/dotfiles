@@ -79,7 +79,8 @@ sudo apt install -y \
     xsel \
     maim \
     gcc g++ libstdc++6 \
-    gedit
+    gedit \
+    strongswan strongswan-swanctl
 
 sudo apt autoremove
 
@@ -341,6 +342,15 @@ if ! which docker &> /dev/null; then
     sudo apt-get update
 
     sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+fi
+
+
+
+
+#---------------Docker
+if ! which tailscale &> /dev/null; then
+    PrintBlock "Installing Tailscale"
+    curl -fsSL https://tailscale.com/install.sh | sh
 fi
 
 

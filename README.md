@@ -1,6 +1,7 @@
 # Dotfiles
 
-Have a good time trying to understand all this shit ;)
+The config is made to run on debian 12 with i3 as a window manager
+The `install.sh` script install and setup the entire config and place the old dotfiles inside the backupDotfiles directory.
 
 
 ## Installation
@@ -15,7 +16,7 @@ exit
 ```
 
 ```
-su - elmos
+su - <user>
 ```
 
 
