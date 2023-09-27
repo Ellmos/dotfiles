@@ -54,8 +54,8 @@ warnings=$'Some steps might have failed check below for logs:\n'
 
 
 PrintBlock "Updating Packages"
-sudo apt update
-sudo apt upgrade
+sudo apt update -y
+sudo apt upgrade -y
 
 
 PrintBlock "Installing Dependencies"
@@ -70,8 +70,7 @@ sudo apt install -y \
     xdotool \
     wmctrl \
     thunar \
-    pulseaudio \
-    pulseaudio-utils \
+    pavucontrol \
     blueman \
     tree \
     numlockx \
@@ -80,9 +79,10 @@ sudo apt install -y \
     maim \
     gcc g++ libstdc++6 \
     gedit \
-    strongswan strongswan-swanctl
+    strongswan strongswan-swanctl \
+    nmap
 
-sudo apt autoremove
+sudo apt autoremove -y
 
 #---------------Polybar
 PrintBlock "Installing i3 "
@@ -106,8 +106,6 @@ if ! fc-list | grep -q "HackNerdFont"; then
     if [ ! -e /usr/local/share/fonts/HackNerdFont ]; then
         sudo cp -r "$DOTFILES_DIR/fonts/HackNerdFont" /usr/local/share/fonts/
         fc-cache
-    else
-        warnings=$warnings$'Could not copy HackNerdFont, folder /usr/local/share/fonts/HackNerdFont already exists\n'
     fi
 fi
 
@@ -219,8 +217,6 @@ if ! which nvim &>/dev/null; then
 
     if  [ ! -e /opt/nvim/nvim.appimage ]; then
         sudo mv nvim.appimage /opt/nvim
-    else
-        warnings=$warnings$'Could not copy nvim.appimage, /opt/nvim/nvim.appimage already exists\n'
     fi
 
     if [ ! -e /usr/bin/nvim ]; then
@@ -248,8 +244,8 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim \
 sudo apt install  -y python3-neovim npm nodejs fd-find ripgrep lolcat
 sudo npm install -g neovim
 
-PrintBlock "THE ERROR MESSAGE IS NORMAL JUST WAIT"
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+echo "Downloading Plugins"
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' &> /dev/null
 
 
 
@@ -257,7 +253,7 @@ nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 PrintBlock "Installing libinput-gestures"
 
 if ! libinput-gestures-setup autostart start &> /dev/null; then
-    sudo apt install libinput-tools
+    sudo apt install -y libinput-tools
     sudo gpasswd -a $USER input
 
     git clone https://github.com/bulletmark/libinput-gestures.git
@@ -298,7 +294,7 @@ if ! which gitkraken &> /dev/null; then
 fi
 
 #---------------Discord
-if ! which gitkraken &> /dev/null; then
+if ! which discord &> /dev/null; then
     PrintBlock "Installing Discord"
     sudo wget -O discord.deb "https://discord.com/api/download?platform=linux&format=deb"
     sudo chmod +x discord.deb
@@ -345,14 +341,20 @@ if ! which docker &> /dev/null; then
 fi
 
 
-
-
-#---------------Docker
+#---------------Tailscale
 if ! which tailscale &> /dev/null; then
     PrintBlock "Installing Tailscale"
     curl -fsSL https://tailscale.com/install.sh | sh
 fi
 
+
+#---------------Grub Theme
+if [ ! -e /usr/share/grub/themes/vimix ]; then
+    git clone https://github.com/vinceliuice/grub2-themes
+    cd grub2-themes
+    sudo ./install.sh -t vimix -s 1080p
+    cd ..
+fi
 
 #---------------End
 cd ..

@@ -24,7 +24,7 @@ map('n', '<A-k>', ':m -2<CR>==', 'Move the current line one upward')
 map('v', '<A-j>', ':m \'>+1<CR>gv=gv', 'move the selected lines one downward')
 map('v', '<A-k>', ':m \'<-2<CR>gv=gv', 'move the selected line one upward')
 
--- Some cool shotcut to add line ends
+-- Some cool shortcut to add line ends
 map('n', '<leader>;', '<s-a>;<ESC>', 'Add ";" at the end of the current line')
 map('n', '<leader>,', '<s-a>,<ESC>', 'Add "," at the end of the current line')
 map('n', '<leader>:', '<s-a>:<ESC>', 'Add ":" at the end of the current line')
@@ -36,21 +36,21 @@ map('n', 'µ', ':noh<CR>', 'Switch off highlighting')
 map('n', '<leader><Tab>', ':NvimTreeToggle<CR>', 'Open/Close nvim_tree')
 
 -- Folder
-map('n', '<leader><CR>', ':lua require("fold-cycle").open()<CR>', 'Open folder')
-map('n', '<leader><BS>', ':lua require("fold-cycle").close()<CR>', 'Close folder')
+map('n', '<leader><CR>',  ':lua require("fold-cycle").open()<CR>', 'Open folder')
+map('n', '<leader><BS>',  ':lua require("fold-cycle").close()<CR>', 'Close folder')
 map('n', '<leader>a<CR>', ':lua require("fold-cycle").open_all()<CR>', 'Open all folders')
 map('n', '<leader>a<BS>', ':lua require("fold-cycle").close_all()<CR>', 'Close all folders')
 
 
 -------------------Telescope------------------
-map('n', '<leader>ff', ':Telescope find_files<CR>', '[F]ind [F]iles' )
+map('n', '<leader>ff',  ':Telescope find_files<CR>', '[F]ind [F]iles' )
 map('n', '<leader>fof', ':Telescope oldfiles<CR>', '[F]ind [O]ld [F]iles' )
-map('n', '<leader>fg', ':Telescope live_grep<CR>', '[F]ind by [G]rep' )
-map('n', '<leader>fw', ':Telescope grep_string<CR>', '[F]ind [W]ord' )
-map('n', '<leader>fb', ':Telescope buffers<CR>', '[F]ind [B]uffers' )
+map('n', '<leader>fg',  ':Telescope live_grep<CR>', '[F]ind by [G]rep' )
+map('n', '<leader>fw',  ':Telescope grep_string<CR>', '[F]ind [W]ord' )
+map('n', '<leader>fb',  ':Telescope buffers<CR>', '[F]ind [B]uffers' )
 map('n', '<leader>fib', ':Telescope current_buffer_fuzzy_find<CR>', '[F]ind [I]n [B]uffer' )
-map('n', '<leader>fd', ':Telescope diagnostics<CR>', '[F]ind [D]iagnostics' )
-map('n', '<leader>fh', ':Telescope help_tags<CR>', '[F]ind [H]elp' )
+map('n', '<leader>fd',  ':Telescope diagnostics<CR>', '[F]ind [D]iagnostics' )
+map('n', '<leader>fh',  ':Telescope help_tags<CR>', '[F]ind [H]elp' )
 
 
 
@@ -83,8 +83,6 @@ map({'n', 'v'}, 'zh', ":lua Scroll('zH')<CR>", 'Scroll window left')
 map({'n', 'v'}, 'zl', ":lua Scroll('zL')<CR>", 'Scroll window right')
 
 
-
-
 -------------------Commmenting------------------
 local api = require('Comment.api')
 local commentMap = vim.keymap.set
@@ -92,26 +90,26 @@ local esc = vim.api.nvim_replace_termcodes('<ESC>', true, false, true)
 
 -- Commenting/Uncommenting single line
 commentMap('n', '<leader>cc', api.call('comment.linewise.current', 'g@$'), { expr = true, desc = 'Comment current line' })
-commentMap('n', '<leader>cb', api.call('comment.blockwise.current', 'g@$'), { expr = true, desc = 'Comment current block' })
+commentMap('n', '<leader>CC', api.call('uncomment.linewise.current', 'g@$'), { expr = true, desc = 'Uncomment current line' })
 
-commentMap('n', '<leader>Cc', api.call('uncomment.linewise.current', 'g@$'), { expr = true, desc = 'Uncomment current line' })
-commentMap('n', '<leader>Cb', api.call('uncomment.blockwise.current', 'g@$'), { expr = true, desc = 'Uncomment current block' })
+commentMap('n', '<leader>cb', api.call('comment.blockwise.current', 'g@$'), { expr = true, desc = 'Comment current block' })
+commentMap('n', '<leader>CB', api.call('uncomment.blockwise.current', 'g@$'), { expr = true, desc = 'Uncomment current block' })
 
 -- Commenting/Uncommenting multiple lines
 commentMap('x', '<leader>cc', function()
     vim.api.nvim_feedkeys(esc, 'nx', false)
     api.locked('comment.linewise')(vim.fn.visualmode())
 end, { desc = 'Comment region linewise (visual)' })
+commentMap('x', '<leader>CC', function()
+    vim.api.nvim_feedkeys(esc, 'nx', false)
+    api.locked('uncomment.linewise')(vim.fn.visualmode())
+end, { desc = 'Uncomment region linewise (visual)' })
+
 commentMap('x', '<leader>cb', function()
     vim.api.nvim_feedkeys(esc, 'nx', false)
     api.locked('comment.blockwise')(vim.fn.visualmode())
 end, { desc = 'Comment region blockwise (visual)' })
-
-commentMap('x', '<leader>Cc', function()
-    vim.api.nvim_feedkeys(esc, 'nx', false)
-    api.locked('uncomment.linewise')(vim.fn.visualmode())
-end, { desc = 'Uncomment region linewise (visual)' })
-commentMap('x', '<leader>Cb', function()
+commentMap('x', '<leader>CB', function()
     vim.api.nvim_feedkeys(esc, 'nx', false)
     api.locked('uncomment.blockwise')(vim.fn.visualmode())
 end, { desc = 'Uncomment region blockwise (visual)' })

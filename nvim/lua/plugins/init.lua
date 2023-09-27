@@ -40,6 +40,9 @@ return require('packer').startup(function(use)
 	-- Code folding
 	use { 'jghauser/fold-cycle.nvim' }
 
+    -- Multiline Editing
+    use { 'mg979/vim-visual-multi' }
+
 	-- Comments
 	use { 'numToStr/Comment.nvim' }
 
