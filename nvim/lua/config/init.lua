@@ -1,9 +1,9 @@
 -- Theme
-require('gruvbox').setup({ contrast = 'hard' })
+require('gruvbox').setup({ contrast = 'medium' })
 
 -- Lines
 require('lualine').setup({ options = { theme = 'nord' }})
-require("bufferline").setup()
+require('bufferline').setup({ highlights = {fill = { bg='#181818' }} }) -- probem with bg of line so manually set to gruvbox
 
 -- Indentation visualisation
 require('indent_blankline').setup({ filetype_exclude = { 'dashboard' }})

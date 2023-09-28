@@ -2,7 +2,7 @@
 xrandr --output DisplayPort-0 --primary
 
 numlockx on
-feh --no-fehbg --bg-fill ~/.config/i3/img/bg.png
+feh --no-fehbg --bg-fill ~/.config/i3/img/bg/japanNight.png
 
 # xinput set-prop "pointer:Logitech G305" "libinput Accel Speed" -0.8
 # xinput set-prop "pointer:DELL0A78:00 04F3:3147 Touchpad" "Coordinate Transformation Matrix" 1, 0, 0, 0, 1, 0, 0, 0, 1.3
@@ -17,9 +17,9 @@ xinput set-prop "DELL0A78:00 04F3:3147 Touchpad" "libinput Natural Scrolling Ena
 
 xset r rate 250
 
-# libinput-gestures-setup autostart start
+libinput-gestures-setup autostart start
 
-
+picom
 
 
 warningDisplayed=false

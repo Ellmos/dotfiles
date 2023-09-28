@@ -22,7 +22,7 @@ set.whichwrap:append { ['<'] = true, ['>'] = true, ['['] = true, [']'] = true }
 set.scrolloff = 7
 set.fileencoding = 'utf-8'
 set.termguicolors = true
-set.colorcolumn = {80}
+-- set.colorcolumn = {80}
 
 set.number = true
 set.cursorline = true

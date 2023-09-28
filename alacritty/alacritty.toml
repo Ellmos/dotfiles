@@ -1,5 +1,7 @@
 live_config_reload = true
-# window_opacity = 0.8
+
+[window]
+opacity = 1
 
 [colors]
 draw_bold_text_with_bright_colors = true
@@ -25,7 +27,7 @@ white = "#d1d1cc"
 yellow = "#a2744a"
 
 [colors.primary]
-background = "0x222222"
+background = "0x181818"
 foreground = "0xebdbb2"
 
 [env]
@@ -64,7 +66,7 @@ history = 10000
 multiplier = 2
 
 [selection]
-save_to_clipboard = false
+save_to_clipboard = true
 
 [window.class]
 general = "Alacritty"
@@ -77,3 +79,5 @@ lines = 24
 [window.padding]
 x = 9
 y = 9
+
+

@@ -34,8 +34,6 @@ exec --no-startup-id nm-applet
 
 ################CONFIG PERSO#####################
 
-#in case mic doesn't work check run pacvontrol in a terminal
-
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2% && $refresh_i3status
@@ -65,6 +63,10 @@ bindsym $mod+Shift+e exec --no-startup-id "bash ~/.config/rofi/powermenu.sh"
 
 # disable border
 default_border none
+
+gaps inner 7
+# smart_gaps on
+
 
 # start a terminal
 bindsym $mod+Return exec --no-startup-id alacritty

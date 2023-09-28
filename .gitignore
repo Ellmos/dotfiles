@@ -1,3 +1,5 @@
 backupDotfiles
 
+.cache
+
 packer_compiled.lua

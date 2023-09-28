@@ -25,10 +25,8 @@ done
 #Image paths
 if [ "$arg_image" ]; then
     BKG_IMG="$arg_image"  # Passed image
-elif [ -f "/usr/share/i3lock-multimonitor/img/background.png" ]; then
-    BKG_IMG="/usr/share/i3lock-multimonitor/img/background.png"  # Default image
 else
-    BKG_IMG="$HOME/.config/i3/img/lockBg.png"  # Fallback to current folder
+    BKG_IMG="$HOME/.config/i3/img/lock/japanNight.png"  # Fallback to current folder
 fi
 
 if ! [ -e "$BKG_IMG" ]; then
