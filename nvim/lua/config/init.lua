@@ -6,7 +6,7 @@ require('lualine').setup({ options = { theme = 'nord' }})
 require('bufferline').setup({ highlights = {fill = { bg='#181818' }} }) -- probem with bg of line so manually set to gruvbox
 
 -- Indentation visualisation
-require('indent_blankline').setup({ filetype_exclude = { 'dashboard' }})
+require('ibl').setup()
 
 -- Code commenting
 require('Comment').setup()
