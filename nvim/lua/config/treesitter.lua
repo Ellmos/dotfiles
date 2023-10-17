@@ -8,12 +8,7 @@ require('nvim-treesitter.configs').setup({
 		'lua',
 		'make',
 		'javascript',
-		'html',
-		'css',
         'markdown',
-        'vimdoc',
-        'vim',
-        'rasi',
         'bash'
 	},
 	sync_install = false,

@@ -30,7 +30,7 @@ map('n', '<leader>,', '<s-a>,<ESC>', 'Add "," at the end of the current line')
 map('n', '<leader>:', '<s-a>:<ESC>', 'Add ":" at the end of the current line')
 
 -- Switch off highlighting
-map('n', 'µ', ':noh<CR>', 'Switch off highlighting')
+map('n', '"', ':noh<CR>', 'Switch off highlighting')
 
 -- NvimTree switch on-off
 map('n', '<leader><Tab>', ':NvimTreeToggle<CR>', 'Open/Close nvim_tree')
@@ -40,6 +40,7 @@ map('n', '<leader><CR>',  ':lua require("fold-cycle").open()<CR>', 'Open folder'
 map('n', '<leader><BS>',  ':lua require("fold-cycle").close()<CR>', 'Close folder')
 map('n', '<leader>a<CR>', ':lua require("fold-cycle").open_all()<CR>', 'Open all folders')
 map('n', '<leader>a<BS>', ':lua require("fold-cycle").close_all()<CR>', 'Close all folders')
+
 
 
 -------------------Telescope------------------

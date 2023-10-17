@@ -1,7 +1,7 @@
 #!/bin/sh
 export ZDOTDIR=$HOME/.config/zsh
 SAVEHIST=10000
-HISTFILE=~/.zsh_history
+HISTFILE=$HOME/.config/zsh/.zsh_history
 setopt appendhistory
 
 # some useful options (man zshoptions)
@@ -72,5 +72,3 @@ bindkey '^[[3;5~' kill-word
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
-neofetch
