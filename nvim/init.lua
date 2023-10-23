@@ -1,6 +1,4 @@
-vim.g.mapleader = " "
-
-require ('plugins')
+require('plugins')
 require('config')
 require('keymaps')
 
