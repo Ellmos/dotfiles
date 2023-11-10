@@ -13,9 +13,9 @@ map('n', '<C-j>', '<C-w>j', 'Move to bottom buffer')
 map('n', '<C-k>', '<C-w>k', 'Move to top buffer')
 map('n', '<C-w>', ':bd<CR>', 'Close current buffer')
 
--- Switch windows
-map('n', '<TAB>', ':BufferLineCycleNext<CR>', 'Move to next window')
-map('n', '<S-TAB>', ':BufferLineCyclePrev<CR>', 'Move to previous window')
+-- Switch buffer
+map('n', '<TAB>', ':BufferLineCycleNext<CR>', 'Move to next buffer')
+map('n', '<S-TAB>', ':BufferLineCyclePrev<CR>', 'Move to previous buffer')
 
 -- Move lines with alt key
 map('n', '<A-j>', ':m +1<CR>==', 'Move the current line one downward')

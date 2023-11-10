@@ -3,10 +3,23 @@ require('gruvbox').setup({ contrast = 'medium' })
 
 -- Lines
 require('lualine').setup({ options = { theme = 'nord' }})
-require('bufferline').setup({ highlights = {fill = { bg='#181818' }} }) -- probem with bg of line so manually set to gruvbox
+require('bufferline').setup()
 
 -- Indentation visualisation
-require("ibl").setup { scope = { enabled = false } }
+require("ibl").setup {
+    exclude = { filetypes = {
+        "packer",
+        "checkhealth",
+        "help",
+        "man",
+        "gitcommit",
+        "TelescopePrompt",
+        "TelescopeResults",
+        "''",
+        "dashboard",
+    } },
+    scope = { enabled = false }
+}
 
 -- Code commenting
 require('Comment').setup()
@@ -22,7 +35,6 @@ require('nvim-autopairs').setup({ disable_filetype = { 'TelescopePrompt' , 'vim'
 
 -- Dependecies
 require('nvim-web-devicons').setup()
-require('gitsigns').setup()
 
 -- Other config file
 require('config/cmp')

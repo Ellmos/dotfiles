@@ -8,16 +8,21 @@ alias ll='ls -l --color=auto'
 alias grep='grep --color=always'
 alias tree='tree -C'
 alias c='clear'
+alias cat='batcat'
 
 alias nv='nvim'
 alias vim='nvim'
+alias gdb='gdb -tui'
 alias brave='brave-browser'
 
 alias gita='git add .'
 alias gitc='git commit -m'
+alias gitt='git tag -ma'
 alias gitp='git push'
+alias gitpt='git push --follow-tags'
 alias gits='git status'
 alias gitl='git log'
+alias clang='find $(git rev-parse --show-toplevel) -name "*.h" -o -name "*.c" | xargs clang-format -i'
 
 alias banquise='sudo tailscale up && sudo swanctl -q && sudo swanctl -i --child banquise'
 alias bluetooth='sudo hciconfig hci0 down && sudo rmmod btusb && sudo modprobe btusb && sudo hciconfig hci0 up && sudo bluetoothctl'
@@ -28,3 +33,5 @@ alias py='python3.11'
 alias up='nmcli con up'
 
 alias delete-log='sudo find /var/log -mtime +30 -type f -delete'
+
+alias myfind='~/Desktop/ing1/myfind/myfind/myfind'

@@ -47,7 +47,6 @@ return require('lazy').setup({
         end
     },
 	-- Utils
-	'lewis6991/gitsigns.nvim',
 	'lukas-reineke/indent-blankline.nvim',
 	'windwp/nvim-autopairs',
 
