@@ -7,12 +7,11 @@ setopt appendhistory
 # some useful options (man zshoptions)
 setopt autocd extendedglob nomatch menucomplete
 setopt interactive_comments
-stty stop undef		# Disable ctrl-s to freeze terminal.
+stty stop undef     # Disable ctrl-s to freeze terminal.
 zle_highlight=('paste:none')
 
 # beeping is annoying
 unsetopt BEEP
-
 
 # completions
 autoload -Uz compinit
@@ -23,12 +22,8 @@ zstyle ':completion:*:*:git:*' script ~/.config/zsh//git-completion.bash
 fpath=(~/.config/zsh $fpath)
 autoload -Uz compinit && compinit
 
-# zstyle ':completion::complete:lsof:*' menu yes select
-zmodload zsh/complist
-
-
 # compinit
-_comp_options+=(globdots)		# Include hidden files.
+_comp_options+=(globdots)       # Include hidden files.
 
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
@@ -42,7 +37,6 @@ autoload -Uz colors && colors
 source "$ZDOTDIR/zsh-functions"
 
 # Normal files to source
-zsh_add_file "zsh-exports"
 zsh_add_file "zsh-prompt"
 zsh_add_file "zsh-aliases"
 
@@ -54,7 +48,7 @@ zsh_add_plugin "hlissner/zsh-autopair"
 
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
-# bindkey '^e' edit-command-line
+bindkey '^e' edit-command-line
 
 # Environment variables set everywhere
 export EDITOR="nvim"
@@ -70,11 +64,7 @@ bindkey '^H' backward-kill-word
 bindkey '^[[3;5~' kill-word
 
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+fpath+=~/.zfunc
+[ -f "/home/elmos/.ghcup/env" ] && source "/home/elmos/.ghcup/env" # ghcup-env
 
 neofetch
-
-fpath+=~/.zfunc
-
-[ -f "/home/elmos/.ghcup/env" ] && source "/home/elmos/.ghcup/env" # ghcup-env

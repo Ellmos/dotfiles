@@ -4,3 +4,6 @@ backupDotfiles
 
 packer_compiled.lua
 lazy-lock.json
+
+*.bak
+.zcompdump*
