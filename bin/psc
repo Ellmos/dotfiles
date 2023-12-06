@@ -1,0 +1,171 @@
+#!/bin/sh
+
+[ "$#" -eq 0 ] && echo "psc: usage: psc <directory> [proto]" && exit 1
+
+[ -d "$1" ] && echo "psc: '$1' already exists" && exit 1
+
+fct="$1"
+proto="void $1()"
+[ "$#" -eq 2 ] && proto="$2"
+
+mkdir "$fct"
+cd "$fct"
+
+#------------------------------------------Header
+header_caps="$(echo "$1" | tr 'a-z' 'A-Z')_H"
+touch "$fct".h
+
+tee "$fct".h > /dev/null << EOF
+#ifndef $header_caps
+#define $header_caps
+
+$proto;
+
+#endif /* ! $header_caps */
+EOF
+
+#------------------------------------------C file
+touch "$fct".c
+tee "$fct".c > /dev/null << EOF
+#include "$fct.h"
+
+$proto
+{
+    return NULL;
+}
+EOF
+
+
+#------------------------------------------Main
+tee main.c > /dev/null << EOF
+#include <stdio.h>
+
+#include "$fct.h"
+
+$proto;
+
+void print_tablei(int *table, size_t s);
+void print_tablef(float *table, size_t s);
+void print_args(int argc, char **argv);
+
+int main(int argc, char **argv)
+{
+    print_args(argc, argv);
+
+    int arr_int[] = { -32, 43, 0, 321, 32309, -675 };
+    print_tablei(arr_int, 6);
+
+    float arr_float[] = { -32.2f, 43.4f, 0, 321.5f, 32309.9f, -675.7f };
+    print_tablef(arr_float, 6);
+
+    char str[] = "Some test 1234 ABC !!!###@@@";
+    char str_empty[] = "";
+
+    $fct();
+    printf("");
+    return 0;
+}
+
+void print_tablei(int *table, size_t s)
+{
+    printf("{");
+    for (size_t i = 0; i < s - 1; i++)
+    {
+        printf(" %d,", table[i]);
+    }
+    printf(" %d }\n", table[s - 1]);
+}
+
+void print_tablef(float *table, size_t s)
+{
+    printf("{");
+    for (size_t i = 0; i < s - 1; i++)
+    {
+        printf(" %f,", table[i]);
+    }
+    printf(" %f }\n", table[s - 1]);
+}
+
+void print_args(int argc, char **argv)
+{
+    printf("argc = %d\n", argc);
+    for (int i = 0; i < argc; i++)
+        printf("argv[%d] = %s\n", i, argv[i]);
+}
+EOF
+
+
+#------------------------------------------Makefile
+tee Makefile > /dev/null << EOF
+CC = gcc
+CPPFLAGS =
+CFLAGS = -std=c99 -Werror -Wall -Wvla -Wextra -pedantic -g
+LDFLAGS =
+LDLIBS =
+
+SRC = $fct.c
+OBJ = \$(SRC:.c=.o)
+
+BIN_TEST = test
+SRC_TEST = test.c
+OBJ_TEST = \$(SRC_TEST:.c=.o)
+
+BIN_MAIN = main
+SRC_MAIN = main.c
+OBJ_MAIN = \$(SRC_MAIN:.c=.o)
+
+all: $fct.o
+
+library: \$(OBJ) 
+	ar rs lib$fct.a \$(OBJ)
+
+check: LDLIBS += \$(shell pkg-config --cflags criterion)
+check: CFLAGS += \$(shell pkg-config --cflags criterion)
+check: test
+	- ./\$(BIN_TEST)
+
+test: \$(OBJ) \$(OBJ_TEST)
+	\$(CC) \$^ -o \$(BIN_TEST) \$(LDLIBS)
+
+
+
+run: CFLAGS += -fsanitize=address
+run: LDFLAGS += -fsanitize=address
+run: LDLIBS += -fsanitize=address
+run: main
+	- ./\$(BIN_MAIN)
+
+valgrind: main
+	valgrind --tool=memcheck --leak-check=yes --show-reachable=yes ./\$(BIN_MAIN)
+
+main: \$(OBJ) \$(OBJ_MAIN)
+	\$(CC) \$^ -o \$(BIN_MAIN) \$(LDLIBS)
+
+
+.PHONY: clean test main check run
+
+clean: 
+	\$(RM) \$(OBJ) \$(OBJ_TEST) \$(OBJ_MAIN)
+	\$(RM) \$(BIN_TEST) \$(BIN_MAIN)
+EOF
+
+
+#------------------------------------------TestSuite
+touch test.c
+tee test.c > /dev/null << EOF
+#include <criterion/criterion.h>
+
+#include "$fct.h"
+
+$proto;
+
+Test(test_$fct, test1)
+{
+    // int actual = $fct();
+    int actual = 1;
+    int expected = 1;
+    cr_expect_eq(actual, expected, "Expected %d. Got %d.", expected, actual);
+}
+EOF
+
+bear -- make check 2> /dev/null

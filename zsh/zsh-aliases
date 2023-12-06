@@ -3,6 +3,7 @@ bindkey  "^[[F"   end-of-line
 bindkey  "^[[3~"  delete-char
 
 alias :q='exit'
+alias reload='source ~/.zshrc'
 
 alias ls='ls --color=auto'
 alias la='ls -A --color=auto'
@@ -16,15 +17,6 @@ alias nv='nvim'
 alias vim='nvim'
 alias emacs='nvim'
 
-alias gdb='gdb -tui'
-alias gdbb='gdb -tui -ex "set env 'LD_LIBRARY_PATH=.'"'
-alias clang='clang-format-epita'
-
-alias sqllint='cd $(git rev-parse --show-toplevel); sqlfluff lint; cd -'
-alias sqlfix='cd $(git rev-parse --show-toplevel); sqlfluff fix; cd -'
-
-alias brave='brave-browser'
-
 alias gita='git add .'
 alias gitc='git commit -m'
 alias gitt='git tag -ma' 
@@ -35,6 +27,12 @@ alias gitl='git log'
 alias gitlog="git log --all --decorate --graph --oneline"
 alias gitrm='rm $(git rev-parse --show-toplevel)/.git/index.lock'
 
+alias gdb='gdb -tui'
+alias gdbb='gdb -tui -ex "set env 'LD_LIBRARY_PATH=.'"'
+alias clang='clang-format-epita'
 alias gccc='gcc -Wextra -Wall -Werror -Wvla -std=c99 -pedantic -fsanitize=address -g -o main '
 
-alias netstat='netstat -tulnp'
+alias sqllint='cd $(git rev-parse --show-toplevel); sqlfluff lint; cd -'
+alias sqlfix='cd $(git rev-parse --show-toplevel); sqlfluff fix; cd -'
+
+alias py='python3'
