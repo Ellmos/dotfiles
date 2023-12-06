@@ -19,10 +19,10 @@ require('nvim-autopairs').setup({ disable_filetype = { 'TelescopePrompt' , 'vim'
 
 -- Dependecies
 require('nvim-web-devicons').setup()
-require('gitsigns').setup()
 
-
-require('telescope').setup()
+require("telescope").setup({ extensions = { ["ui-select"] = { require("telescope.themes").get_dropdown{}}} })
+require("telescope").load_extension("ui-select")
+pcall(require('telescope').load_extension, 'fzf')
 
 -- Other config file
 require('config/cmp')

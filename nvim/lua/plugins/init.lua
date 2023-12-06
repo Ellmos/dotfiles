@@ -1,48 +1,67 @@
-return require('packer').startup(function(use)
-	-- Packer can manage itself
-	use { 'wbthomason/packer.nvim' }
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+        lazypath,
+    })
+end
+vim.opt.rtp:prepend(lazypath)
 
-	-- ColorScheme
-	use { 'ellisonleao/gruvbox.nvim' }
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
-	-- Lines
-	use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons' }}
-	use { 'akinsho/bufferline.nvim', requires = { 'kyazdani42/nvim-web-devicons' }, tag = '*' }
+return require('lazy').setup({
+    -- ColorScheme
+    'ellisonleao/gruvbox.nvim',
 
-	-- Highlighting
-	use { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' }
+    -- Lines
+    { 'nvim-lualine/lualine.nvim', dependencies = { 'kyazdani42/nvim-web-devicons' }},
+    { 'akinsho/bufferline.nvim', dependencies = { 'kyazdani42/nvim-web-devicons' }, version = '*' },
 
-	-- File explorer
-	use { 'kyazdani42/nvim-tree.lua', requires = { 'kyazdani42/nvim-web-devicons' }, tag = 'nightly' }
+    -- Highlighting
+    { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
 
-	-- Telescope
-	use { 'nvim-telescope/telescope.nvim', tag = '0.1.3', requires = { 'nvim-lua/plenary.nvim' }}
 
-	-- Utils
-	use { 'lewis6991/gitsigns.nvim' }
-	use { 'lukas-reineke/indent-blankline.nvim' }
-	use { 'windwp/nvim-autopairs' }
+    -- File explorer
+    { 'kyazdani42/nvim-tree.lua', dependencies = { 'kyazdani42/nvim-web-devicons' }, version = 'nightly' },
 
-	-- Smooth scrolling
-	use { 'declancm/cinnamon.nvim' }
+    -- Telescope
+    { 'nvim-telescope/telescope.nvim', version = '0.1.3', dependencies = { 'nvim-lua/plenary.nvim' }},
+    'nvim-telescope/telescope-ui-select.nvim',
+    { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make',
+        cond = function()
+            return vim.fn.executable 'make' == 1
+        end
+    },
+
+    -- Utils
+    'lukas-reineke/indent-blankline.nvim',
+    'windwp/nvim-autopairs',
+
+    -- Smooth scrolling
+    'declancm/cinnamon.nvim',
 
     -- Multiline Editing
-    use { 'mg979/vim-visual-multi' }
+    'mg979/vim-visual-multi',
 
-	-- Comments
-	use { 'numToStr/Comment.nvim' }
+    -- Comments
+    'numToStr/Comment.nvim',
 
-	-- LSP
-	use { 'neovim/nvim-lspconfig' }
+    -- LSP
+    'neovim/nvim-lspconfig',
 
-	-- Completion
-	use { 'hrsh7th/nvim-cmp' }
-	use { 'hrsh7th/cmp-nvim-lsp'}
-	use { 'hrsh7th/cmp-buffer'}
-	use { 'hrsh7th/cmp-path'}
-    use { 'chrisgrieser/cmp-nerdfont' }
+    -- Completion
+    'hrsh7th/nvim-cmp',
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/cmp-path',
+    'chrisgrieser/cmp-nerdfont',
 
-	-- Snippet
-	use { 'L3MON4D3/LuaSnip' }
-	use { 'saadparwaiz1/cmp_luasnip' }
-end)
+    -- Snippet
+    'L3MON4D3/LuaSnip',
+    'saadparwaiz1/cmp_luasnip',
+})

@@ -18,6 +18,10 @@
             ripgrep
             fd
             bat
+            ocaml
+            opam
+            neovim
+            sqlfluff
 
             (pkgs.nerdfonts.override { fonts = [ "Hack" ]; })
         ];

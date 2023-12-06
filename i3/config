@@ -45,7 +45,8 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 
 
 # Run a script on startup
-exec --no-startup-id bash ~/.config/i3/start.sh
+exec --no-startup-id "firefox.exe -new-tab about:sessionrestore"
+exec --no-startup-id alacritty -e sh ~/.config/i3/start.sh
 
 # Enable NumLock on startup
 exec_always --no-startup-id numlockx on

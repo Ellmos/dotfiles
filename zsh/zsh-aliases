@@ -1,3 +1,7 @@
+bindkey  "^[[H"   beginning-of-line
+bindkey  "^[[F"   end-of-line
+bindkey  "^[[3~"  delete-char
+
 alias :q='exit'
 
 alias ls='ls --color=auto'
@@ -10,6 +14,15 @@ alias cat='bat'
 
 alias nv='nvim'
 alias vim='nvim'
+alias emacs='nvim'
+
+alias gdb='gdb -tui'
+alias gdbb='gdb -tui -ex "set env 'LD_LIBRARY_PATH=.'"'
+alias clang='clang-format-epita'
+
+alias sqllint='cd $(git rev-parse --show-toplevel); sqlfluff lint; cd -'
+alias sqlfix='cd $(git rev-parse --show-toplevel); sqlfluff fix; cd -'
+
 alias brave='brave-browser'
 
 alias gita='git add .'
@@ -20,5 +33,8 @@ alias gitpt='git push --follow-tags'
 alias gits='git status'
 alias gitl='git log'
 alias gitlog="git log --all --decorate --graph --oneline"
+alias gitrm='rm $(git rev-parse --show-toplevel)/.git/index.lock'
 
 alias gccc='gcc -Wextra -Wall -Werror -Wvla -std=c99 -pedantic -fsanitize=address -g -o main '
+
+alias netstat='netstat -tulnp'
