@@ -67,4 +67,5 @@ bindkey '^[[3;5~' kill-word
 fpath+=~/.zfunc
 [ -f "/home/elmos/.ghcup/env" ] && source "/home/elmos/.ghcup/env" # ghcup-env
 
-neofetch
+# neofetch
+fastfetch
