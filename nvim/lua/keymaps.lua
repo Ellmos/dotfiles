@@ -91,9 +91,9 @@ local esc = vim.api.nvim_replace_termcodes('<ESC>', true, false, true)
 -- Commenting/Uncommenting single line
 commentMap('n', '<leader>cc', api.call('comment.linewise.current', 'g@$'), { expr = true, desc = 'Comment current line' })
 commentMap('n', '<leader>CC', api.call('uncomment.linewise.current', 'g@$'), { expr = true, desc = 'Uncomment current line' })
-
 commentMap('n', '<leader>cb', api.call('comment.blockwise.current', 'g@$'), { expr = true, desc = 'Comment current block' })
 commentMap('n', '<leader>CB', api.call('uncomment.blockwise.current', 'g@$'), { expr = true, desc = 'Uncomment current block' })
+
 
 -- Commenting/Uncommenting multiple lines
 commentMap('x', '<leader>cc', function()

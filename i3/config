@@ -53,7 +53,7 @@ bindsym Ctrl+Print exec --no-startup-id maim -o --window $(xdotool getactivewind
 bindsym Shift+Print exec --no-startup-id maim -o --select | xclip -selection clipboard -t image/png
 
 # Run a script on startup
-exec_always --no-startup-id "bash ~/.config/i3/scripts/startup.sh"
+exec --no-startup-id "bash ~/.config/i3/scripts/startup.sh"
 
 # lock (work on multi-screen) 
 bindsym $mod+p exec --no-startup-id "bash ~/.config/i3/scripts/lock.sh"

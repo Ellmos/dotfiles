@@ -22,6 +22,7 @@ alias gitp='git push'
 alias gitpt='git push --follow-tags'
 alias gits='git status'
 alias gitl='git log'
+alias gitlog="git log --all --decorate --graph --oneline"
 alias clang='find $(git rev-parse --show-toplevel) -name "*.h" -o -name "*.c" | xargs clang-format -i'
 
 alias banquise='sudo tailscale up && sudo swanctl -q && sudo swanctl -i --child banquise'
@@ -36,3 +37,5 @@ alias delete-log='sudo find /var/log -mtime +30 -type f -delete'
 
 alias myfind='~/Desktop/ing1/myfind/myfind/myfind'
 alias reload='source ~/.zshrc'
+
+alias 69='cd ~/Desktop/ing1/42sh/69sh'

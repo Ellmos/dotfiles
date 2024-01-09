@@ -19,6 +19,7 @@ local on_attach = function(_, bufnr)
 
     map('gD', vim.lsp.buf.hover, '[G]o [D]ocumentation')
     map('gsD', vim.lsp.buf.signature_help, '[G]o [S]ignature [D]ocumentation')
+    map('<leader>d', vim.diagnostic.open_float, '[D]iagnostic')
 
 
     -- Create a command `:Format` local to the LSP buffer
@@ -41,7 +42,6 @@ local servers = {
             filetypes = {"sh"};
         };
     },
-
     lua_ls = {
         Lua = {
             workspace = { checkThirdParty = false },
@@ -49,6 +49,7 @@ local servers = {
             diagnostics = { globals = {'vim'} }
         },
     },
+    -- hls = {}, -- In Mason: haskell-language-server
 }
 
 

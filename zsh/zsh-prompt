@@ -27,6 +27,22 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:git:*' formats " %{$fg[blue]%}(%{$fg[red]%}%m%u%c%{$fg[yellow]%}%{$fg[magenta]%} %b%{$fg[blue]%})"
 
+
+
+# Timer on right side of terminal
+function preexec() {
+  timer=${timer:-$SECONDS}
+}
+
+function precmd() {
+  if [ $timer ]; then
+    timer_show=$(($SECONDS - $timer))
+    export RPROMPT="%F{cyan}${timer_show}s %{$reset_color%}"
+    unset timer
+  fi
+}
+
+
 # OG prompt
 # PROMPT="%B%{$fg[blue]%}[%{$fg[green]%}%n%{$fg[green]%}@%{$fg[green]%}%m%{$fg[blue]%}] %(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )%{$fg[cyan]%}%c%{$reset_color%}"
 
@@ -45,4 +61,6 @@ zstyle ':vcs_info:git:*' formats " %{$fg[blue]%}(%{$fg[red]%}%m%u%c%{$fg[yellow]
 # Prompt without user@hostname
 PROMPT="
 %B%{$fg[blue]%}╭─%{$fg[blue]%}[%{$fg[green]%}%~%{$fg[blue]%}]%{$reset_color%}\$vcs_info_msg_0_
-%B%{$fg[blue]%}╰──╼ %{$reset_color%}"
+%B%{$fg[blue]%}╰──%(?:%{$fg[blue]%}╼:%{$fg[red]%}╼) %{$reset_color%}"
+
+

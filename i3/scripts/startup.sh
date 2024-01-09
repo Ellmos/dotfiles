@@ -19,17 +19,17 @@ xset r rate 250
 
 libinput-gestures-setup autostart start
 
-picom
+picom &
 
 
 warningDisplayed=false
 
 while true
 do
-    battery_level=`acpi -b | grep -P -o '[0-9]+(?=%)'`
+    battery_level=$(acpi -b | grep -P -o '[0-9]+(?=%)')
     if [ $battery_level -le 15 ]; then
         if ! $warningDisplayed; then
-            notify-send --urgency=CRITICAL "Battery Low" "Level: ${battery_level}%"
+            notify-send --urgency=CRITICAL "Battery Low" "Level: $battery_level%"
             warningDisplayed=true
         fi
     else
