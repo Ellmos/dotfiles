@@ -23,6 +23,9 @@
             neovim
             sqlfluff
 
+            bison
+            graphviz
+
             (pkgs.nerdfonts.override { fonts = [ "Hack" ]; })
         ];
 
@@ -32,5 +35,11 @@
     programs = {
         home-manager.enable = true;
         command-not-found.enable = true;
+    };
+
+    manual = {
+        html.enable = false;
+        manpages.enable = false;
+        json.enable = false;
     };
 }

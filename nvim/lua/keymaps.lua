@@ -2,9 +2,8 @@ local map = function(mode, keymap, action, description)
     vim.keymap.set(mode, keymap, action, { desc = description, silent = true, noremap = true })
 end
 
--------------------Utils------------------
+-- Utils
 map('i', '<M-BS>', '<C-w>', 'Delete previous word')
-
 
 -- Move through buffers
 map('n', '<C-h>', '<C-w>h', 'Move to left buffer')
@@ -43,11 +42,47 @@ map('n', '<leader>a<BS>', ':lua require("fold-cycle").close_all()<CR>', 'Close a
 
 
 
+local find_files = function()
+    local root = string.gsub(vim.fn.system("git rev-parse --show-toplevel"), "\n", "")
+    if vim.v.shell_error == 0 then
+        require("telescope.builtin").find_files({ cwd = root })
+    else
+        require("telescope.builtin").find_files()
+    end
+end
+local oldfiles = function()
+    local root = string.gsub(vim.fn.system("git rev-parse --show-toplevel"), "\n", "")
+    if vim.v.shell_error == 0 then
+        require("telescope.builtin").oldfiles({ cwd = root })
+    else
+        require("telescope.builtin").oldfiles()
+    end
+end
+local live_grep = function()
+    local root = string.gsub(vim.fn.system("git rev-parse --show-toplevel"), "\n", "")
+    if vim.v.shell_error == 0 then
+        require("telescope.builtin").live_grep({ cwd = root })
+    else
+        require("telescope.builtin").live_grep()
+    end
+end
+local grep_string = function()
+    local root = string.gsub(vim.fn.system("git rev-parse --show-toplevel"), "\n", "")
+    if vim.v.shell_error == 0 then
+        require("telescope.builtin").grep_string({ cwd = root })
+    else
+        require("telescope.builtin").grep_string()
+    end
+end
 -------------------Telescope------------------
-map('n', '<leader>ff',  ':Telescope find_files<CR>', '[F]ind [F]iles' )
-map('n', '<leader>fof', ':Telescope oldfiles<CR>', '[F]ind [O]ld [F]iles' )
-map('n', '<leader>fg',  ':Telescope live_grep<CR>', '[F]ind by [G]rep' )
-map('n', '<leader>fw',  ':Telescope grep_string<CR>', '[F]ind [W]ord' )
+-- map('n', '<leader>ff',  ':Telescope find_files<CR>', '[F]ind [F]iles' )
+-- map('n', '<leader>fof', ':Telescope oldfiles<CR>', '[F]ind [O]ld [F]iles' )
+-- map('n', '<leader>fg',  ':Telescope live_grep<CR>', '[F]ind by [G]rep' )
+-- map('n', '<leader>fw',  ':Telescope grep_string<CR>', '[F]ind [W]ord' )
+map('n', '<leader>ff',  find_files, '[F]ind [F]iles' )
+map('n', '<leader>fof', oldfiles, '[F]ind [O]ld [F]iles' )
+map('n', '<leader>fg',  live_grep, '[F]ind by [G]rep' )
+map('n', '<leader>fw',  grep_string, '[F]ind [W]ord' )
 map('n', '<leader>fb',  ':Telescope buffers<CR>', '[F]ind [B]uffers' )
 map('n', '<leader>fib', ':Telescope current_buffer_fuzzy_find<CR>', '[F]ind [I]n [B]uffer' )
 map('n', '<leader>fd',  ':Telescope diagnostics<CR>', '[F]ind [D]iagnostics' )

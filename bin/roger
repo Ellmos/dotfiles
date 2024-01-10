@@ -32,8 +32,11 @@ reload()
 
     firefox https://intra.forge.epita.fr/epita-ing-assistants-acu/sql-workshop-2026/root/sql-workshop-2026/bootstrap/hello-roger-roger/hello-roger-roger/hello-roger-roger-provided_files.tar
     read -n 1 -p "Press enter when download is finished" mainmenuinput
+
+    cd ~/Downloads
     tar -xf ~/Downloads/hello-roger-roger-provided_files.tar
     mv ~/Downloads/hello_roger_roger/roger_roger.dump $DUMP_PATH
+    cd -
 
 
     dropdb -U postgres roger_roger
@@ -46,8 +49,8 @@ if [ "$1" = "create" ]; then
 elif [ "$1" = "delete" ]; then
     delete
 elif [ "$1" = "reset" ]; then
-    create
     delete
+    create
 elif [ "$1" = "reload" ]; then
     reload
 else

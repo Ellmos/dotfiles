@@ -1,0 +1,84 @@
+window:
+  opacity: 1
+  dimensions:
+    columns: 80
+    lines: 24
+  padding:
+    x: 9
+    y: 9
+  class:
+    instance: Alacritty
+    general: Alacritty
+
+scrolling:
+  history: 20000
+  multiplier: 2
+
+font:
+  normal:
+    family: Hack Nerd Font 
+    style: Regular
+
+  bold:
+    family: Hack Nerd Font 
+    style: Bold
+
+  italic:
+    family: Hack Nerd Font 
+    style: Italic
+
+  bold_italic:
+    family: Hack Nerd Font 
+    style: Bold Italic
+
+  size: 11.0
+  
+draw_bold_text_with_bright_colors: true
+
+
+colors:
+  primary:
+    background: '0x111111'
+    #background: '0x282828'
+    foreground: '0xebdbb2'
+
+  # Normal colors
+  normal:
+    black:   '#100c1b'
+    red:     '#c11623'
+    green:   '#21a268'
+    yellow:  '#a2744a'
+    blue:    '#0a468c'
+    magenta: '#a444ba'
+    cyan:    '#24a3b4'
+    white:   '#d1d1cc'
+
+  # Bright colors
+  bright:
+    black:   '#5e5d65'
+    red:     '#f76151'
+    green:   '#2eda7b'
+    yellow:  '#ebae05'
+    blue:    '#247ddf'
+    magenta: '#c161cc'
+    cyan:    '#2ec8de'
+    white:   '#ffffff'
+
+
+selection:
+  save_to_clipboard: false
+
+live_config_reload: true
+
+  #shell:
+  #program: /usr/bin/zsh
+
+key_bindings:
+  - { key: Return, mods: Super, action: SpawnNewInstance }
+  # - { key: Return, mods: Super|Shift, command: { program: "/run/current-system/sw/bin/alacritty", args: ["-c", "/run/current-system/sw/bin/alacritty"] } }
+mouse_bindings:
+  - { mouse: Middle, action: PasteSelection }
+
+# shell:
+#   program: /nix/store/87dpnvj8i0a123zgk2c3n63gcx8ww1xp-zsh-5.9/bin/zsh
+

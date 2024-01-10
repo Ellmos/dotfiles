@@ -12,6 +12,7 @@ CHANGE_BG()
 
 #ask to install config
 sed -i '/which zsh/d' ~/.bashrc
+rm ~/.config/alacritty
 
 read -r -p "Wanna install da config buddy [y/n]" response
 response=${response,,}
@@ -25,6 +26,7 @@ fi
 [ ! -e ~/.zshrc ] && ln -s ~/.config/zsh/.zshrc ~/.zshrc
 [ ! -e ~/.zsh_history ] && ln -s ~/.config/zsh/.zsh_history ~/.zsh_history
 echo "[ \$(which zsh) ] && export SHELL=\`which zsh\` && exec \"\$SHELL\" -l" >> ~/.bashrc
+ln -s ~/afs/dotfiles/alacritty ~/.config/alacritty
 
 
 CHANGE_BG
@@ -44,5 +46,5 @@ nvim --headless 2> /dev/null &
 CHANGE_BG
 xset r rate 250
 feh --bg-fill ~/.config/i3/img/bg/japanNight.png
-pkill i3lock
+killall i3lock &> /dev/null
 sh ~/.config/i3/dodo.sh
