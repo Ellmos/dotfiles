@@ -59,5 +59,3 @@ require('dashboard').setup {
         file_width = 43,
     },
 }
-
-

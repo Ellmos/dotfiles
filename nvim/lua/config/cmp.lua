@@ -58,6 +58,7 @@ cmp.setup({
         { name = 'buffer' },
         { name = 'path' },
         { name = 'nerdfont' },
+        { name = "cmp_yanky" },
     },
     formatting = {
         format = function(entry, vim_item)

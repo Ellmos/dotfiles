@@ -1,0 +1,10 @@
+{
+    "diagnostics.globals": [
+        "vim",
+        "telescope_command",
+        "telescope_root_dir"
+    ],
+    "diagnostics.disable": [
+        "different-requires"
+    ]
+}

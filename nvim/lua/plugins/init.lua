@@ -1,28 +1,23 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
+        'git',
+        'clone',
+        '--filter=blob:none',
+        'https://github.com/folke/lazy.nvim.git',
+        '--branch=stable',
         lazypath,
     })
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
 
--- https://github.com/ahmedkhalf/project.nvim
--- https://github.com/gbprod/yanky.nvim
 -- https://github.com/folke/noice.nvim
 -- https://github.com/rcarriga/nvim-notify
 return require('lazy').setup({
-    -- Packer can manage itself
-    'wbthomason/packer.nvim',
-
     -- ColorScheme
     'ellisonleao/gruvbox.nvim',
 
@@ -34,7 +29,8 @@ return require('lazy').setup({
 
     -- Lines
     { 'nvim-lualine/lualine.nvim', dependencies = { 'kyazdani42/nvim-web-devicons' }},
-    { 'akinsho/bufferline.nvim', dependencies = { 'kyazdani42/nvim-web-devicons' }, version = '*' },
+    { 'akinsho/bufferline.nvim', dependencies = { 'kyazdani42/nvim-web-devicons' }},
+    { 'famiu/bufdelete.nvim' },
 
     -- Highlighting
     { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
@@ -53,6 +49,36 @@ return require('lazy').setup({
     -- Utils
     'lukas-reineke/indent-blankline.nvim',
     'windwp/nvim-autopairs',
+
+    -- Yanking
+    {
+        'gbprod/yanky.nvim',
+        dependencies = { 'kkharji/sqlite.lua'},
+        config = function()
+            require('yanky').setup({
+                highlight = {
+                    on_put = false,
+                    on_yank = false,
+                },
+                opts = {
+                    ring = { storage = 'sqlite' },
+                },
+            })
+        end,
+        highlight = {
+            on_put = false,
+            on_yank = false,
+        },
+        keys = {
+            { '<leader>p', function() require('telescope').extensions.yank_history.yank_history({ }) end, desc = 'Open Yank History' },
+            { 'y', '<Plug>(YankyYank)', mode = { 'n', 'x' }, desc = 'Yank text' },
+            { 'p', '<Plug>(YankyPutAfter)', mode = { 'n', 'x' }, desc = 'Put yanked text after cursor' },
+            { 'P', '<Plug>(YankyPutBefore)', mode = { 'n', 'x' }, desc = 'Put yanked text before cursor' },
+            { "<c-p>", "<Plug>(YankyPreviousEntry)", desc = "Select previous entry through yank history" },
+            { "<c-n>", "<Plug>(YankyNextEntry)", desc = "Select next entry through yank history" },
+        }
+    },
+    'chrisgrieser/cmp_yanky',
 
     -- Smooth scrolling
     'declancm/cinnamon.nvim',
@@ -80,7 +106,7 @@ return require('lazy').setup({
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-cmdline',
     'chrisgrieser/cmp-nerdfont',
-    { 'petertriho/cmp-git', dependencies = 'nvim-lua/plenary.nvim'},
+    { 'petertriho/cmp-git', dependencies = { 'nvim-lua/plenary.nvim' }},
 
     -- Snippet
     'L3MON4D3/LuaSnip',

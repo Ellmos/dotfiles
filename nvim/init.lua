@@ -1,6 +1,6 @@
 require('plugins')
-require('config')
 require('keymaps')
+require('config')
 
 vim.cmd('colorscheme gruvbox')
 
@@ -13,15 +13,15 @@ set.smarttab = true
 set.autoindent = true
 set.tabstop = 4
 set.shiftwidth = 4
-set.foldmethod="indent"
-set.foldlevel=1000
+set.foldmethod = "indent"
+set.foldlevel = 1000
 
 set.wrap = false
 set.whichwrap:append { ['<'] = true, ['>'] = true, ['['] = true, [']'] = true }
 set.scrolloff = 7
 set.fileencoding = 'utf-8'
 set.termguicolors = true
-set.colorcolumn = {80}
+set.colorcolumn = { 80 }
 
 set.number = true
 set.cursorline = true
@@ -29,3 +29,8 @@ set.hidden = true
 set.clipboard = 'unnamedplus'
 set.filetype.plugin = 'on'
 
+
+-- for nvim-tree 
+local g = vim.g
+g.loaded_netrw = 1;
+g.loaded_netrwPlugin = 1;

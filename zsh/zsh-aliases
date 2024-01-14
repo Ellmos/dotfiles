@@ -12,6 +12,7 @@ alias cat='batcat'
 
 alias nv='nvim'
 alias vim='nvim'
+alias rmswap='rm -rf ~/.local/state/nvim/swap/*'
 alias gdb='gdb -tui'
 alias brave='brave-browser'
 
