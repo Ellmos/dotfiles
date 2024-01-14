@@ -5,7 +5,7 @@ if not vim.loop.fs_stat(lazypath) then
     "clone",
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
+    "--branch=stable",
         lazypath,
     })
 end
@@ -21,10 +21,10 @@ return require('lazy').setup({
     -- Lines
     { 'nvim-lualine/lualine.nvim', dependencies = { 'kyazdani42/nvim-web-devicons' }},
     { 'akinsho/bufferline.nvim', dependencies = { 'kyazdani42/nvim-web-devicons' }, version = '*' },
+    { 'famiu/bufdelete.nvim' },
 
     -- Highlighting
     { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
-
 
     -- File explorer
     { 'kyazdani42/nvim-tree.lua', dependencies = { 'kyazdani42/nvim-web-devicons' }, version = 'nightly' },
@@ -42,6 +42,10 @@ return require('lazy').setup({
     'lukas-reineke/indent-blankline.nvim',
     'windwp/nvim-autopairs',
 
+    -- Yanking
+    { 'gbprod/yanky.nvim', dependencies = { 'kkharji/sqlite.lua' }},
+    'chrisgrieser/cmp_yanky',
+
     -- Smooth scrolling
     'declancm/cinnamon.nvim',
 
@@ -52,14 +56,20 @@ return require('lazy').setup({
     'numToStr/Comment.nvim',
 
     -- LSP
+    'williamboman/nvim-lsp-installer',
     'neovim/nvim-lspconfig',
+    'williamboman/mason.nvim',
+    'williamboman/mason-lspconfig.nvim',
+    'folke/neodev.nvim',
 
     -- Completion
     'hrsh7th/nvim-cmp',
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-path',
+    'hrsh7th/cmp-cmdline',
     'chrisgrieser/cmp-nerdfont',
+    { 'petertriho/cmp-git', dependencies = { 'nvim-lua/plenary.nvim' }},
 
     -- Snippet
     'L3MON4D3/LuaSnip',

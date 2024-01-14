@@ -46,12 +46,12 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 
 # Run a script on startup
 exec --no-startup-id firefox
-exec --no-startup-id alacritty -e sh ~/.config/i3/start.sh
+exec --no-startup-id alacritty -e sh ~/.config/i3/scripts/start.sh
 
 # Enable NumLock on startup
 exec --no-startup-id numlockx on
 
-bindsym $mod+p exec --no-startup-id "bash ~/.config/i3/dodo.sh"
+bindsym $mod+p exec --no-startup-id "bash ~/.config/i3/scripts/dodo.sh"
 
 bindsym $mod+b exec --no-startup-id firefox
 

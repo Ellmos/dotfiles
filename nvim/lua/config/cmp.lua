@@ -35,8 +35,8 @@ cmp.setup({
                 cmp.select_next_item()
             elseif luasnip.expand_or_jumpable() then
                 luasnip.expand_or_jump()
-            -- elseif has_words_before() then
-            --     cmp.complete()
+            elseif has_words_before() then
+                cmp.complete()
             else
                 fallback()
             end
@@ -58,6 +58,7 @@ cmp.setup({
         { name = 'buffer' },
         { name = 'path' },
         { name = 'nerdfont' },
+        { name = "cmp_yanky" },
     },
     formatting = {
         format = function(entry, vim_item)
@@ -98,4 +99,26 @@ cmp.setup({
             return vim_item
         end,
     }
+})
+
+
+cmp.setup.filetype('gitcommit', {
+    sources = {
+        { name = 'git' },
+        { name = 'buffer' }
+    }
+})
+require("cmp_git").setup()
+
+cmp.setup.cmdline({ '/', '?' }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = { { name = 'buffer' } }
+})
+
+cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources(
+        { { name = 'path' } },
+        { { name = 'cmdline' } }
+    )
 })

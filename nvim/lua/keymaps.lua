@@ -10,7 +10,7 @@ map('n', '<C-h>', '<C-w>h', 'Move to left buffer')
 map('n', '<C-l>', '<C-w>l', 'Move to right buffer')
 map('n', '<C-j>', '<C-w>j', 'Move to bottom buffer')
 map('n', '<C-k>', '<C-w>k', 'Move to top buffer')
-map('n', '<C-w>', ':bd<CR>', 'Close current buffer')
+map('n', '<C-w>', ':Bdelete<CR>', 'Close current buffer')
 
 -- Switch windows
 map('n', '<TAB>', ':BufferLineCycleNext<CR>', 'Move to next window')
@@ -34,89 +34,49 @@ map('n', '"', ':noh<CR>', 'Switch off highlighting')
 -- NvimTree switch on-off
 map('n', '<leader><Tab>', ':NvimTreeToggle<CR>', 'Open/Close nvim_tree')
 
--- Folder
-map('n', '<leader><CR>',  ':lua require("fold-cycle").open()<CR>', 'Open folder')
-map('n', '<leader><BS>',  ':lua require("fold-cycle").close()<CR>', 'Close folder')
-map('n', '<leader>a<CR>', ':lua require("fold-cycle").open_all()<CR>', 'Open all folders')
-map('n', '<leader>a<BS>', ':lua require("fold-cycle").close_all()<CR>', 'Close all folders')
-
-
-
-local find_files = function()
-    local root = string.gsub(vim.fn.system("git rev-parse --show-toplevel"), "\n", "")
-    if vim.v.shell_error == 0 then
-        require("telescope.builtin").find_files({ cwd = root })
-    else
-        require("telescope.builtin").find_files()
-    end
-end
-local oldfiles = function()
-    local root = string.gsub(vim.fn.system("git rev-parse --show-toplevel"), "\n", "")
-    if vim.v.shell_error == 0 then
-        require("telescope.builtin").oldfiles({ cwd = root })
-    else
-        require("telescope.builtin").oldfiles()
-    end
-end
-local live_grep = function()
-    local root = string.gsub(vim.fn.system("git rev-parse --show-toplevel"), "\n", "")
-    if vim.v.shell_error == 0 then
-        require("telescope.builtin").live_grep({ cwd = root })
-    else
-        require("telescope.builtin").live_grep()
-    end
-end
-local grep_string = function()
-    local root = string.gsub(vim.fn.system("git rev-parse --show-toplevel"), "\n", "")
-    if vim.v.shell_error == 0 then
-        require("telescope.builtin").grep_string({ cwd = root })
-    else
-        require("telescope.builtin").grep_string()
-    end
-end
--------------------Telescope------------------
--- map('n', '<leader>ff',  ':Telescope find_files<CR>', '[F]ind [F]iles' )
--- map('n', '<leader>fof', ':Telescope oldfiles<CR>', '[F]ind [O]ld [F]iles' )
--- map('n', '<leader>fg',  ':Telescope live_grep<CR>', '[F]ind by [G]rep' )
--- map('n', '<leader>fw',  ':Telescope grep_string<CR>', '[F]ind [W]ord' )
-map('n', '<leader>ff',  find_files, '[F]ind [F]iles' )
-map('n', '<leader>fof', oldfiles, '[F]ind [O]ld [F]iles' )
-map('n', '<leader>fg',  live_grep, '[F]ind by [G]rep' )
-map('n', '<leader>fw',  grep_string, '[F]ind [W]ord' )
-map('n', '<leader>fb',  ':Telescope buffers<CR>', '[F]ind [B]uffers' )
-map('n', '<leader>fib', ':Telescope current_buffer_fuzzy_find<CR>', '[F]ind [I]n [B]uffer' )
-map('n', '<leader>fd',  ':Telescope diagnostics<CR>', '[F]ind [D]iagnostics' )
-map('n', '<leader>fh',  ':Telescope help_tags<CR>', '[F]ind [H]elp' )
-
-
-
--------------------LSP------------------
-map('n', '<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-map('n', '<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
-
-map('n', 'gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-map('n', 'gr', ':Telescope lsp_references<CR>', '[G]oto [R]eferences')
-map('n', '<leader>ds', ':Telescope lsp_document_symbols<CR>', '[D]ocument [S]ymbols')
-map('n', '<leader>ws', ':Telescope lsp_dynamic_workspace_symbols<CR>', '[W]orkspace [S]ymbols')
-
--- See `:help K` for why this keymap
-map('n', 'gD', vim.lsp.buf.hover, '[G]o [D]ocumentation')
-map('n', 'gsD', vim.lsp.buf.signature_help, '[G]o [S]ignature [D]ocumentation')
-
-
-
 
 -------------------Smooth Scrolling------------------
-map({'n', 'v'}, '<S-j>', "<Cmd>lua Scroll('<C-d>', 1, 1)<CR>", 'Scroll cursor down')
-map({'n', 'v'}, '<S-k>', "<Cmd>lua Scroll('<C-u>', 1, 1)<CR>", 'Scroll cursor down')
-map({'n', 'v'}, '<S-h>', "b", 'Fast movement left')
-map({'n', 'v'}, '<S-l>', "w", 'Fast movement right')
+map({ 'n', 'v' }, '<S-j>', "<Cmd>lua Scroll('<C-d>', 1, 1)<CR>", 'Scroll cursor down')
+map({ 'n', 'v' }, '<S-k>', "<Cmd>lua Scroll('<C-u>', 1, 1)<CR>", 'Scroll cursor down')
+map({ 'n', 'v' }, '<S-h>', "b", 'Fast movement left')
+map({ 'n', 'v' }, '<S-l>', "w", 'Fast movement right')
 
-map({'n', 'v'}, 'zz', ":lua Scroll('zz', 0, 1)<CR>", 'Center window on cusror')
-map({'n', 'v'}, 'zj', ":lua Scroll('zt', 0, 1)<CR>", 'Scroll window down')
-map({'n', 'v'}, 'zk', ":lua Scroll('zb', 0, 1)<CR>", 'Scroll window up')
-map({'n', 'v'}, 'zh', ":lua Scroll('zH')<CR>", 'Scroll window left')
-map({'n', 'v'}, 'zl', ":lua Scroll('zL')<CR>", 'Scroll window right')
+map({ 'n', 'v' }, 'zz', ":lua Scroll('zz', 0, 1)<CR>", 'Center window on cusror')
+map({ 'n', 'v' }, 'zj', ":lua Scroll('zt', 0, 1)<CR>", 'Scroll window down')
+map({ 'n', 'v' }, 'zk', ":lua Scroll('zb', 0, 1)<CR>", 'Scroll window up')
+map({ 'n', 'v' }, 'zh', ":lua Scroll('zH')<CR>", 'Scroll window left')
+map({ 'n', 'v' }, 'zl', ":lua Scroll('zL')<CR>", 'Scroll window right')
+
+
+-------------------Telescope------------------
+function telescope_root_dir(command)
+    local root = string.gsub(vim.fn.system("git rev-parse --show-toplevel"), "\n", "")
+    local options = {}
+    if vim.v.shell_error == 0 then
+        options.cwd = root
+    end
+
+    require("telescope.builtin")[command](options)
+end
+
+map('n', '<leader>ff', ':lua telescope_root_dir("find_files")<CR>', '[F]ind [F]iles')
+map('n', '<leader>fof', ':lua telescope_root_dir("oldfiles")<CR>', '[O]ldfiles')
+map('n', '<leader>fg', ':lua telescope_root_dir("live_grep")<CR>', '[L]ive [G]rep')
+map('n', '<leader>fw', ':lua telescope_root_dir("grep_string")<CR>', '[G]rep [S]tring')
+
+map('n', '<leader>fb', ':Telescope buffers<CR>', '[F]ind [B]uffers')
+map('n', '<leader>fib', ':Telescope current_buffer_fuzzy_find<CR>', '[F]ind [I]n [B]uffer')
+map('n', '<leader>fd', ':Telescope diagnostics<CR>', '[F]ind [D]iagnostics')
+map('n', '<leader>fh', ':Telescope help_tags<CR>', '[F]ind [H]elp')
+
+
+-------------------Yanky------------------
+map({ 'n', 'v' }, 'y', '<Plug>(YankyYank)', 'Yank text')
+map({ 'n', 'v' }, 'p', '<Plug>(YankyPutAfter)', 'Put yanked text after cursor')
+map({ 'n', 'v' }, 'P', '<Plug>(YankyPutBefore)', 'Put yanked text before cursor')
+map({ 'n', 'v' }, '<c-p>', "<Plug>(YankyPreviousEntry)", "Select previous entry through yank history")
+map({ 'n', 'v' }, '<c-n>', "<Plug>(YankyNextEntry)", "Select next entry through yank history")
+map({ 'n', 'v' }, '<leader>p', ':lua require("telescope").extensions.yank_history.yank_history()<CR>', 'Open Yank History')
 
 
 -------------------Commmenting------------------

@@ -2,8 +2,9 @@ backupDotfiles
 
 .cache
 
-packer_compiled.lua
 lazy-lock.json
+.luarc.json
 
 *.bak
 .zcompdump*
+.zsh_history

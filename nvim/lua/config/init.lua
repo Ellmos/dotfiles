@@ -2,31 +2,28 @@
 require('gruvbox').setup({ contrast = 'medium' })
 
 -- Lines
-require('lualine').setup({ options = { theme = 'nord' }})
+require('lualine').setup({ options = { theme = 'nord' } })
 require("bufferline").setup()
 
--- Indentation visualisation
-require("ibl").setup { scope = { enabled = false } }
+-- Tree
+require('nvim-tree').setup({ select_prompts = true })
 
 -- Code commenting
 require('Comment').setup()
 
 -- Smooth scroll
-require('cinnamon').setup({ default_delay = 10, override_keymaps = true })
+require('cinnamon').setup({ default_delay = 7, override_keymaps = true })
 
 -- Autocomplete pairs (brackets, quotes....)
-require('nvim-autopairs').setup({ disable_filetype = { 'TelescopePrompt' , 'vim' }})
+require('nvim-autopairs').setup({ disable_filetype = { 'TelescopePrompt', 'vim' } })
 
 -- Dependecies
 require('nvim-web-devicons').setup()
 
-require("telescope").setup()
-require("telescope").setup({ extensions = { ["ui-select"] = { require("telescope.themes").get_dropdown{}}} })
-require("telescope").load_extension("ui-select")
-pcall(require('telescope').load_extension, 'fzf')
-
 -- Other config file
+require('config/yanky')
 require('config/cmp')
 require('config/lsp')
 require('config/treesitter')
-require('config/tree')
+require('config/indent-blankline')
+require('config/telescope')
