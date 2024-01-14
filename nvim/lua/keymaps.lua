@@ -81,8 +81,8 @@ map('n', '<leader>fh', ':Telescope help_tags<CR>', '[F]ind [H]elp')
 map({ 'n', 'v' }, 'y', '<Plug>(YankyYank)', 'Yank text')
 map({ 'n', 'v' }, 'p', '<Plug>(YankyPutAfter)', 'Put yanked text after cursor')
 map({ 'n', 'v' }, 'P', '<Plug>(YankyPutBefore)', 'Put yanked text before cursor')
-map({ 'n', 'v' }, '<c-p>', "<Plug>(YankyPreviousEntry)", "Select previous entry through yank history")
-map({ 'n', 'v' }, '<c-n>', "<Plug>(YankyNextEntry)", "Select next entry through yank history")
+map({ 'n', 'v' }, '<A-p>', "<Plug>(YankyPreviousEntry)", "Select previous entry through yank history")
+map({ 'n', 'v' }, '<A-n>', "<Plug>(YankyNextEntry)", "Select next entry through yank history")
 map({ 'n', 'v' }, '<leader>p', ':lua require("telescope").extensions.yank_history.yank_history()<CR>', 'Open Yank History')
 
 
