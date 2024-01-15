@@ -18,4 +18,4 @@
 # Prompt without user@hostname
 PROMPT="
 %B%{$fg[blue]%}╭─%{$fg[blue]%}[%{$fg[green]%}%~%{$fg[blue]%}]%{$reset_color%}
-%B%{$fg[blue]%}╰──╼ %{$reset_color%}"
+%B%{$fg[blue]%}╰──%(?:%{$fg[blue]%}╼:%{$fg[red]%}╼) %{$reset_color%}"

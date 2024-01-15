@@ -34,7 +34,6 @@ map('n', '"', ':noh<CR>', 'Switch off highlighting')
 -- NvimTree switch on-off
 map('n', '<leader><Tab>', ':NvimTreeToggle<CR>', 'Open/Close nvim_tree')
 
-
 -------------------Smooth Scrolling------------------
 map({ 'n', 'v' }, '<S-j>', "<Cmd>lua Scroll('<C-d>', 1, 1)<CR>", 'Scroll cursor down')
 map({ 'n', 'v' }, '<S-k>', "<Cmd>lua Scroll('<C-u>', 1, 1)<CR>", 'Scroll cursor down')
