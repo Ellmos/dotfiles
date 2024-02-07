@@ -25,18 +25,29 @@ return require('lazy').setup({
 
     -- Highlighting
     { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+    { 'HiPhish/nvim-ts-rainbow2' },
 
     -- File explorer
     { 'kyazdani42/nvim-tree.lua', dependencies = { 'kyazdani42/nvim-web-devicons' }, version = 'nightly' },
 
     -- Telescope
-    { 'nvim-telescope/telescope.nvim', version = '0.1.3', dependencies = { 'nvim-lua/plenary.nvim' }},
-    'nvim-telescope/telescope-ui-select.nvim',
-    { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make',
-        cond = function()
-            return vim.fn.executable 'make' == 1
-        end
+    { 
+        'nvim-telescope/telescope.nvim', 
+        dependencies = { 
+            'nvim-lua/plenary.nvim',
+            'nvim-telescope/telescope-ui-select.nvim',
+            "nvim-telescope/telescope-fzf-native.nvim",
+            build = "make",
+            config = function()
+                require("telescope").load_extension("fzf")
+            end,
+        }
     },
+    -- { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make',
+    --     cond = function()
+    --         return vim.fn.executable 'make' == 1
+    --     end
+    -- },
 
     -- Utils
     'lukas-reineke/indent-blankline.nvim',
@@ -58,8 +69,8 @@ return require('lazy').setup({
     -- LSP
     'williamboman/nvim-lsp-installer',
     'neovim/nvim-lspconfig',
-    'williamboman/mason.nvim',
-    'williamboman/mason-lspconfig.nvim',
+    -- 'williamboman/mason.nvim',
+    -- 'williamboman/mason-lspconfig.nvim',
     'folke/neodev.nvim',
 
     -- Completion

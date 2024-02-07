@@ -8,3 +8,5 @@ lazy-lock.json
 *.bak
 .zcompdump*
 .zsh_history
+
+*.__afs*

@@ -1,0 +1,23 @@
+#!/bin/sh
+
+check_error()
+{
+    if [ $? -ne 0 ]; then 
+        echo $1
+        exit 1;
+    fi
+}
+
+if [ $# -ne 1 ]; then
+    echo "one argument required"
+    exit 1;
+fi
+
+git commit -m "$1"
+check_error "failed to commit"
+
+git tag -ma "$1"
+check_error "failed to tag"
+
+git push --follow-tags
+check_error "failed to push tags"

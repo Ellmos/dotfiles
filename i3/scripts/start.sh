@@ -12,7 +12,7 @@ CHANGE_BG()
 
 #ask to install config
 sed -i '/which zsh/d' ~/.bashrc
-rm ~/.config/alacritty
+rm -f ~/.config/alacritty
 
 read -r -p "Wanna install da config buddy [y/n]" response
 response=${response,,}
@@ -28,15 +28,17 @@ fi
 echo "[ \$(which zsh) ] && export SHELL=\`which zsh\` && exec \"\$SHELL\" -l" >> ~/.bashrc
 ln -s ~/afs/dotfiles/alacritty ~/.config/alacritty
 
+if [ ! $(which home-manager) ]; then
+    CHANGE_BG
+    nix-channel --add https://github.com/nix-community/home-manager/archive/release-23.05.tar.gz home-manager
+    nix-channel --add https://github.com/nixos/nixpkgs/archive/refs/tags/23.05.tar.gz nixpkgs
+    nix-channel --update
 
-CHANGE_BG
-nix-channel --add https://github.com/nix-community/home-manager/archive/release-23.05.tar.gz home-manager
-nix-channel --add https://github.com/nixos/nixpkgs/archive/refs/tags/23.05.tar.gz nixpkgs
-nix-channel --update
+    CHANGE_BG
+    export NIX_PATH=$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels${NIX_PATH:+:$NIX_PATH}
+    nix-shell '<home-manager>' -A install
+fi
 
-CHANGE_BG
-export NIX_PATH=$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels${NIX_PATH:+:$NIX_PATH}
-nix-shell '<home-manager>' -A install
 
 # Installing nvim / packer / packages
 CHANGE_BG
@@ -47,4 +49,4 @@ CHANGE_BG
 xset r rate 250
 feh --bg-fill ~/.config/i3/img/bg/japanNight.png
 killall i3lock &> /dev/null
-sh ~/.config/i3/dodo.sh
+sh ~/.config/i3/scripts/dodo.sh

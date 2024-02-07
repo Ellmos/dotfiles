@@ -32,13 +32,13 @@ end
 
 local servers = {
     clangd = {},
-    pyright = {},
-    bashls = {
-        default_config = {
-            cmd = { "bash-language-server", "start" },
-            filetypes = { "sh" },
-        },
-    },
+    -- pyright = {},
+    -- bashls = {
+    --     default_config = {
+    --         cmd = { "bash-language-server", "start" },
+    --         filetypes = { "sh" },
+    --     },
+    -- },
 }
 
 
@@ -47,20 +47,28 @@ local servers = {
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
+for server_name, config in pairs(servers) do
+    require('lspconfig')[server_name].setup {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = servers[server_name],
+    }
+end
+
 -- Ensure the servers above are installed
-require('mason').setup()
-local mason_lspconfig = require('mason-lspconfig')
-
-mason_lspconfig.setup {
-    ensure_installed = vim.tbl_keys(servers),
-}
-
-mason_lspconfig.setup_handlers {
-    function(server_name)
-        require('lspconfig')[server_name].setup {
-            capabilities = capabilities,
-            on_attach = on_attach,
-            settings = servers[server_name],
-        }
-    end,
-}
+-- require('mason').setup()
+-- local mason_lspconfig = require('mason-lspconfig')
+--
+-- mason_lspconfig.setup {
+--     ensure_installed = vim.tbl_keys(servers),
+-- }
+--
+-- mason_lspconfig.setup_handlers {
+--     function(server_name)
+--         require('lspconfig')[server_name].setup {
+--             capabilities = capabilities,
+--             on_attach = on_attach,
+--             settings = servers[server_name],
+--         }
+--     end,
+-- }

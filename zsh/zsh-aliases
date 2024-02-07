@@ -16,6 +16,7 @@ alias cat='bat'
 alias nv='nvim'
 alias vim='nvim'
 alias emacs='nvim'
+alias rmswap='rm /home/romain.doulaud/.local/state/nvim/swap/*'
 
 alias gita='git add .'
 alias gitc='git commit -m'
@@ -37,4 +38,4 @@ alias sqlfix='cd $(git rev-parse --show-toplevel); sqlfluff fix; cd -'
 
 alias py='python3'
 
-alias 69='cd ~/afs/ing1/42sh/69sh'
+alias ja='cd /home/romain.doulaud/afs/ing1/s6/java'

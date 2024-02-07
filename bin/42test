@@ -1,0 +1,12 @@
+#!/bin/sh
+
+DIR="$HOME/69sh"
+
+cd "$DIR"
+make
+cd -
+
+cd "$DIR/tests"
+./test.sh "$@"
+cd -
+
