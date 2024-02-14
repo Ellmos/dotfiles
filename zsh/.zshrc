@@ -50,11 +50,6 @@ zsh_add_plugin "hlissner/zsh-autopair"
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
-# Environment variables set everywhere
-export EDITOR="nvim"
-export TERMINAL="alacritty"
-export BROWSER="brave-browser"
-
 # For QT Themes
 export QT_QPA_PLATFORMTHEME=qt5ct
 
@@ -66,6 +61,8 @@ bindkey '^[[3;5~' kill-word
 
 fpath+=~/.zfunc
 [ -f "/home/elmos/.ghcup/env" ] && source "/home/elmos/.ghcup/env" # ghcup-env
+
+source "$ZDOTDIR/zsh_exports"
 
 # neofetch
 fastfetch

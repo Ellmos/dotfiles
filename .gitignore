@@ -8,3 +8,4 @@ lazy-lock.json
 *.bak
 .zcompdump*
 .zsh_history
+zsh_exports

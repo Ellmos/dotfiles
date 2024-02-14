@@ -30,17 +30,17 @@ zstyle ':vcs_info:git:*' formats " %{$fg[blue]%}(%{$fg[red]%}%m%u%c%{$fg[yellow]
 
 
 # Timer on right side of terminal
-function preexec() {
-  timer=${timer:-$SECONDS}
-}
-
-function precmd() {
-  if [ $timer ]; then
-    timer_show=$(($SECONDS - $timer))
-    export RPROMPT="%F{cyan}${timer_show}s %{$reset_color%}"
-    unset timer
-  fi
-}
+# function preexec() {
+#   timer=${timer:-$SECONDS}
+# }
+#
+# function precmd() {
+#   if [ $timer ]; then
+#     timer_show=$(($SECONDS - $timer))
+#     export RPROMPT="%F{cyan}${timer_show}s %{$reset_color%}"
+#     unset timer
+#   fi
+# }
 
 
 # OG prompt
