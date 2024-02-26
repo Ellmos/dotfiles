@@ -32,6 +32,7 @@ end
 
 local servers = {
     clangd = {},
+    ccls = {},
     -- pyright = {},
     -- bashls = {
     --     default_config = {

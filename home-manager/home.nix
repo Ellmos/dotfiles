@@ -23,6 +23,8 @@
             neovim
             sqlfluff
 
+            ccls
+
             bison
             graphviz
 
