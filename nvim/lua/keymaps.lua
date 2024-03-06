@@ -60,10 +60,10 @@ map({ 'n', 'v' }, '<S-h>', "b", 'Fast movement left')
 map({ 'n', 'v' }, '<S-l>', "w", 'Fast movement right')
 
 map({ 'n', 'v' }, 'zz', "<Cmd>lua Scroll('zz', 0, 1)<CR>", 'Center window on cusror')
-map({ 'n', 'v' }, 'zj', "<Cmd>Scroll('zt', 0, 1)<CR>", 'Scroll window down')
-map({ 'n', 'v' }, 'zk', "<Cmd>Scroll('zb', 0, 1)<CR>", 'Scroll window up')
-map({ 'n', 'v' }, 'zh', "<Cmd>Scroll('zH')<CR>", 'Scroll window left')
-map({ 'n', 'v' }, 'zl', "<Cmd>Scroll('zL')<CR>", 'Scroll window right')
+map({ 'n', 'v' }, 'zj', "<Cmd>lua Scroll('zt', 0, 1)<CR>", 'Scroll window down')
+map({ 'n', 'v' }, 'zk', "<Cmd>lua Scroll('zb', 0, 1)<CR>", 'Scroll window up')
+map({ 'n', 'v' }, 'zh', "<Cmd>lua Scroll('zH')<CR>", 'Scroll window left')
+map({ 'n', 'v' }, 'zl', "<Cmd>lua Scroll('zL')<CR>", 'Scroll window right')
 
 
 -------------------Telescope------------------
@@ -93,7 +93,8 @@ map({ 'n', 'v' }, 'p', '<Plug>(YankyPutAfter)', 'Put yanked text after cursor')
 map({ 'n', 'v' }, 'P', '<Plug>(YankyPutBefore)', 'Put yanked text before cursor')
 map({ 'n', 'v' }, '<A-p>', "<Plug>(YankyPreviousEntry)", "Select previous entry through yank history")
 map({ 'n', 'v' }, '<A-n>', "<Plug>(YankyNextEntry)", "Select next entry through yank history")
-map({ 'n', 'v' }, '<leader>p', '<Cmd>lua require("telescope").extensions.yank_history.yank_history()<CR>', 'Open Yank History')
+map({ 'n', 'v' }, '<leader>p', '<Cmd>lua require("telescope").extensions.yank_history.yank_history()<CR>',
+    'Open Yank History')
 
 
 -------------------Commmenting------------------
