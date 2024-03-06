@@ -10,7 +10,7 @@ local set = vim.opt
 
 set.expandtab = true
 set.smarttab = true
-set.autoindent = true
+set.cindent = true
 set.tabstop = 4
 set.shiftwidth = 4
 set.foldmethod = "indent"

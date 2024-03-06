@@ -34,11 +34,12 @@ return require('lazy').setup({
 
     -- Highlighting
     { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+    'lewis6991/spellsitter.nvim',
 
     -- File explorer
     { 'kyazdani42/nvim-tree.lua', dependencies = { 'kyazdani42/nvim-web-devicons' }, version = 'nightly' },
 
-    -- Fuzzy finding tool
+    -- Telescope
     { 'nvim-telescope/telescope.nvim', version = '0.1.1', dependencies = { 'nvim-lua/plenary.nvim' }},
     'nvim-telescope/telescope-ui-select.nvim',
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make',
@@ -66,12 +67,25 @@ return require('lazy').setup({
     -- Comments
     'numToStr/Comment.nvim',
 
+    -- Mason
+    'williamboman/mason.nvim',
+    'williamboman/mason-lspconfig.nvim',
+    'jay-babu/mason-null-ls.nvim',
+    'jay-babu/mason-nvim-dap.nvim',
+
     -- LSP
     'williamboman/nvim-lsp-installer',
     'neovim/nvim-lspconfig',
-    'williamboman/mason.nvim',
-    'williamboman/mason-lspconfig.nvim',
-    'folke/neodev.nvim',
+    'folke/neodev.nvim', -- Specialized in lua lsp for nvim development
+
+    -- Formatting
+    { 'jose-elias-alvarez/null-ls.nvim', dependencies = { 'nvim-lua/plenary.nvim' }},
+
+    -- Debugger
+    'mfussenegger/nvim-dap',
+    'rcarriga/nvim-dap-ui',
+    'nvim-telescope/telescope-dap.nvim',
+    'theHamsta/nvim-dap-virtual-text',
 
     -- Completion
     'hrsh7th/nvim-cmp',
@@ -81,11 +95,8 @@ return require('lazy').setup({
     'hrsh7th/cmp-cmdline',
     'chrisgrieser/cmp-nerdfont',
     { 'petertriho/cmp-git', dependencies = { 'nvim-lua/plenary.nvim' }},
+    'saadparwaiz1/cmp_luasnip',
 
     -- Snippet
     'L3MON4D3/LuaSnip',
-    'saadparwaiz1/cmp_luasnip',
-
-    -- Debugger
-    'mfussenegger/nvim-dap',
 })

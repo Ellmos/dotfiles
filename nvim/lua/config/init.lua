@@ -26,11 +26,17 @@ require('nvim-autopairs').setup({ disable_filetype = { 'TelescopePrompt', 'vim' 
 -- Dependecies
 require('nvim-web-devicons').setup()
 
+-- Spell checker
+require('spellsitter').setup()
+
+
 -- Other config file
 require('config/yanky')
+require('config/null_ls')
 require('config/cmp')
 require('config/lsp')
 require('config/treesitter')
 require('config/dashboard')
 require('config/indent-blankline')
 require('config/telescope')
+require('config/dap')

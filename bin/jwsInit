@@ -7,8 +7,8 @@ create()
         exit 1;
     fi
 
-    pkill psql
-    pkill postgres
+    sudo pkill psql
+    sudo kill postgres
     sudo pkill -u postgres
 
     initdb --locale "$LANG" -E UTF8
@@ -23,8 +23,8 @@ create()
 
 delete()
 {
-    pkill psql
-    pkill postgres
+    sudo pkill psql
+    sudo pkill postgres
     sudo pkill -u postgres
     rm -rf ~/postgres_data
 }
