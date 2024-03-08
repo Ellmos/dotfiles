@@ -2,7 +2,7 @@
 xrandr --output DisplayPort-0 --primary
 
 numlockx on
-feh --no-fehbg --bg-fill ~/.config/i3/img/bg/japanNight.png
+feh --no-fehbg --bg-fill ~/.config/i3/img/bg/akihabara_night.jpg
 
 # xinput set-prop "pointer:Logitech G305" "libinput Accel Speed" -0.8
 # xinput set-prop "pointer:DELL0A78:00 04F3:3147 Touchpad" "Coordinate Transformation Matrix" 1, 0, 0, 0, 1, 0, 0, 0, 1.3
