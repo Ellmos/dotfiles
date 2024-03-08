@@ -5,9 +5,6 @@ require("gruvbox").setup({ contrast = "medium" })
 require("lualine").setup({ options = { theme = "nord" } })
 require("bufferline").setup()
 
--- Tree
-require("nvim-tree").setup({ select_prompts = true })
-
 -- Project
 require("project_nvim").setup({ patterns = { ".git", "*.sln" } })
 
@@ -30,6 +27,7 @@ require("nvim-web-devicons").setup()
 require("spellsitter").setup()
 
 -- Other config file
+require("config/tree")
 require("config/yanky")
 require("config/null_ls")
 require("config/cmp")

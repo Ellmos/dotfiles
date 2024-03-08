@@ -36,10 +36,11 @@ return require("lazy").setup({
     "lewis6991/spellsitter.nvim",
 
     -- File explorer
-    { "kyazdani42/nvim-tree.lua",      dependencies = { "kyazdani42/nvim-web-devicons" } },
+    { "kyazdani42/nvim-tree.lua",            dependencies = { "kyazdani42/nvim-web-devicons" } },
+    { "antosha417/nvim-lsp-file-operations", dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-tree.lua" } },
 
     -- Telescope
-    { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
+    { "nvim-telescope/telescope.nvim",       dependencies = { "nvim-lua/plenary.nvim" } },
     "nvim-telescope/telescope-ui-select.nvim",
     {
         "nvim-telescope/telescope-fzf-native.nvim",
