@@ -10,7 +10,7 @@ map("n", "<C-h>", "<C-w>h", "Move to left buffer")
 map("n", "<C-l>", "<C-w>l", "Move to right buffer")
 map("n", "<C-j>", "<C-w>j", "Move to bottom buffer")
 map("n", "<C-k>", "<C-w>k", "Move to top buffer")
--- map('n', '<C-w>', '<Cmd>Bdelete<CR>', 'Close current buffer')
+map("n", "<C-w>", "<Cmd>Bdelete<CR>", "Close current buffer")
 
 -- Resize buffers
 function toggle_fullscreen()
