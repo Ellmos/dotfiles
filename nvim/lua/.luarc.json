@@ -2,7 +2,8 @@
     "diagnostics.globals": [
         "vim",
         "telescope_command",
-        "telescope_root_dir"
+        "telescope_root_dir",
+        "resize"
     ],
     "diagnostics.disable": [
         "different-requires"

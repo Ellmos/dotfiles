@@ -1,7 +1,7 @@
 require("mason-nvim-dap").setup({
     ensure_installed = {
-        "codelldb"
-    }
+        "codelldb",
+    },
 })
 
 local dap = require("dap")
@@ -18,28 +18,28 @@ dap.listeners.before.event_exited["dapui_config"] = function()
 end
 
 dap.adapters.lldb = {
-    type = 'executable',
-    command = '/usr/bin/lldb-vscode',
-    name = 'lldb'
+    type = "executable",
+    command = "/usr/bin/lldb-vscode",
+    name = "lldb",
 }
 dap.configurations.cpp = {
     {
-        name = 'cnn',
-        type = 'lldb',
-        request = 'launch',
-        program = '../cnn',
-        cwd = '${workspaceFolder}',
+        name = "cnn",
+        type = "lldb",
+        request = "launch",
+        program = "cnn",
+        cwd = "${workspaceFolder}",
         stopOnEntry = false,
         args = {},
     },
     {
-        name = 'Prompt',
-        type = 'lldb',
-        request = 'launch',
+        name = "Prompt",
+        type = "lldb",
+        request = "launch",
         program = function()
-            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
         end,
-        cwd = '${workspaceFolder}',
+        cwd = "${workspaceFolder}",
         stopOnEntry = false,
         args = {},
     },
@@ -52,16 +52,16 @@ dapui.setup({
         open = "o",
         remove = "d",
         repl = "r",
-        toggle = "t"
+        toggle = "t",
     },
 })
 
 require("neodev").setup({
     library = {
         plugins = {
-            "nvim-dap-ui"
+            "nvim-dap-ui",
         },
-        types = true
+        types = true,
     },
 })
 

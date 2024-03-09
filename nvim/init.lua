@@ -29,8 +29,9 @@ g.loaded_netrwPlugin = true
 
 vim.cmd("set list listchars=tab:»·,trail:·,eol:$")
 
+-- order important: load plugins, call setup() on all of them, then setup all the keymaps
 require("plugins")
-require("keymaps")
 require("config")
+require("keymaps")
 
 vim.cmd("colorscheme gruvbox")
