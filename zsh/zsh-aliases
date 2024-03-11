@@ -30,8 +30,10 @@ alias gitrm='rm $(git rev-parse --show-toplevel)/.git/index.lock'
 
 alias gdb='gdb -tui'
 alias gdbb='gdb -tui -ex "set env 'LD_LIBRARY_PATH=.'"'
-alias clang='clang-format-epita'
+
 alias gccc='gcc -Wextra -Wall -Werror -Wvla -std=c99 -pedantic -fsanitize=address -g -o main '
+alias g+++='g++ -Wall -Wextra -Werror -pedantic -std=c++20 -Wold-style-cast -fsanitize=address -g -o main'
+alias clang+++='clang++ -Wall -Wextra -Werror -pedantic -std=c++20 -Wold-style-cast -fsanitize=address -g -o main'
 
 alias sqllint='cd $(git rev-parse --show-toplevel); sqlfluff lint; cd -'
 alias sqlfix='cd $(git rev-parse --show-toplevel); sqlfluff fix; cd -'

@@ -21,12 +21,13 @@
             ocaml
             opam
             neovim
-            sqlfluff
 
             ccls
+            cmake-language-server
 
-            bison
-            graphviz
+            # sqlfluff
+            # bison
+            # graphviz
 
             (pkgs.nerdfonts.override { fonts = [ "Hack" ]; })
         ];

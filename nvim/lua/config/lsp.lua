@@ -31,8 +31,9 @@ end
 
 
 local servers = {
+    -- ccls = {},
+    cmake = {},
     clangd = {},
-    ccls = {},
     -- pyright = {},
     -- bashls = {
     --     default_config = {
