@@ -1,15 +1,12 @@
-require('nvim-treesitter.configs').setup({
+require("nvim-treesitter.configs").setup({
     auto_install = true,
     ensure_installed = {
-        'c',
-        'cpp',
-        'c_sharp',
-        'python',
-        'lua',
-        'make',
-        'javascript',
-        'markdown',
-        'bash'
+        "c",
+        "cpp",
+        "python",
+        "lua",
+        "make",
+        "bash",
     },
     sync_install = false,
     indent = { enable = true },
@@ -17,9 +14,9 @@ require('nvim-treesitter.configs').setup({
         enable = true,
         additional_vim_regex_highlighting = false,
     },
-    -- rainbow = {
-    --     enable = true,
-    --     extended_mode = true,
-    --     max_file_lines = nil,
-    -- },
+    rainbow = {
+        enable = true,
+        extended_mode = true,
+        max_file_lines = nil,
+    },
 })
