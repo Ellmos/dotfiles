@@ -68,6 +68,7 @@ return require("lazy").setup({
 
     -- Comments
     { "numToStr/Comment.nvim" },
+    { "folke/todo-comments.nvim",           dependencies = { "nvim-lua/plenary.nvim" } },
 
     -- Mason
     { "williamboman/mason.nvim" },
@@ -101,4 +102,6 @@ return require("lazy").setup({
 
     -- Snippet
     { "L3MON4D3/LuaSnip" },
+
+    { "MrVyM/tiger-lsp-vim" },
 })

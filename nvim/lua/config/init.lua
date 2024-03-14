@@ -26,6 +26,9 @@ require("nvim-web-devicons").setup()
 -- Spell checker
 require("spellsitter").setup()
 
+-- Higlight TODO / FIXME ...
+require("todo-comments").setup()
+
 -- Other config file
 require("config/tree")
 require("config/yanky")
