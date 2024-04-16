@@ -50,12 +50,12 @@ function zsh_add_dir() {
     fi
 }
 
-zsh_add_file "zsh-preload"
+zsh_add_file "preload.zsh"
 zsh_add_dir "lib"
-zsh_add_file "zsh-plugins"
-zsh_add_file "zsh-prompt"
-zsh_add_file "zsh-aliases"
-zsh_add_file "zsh-keymaps" # leave at the end to override any potential keymaps by plugins
-source "$ZDOTDIR/zsh-exports" # personal files to export private token, key ...
+zsh_add_file "plugins.zsh"
+zsh_add_file "prompt.zsh"
+zsh_add_file "aliases.zsh"
+zsh_add_file "keymaps.zsh" # leave at the end to override any potential keymaps by plugins
+source "$ZDOTDIR/exports.zsh"
 
 fastfetch # kekeland
