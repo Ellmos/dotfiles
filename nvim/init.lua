@@ -7,6 +7,7 @@ set.tabstop = 4
 set.shiftwidth = 4
 set.foldmethod = "indent"
 set.foldlevel = 1000
+set.cino:append('N-s')
 
 set.wrap = false
 set.whichwrap:append({ ["<"] = true, [">"] = true, ["["] = true, ["]"] = true })

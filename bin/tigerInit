@@ -1,0 +1,9 @@
+#!/bin/sh
+
+cd
+git clone git@gitlab.cri.epita.fr:hugo.baptista/miau-rawr.git
+cd miau-rawr
+libtoolize
+./bootstrap
+./configure CXXFLAGS='-std=c++20 -O0 -g -fno-inline'
+bear -- make -j10

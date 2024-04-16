@@ -65,8 +65,8 @@ return require("lazy").setup({
 
     -- Mason
     { "williamboman/mason.nvim" },
-    { "williamboman/mason-lspconfig.nvim" },
-    { "jay-babu/mason-null-ls.nvim" },
+    -- { "williamboman/mason-lspconfig.nvim" },
+    -- { "jay-babu/mason-null-ls.nvim" },
     { "jay-babu/mason-nvim-dap.nvim" },
 
     -- LSP
@@ -95,4 +95,6 @@ return require("lazy").setup({
 
     -- Snippet
     { "L3MON4D3/LuaSnip" },
+
+    { "MrVyM/tiger-lsp-vim" },
 })

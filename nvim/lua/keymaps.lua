@@ -47,7 +47,7 @@ map("n", "<leader>,", "<s-a>,<ESC>", 'Add "," at the end of the current line')
 map("n", "<leader>:", "<s-a>:<ESC>", 'Add ":" at the end of the current line')
 
 -- Switch off highlighting
-map("n", "µ", "<Cmd>noh<CR>", "Switch off highlighting")
+map("n", "\"", "<Cmd>noh<CR>", "Switch off highlighting")
 
 -- NvimTree
 map("n", "<leader><Tab>", "<Cmd>NvimTreeToggle<CR>", "Toggle nvim_tree")

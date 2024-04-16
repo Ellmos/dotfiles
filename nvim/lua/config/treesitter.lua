@@ -1,3 +1,11 @@
+-- pov ca mache pas
+local disable_function = function()
+    local buf_name = vim.fn.expand("%")
+    if string.find(buf_name, ".ll") then
+        return true
+    end
+end
+
 require("nvim-treesitter.configs").setup({
     auto_install = true,
     ensure_installed = {
@@ -19,4 +27,5 @@ require("nvim-treesitter.configs").setup({
         extended_mode = true,
         max_file_lines = nil,
     },
+    disable = disable_function()
 })
