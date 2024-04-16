@@ -17,17 +17,10 @@
             picom
             ripgrep
             fd
-            bat
-            ocaml
-            opam
             neovim
 
-            ccls
-            cmake-language-server
-
-            # sqlfluff
-            # bison
-            # graphviz
+            # ccls
+            # cmake-language-server
 
             (pkgs.nerdfonts.override { fonts = [ "Hack" ]; })
         ];
@@ -37,7 +30,8 @@
 
     programs = {
         home-manager.enable = true;
-        command-not-found.enable = true;
+        # command-not-found.enable = true;
+        alacritty = import ./alacritty.nix { inherit pkgs; };
     };
 
     manual = {

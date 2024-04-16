@@ -63,22 +63,3 @@ colors:
     magenta: '#c161cc'
     cyan:    '#2ec8de'
     white:   '#ffffff'
-
-
-selection:
-  save_to_clipboard: false
-
-live_config_reload: true
-
-  #shell:
-  #program: /usr/bin/zsh
-
-key_bindings:
-  - { key: Return, mods: Super, action: SpawnNewInstance }
-  # - { key: Return, mods: Super|Shift, command: { program: "/run/current-system/sw/bin/alacritty", args: ["-c", "/run/current-system/sw/bin/alacritty"] } }
-mouse_bindings:
-  - { mouse: Middle, action: PasteSelection }
-
-# shell:
-#   program: /nix/store/87dpnvj8i0a123zgk2c3n63gcx8ww1xp-zsh-5.9/bin/zsh
-
