@@ -1,68 +1,61 @@
-#!/bin/sh
 export ZDOTDIR=$HOME/.config/zsh
-SAVEHIST=10000
 HISTFILE=~/.zsh_history
-setopt appendhistory
+
 
 # some useful options (man zshoptions)
-setopt autocd extendedglob nomatch menucomplete
-setopt interactive_comments
-stty stop undef     # Disable ctrl-s to freeze terminal.
+setopt appendhistory           # Append new history entries to the history file
+setopt extended_history        # Record the timestamp of each command in the history file
+setopt hist_expire_dups_first  # Delete duplicate commands first when history file size exceeds HISTSIZE
+setopt hist_ignore_dups        # Ignore duplicate commands in the history list
+setopt hist_ignore_space       # Ignore commands that start with a space in the history list
+setopt hist_verify             # Show command with history expansion to the user before running it
+setopt share_history           # Share command history data between multiple shells
+
+setopt auto_cd                 # Automatically change to a directory without using 'cd'
+setopt auto_pushd              # Automatically push directories onto the directory stack after 'cd'
+setopt pushd_ignore_dups       # Ignore duplicates when using 'pushd'
+setopt pushdminus              # Enable 'pushd' behavior to rotate the stack with negative indices
+
+setopt extendedglob            # Enable extended globbing features
+setopt nomatch                 # Do not report error if pattern does not match during filename expansion
+
+setopt menucomplete            # Automatically select the first completion on pressing Tab
+setopt auto_menu               # Show completion menu automatically on successive Tab presses
+setopt complete_in_word        # Allow completion within words
+setopt always_to_end           # Position cursor at the end of the line after completion
+
+setopt multios                 # Enable redirecting output to multiple streams (e.g., echo >file1 >file2)
+setopt long_list_jobs          # Show jobs in a long list format in notifications
+setopt interactivecomments     # Recognize and allow comments in interactive mode
+
+unsetopt BEEP                  # beeping is annoying
+
+stty stop undef                # Disable ctrl-s to freeze terminal.
 zle_highlight=('paste:none')
 
-# beeping is annoying
-unsetopt BEEP
+# Import other config files
+function zsh_add_file() {
+    [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
+}
 
-# completions
-autoload -Uz compinit
-zstyle ':completion:*' menu select
+function zsh_add_dir() {
+    if [ -d "$ZDOTDIR/$1" ]; then
+        for i in $(ls "$ZDOTDIR/$1"); do
+            # if [ "$i" = "completion.zsh" ]; then
+            #     continue
+            # fi
 
-# Git completion
-zstyle ':completion:*:*:git:*' script ~/.config/zsh//git-completion.bash
-fpath=(~/.config/zsh $fpath)
-autoload -Uz compinit && compinit
+            zsh_add_file "$1/$i"
+        done
+    fi
+}
 
-# compinit
-_comp_options+=(globdots)       # Include hidden files.
-
-autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-
-# Colors
-autoload -Uz colors && colors
-
-# Useful Functions
-source "$ZDOTDIR/zsh-functions"
-
-# Normal files to source
+zsh_add_file "zsh-preload"
+zsh_add_dir "lib"
+zsh_add_file "zsh-plugins"
 zsh_add_file "zsh-prompt"
 zsh_add_file "zsh-aliases"
+zsh_add_file "zsh-keymaps" # leave at the end to override any potential keymaps by plugins
+source "$ZDOTDIR/zsh-exports" # personal files to export private token, key ...
 
-# Plugins
-zsh_add_plugin "zsh-users/zsh-autosuggestions"
-zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
-zsh_add_plugin "hlissner/zsh-autopair"
-
-
-# Edit line in vim with ctrl-e:
-autoload edit-command-line; zle -N edit-command-line
-bindkey '^e' edit-command-line
-
-# For QT Themes
-export QT_QPA_PLATFORMTHEME=qt5ct
-
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
-bindkey '^H' backward-kill-word
-bindkey '^[[3;5~' kill-word
-
-
-fpath+=~/.zfunc
-[ -f "/home/elmos/.ghcup/env" ] && source "/home/elmos/.ghcup/env" # ghcup-env
-
-source "$ZDOTDIR/zsh_exports"
-
-# neofetch
-fastfetch
+fastfetch # kekeland

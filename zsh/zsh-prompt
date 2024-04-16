@@ -42,11 +42,6 @@ zstyle ':vcs_info:git:*' formats " %{$fg[blue]%}(%{$fg[red]%}%m%u%c%{$fg[yellow]
 #   fi
 # }
 
-
-# OG prompt
-# PROMPT="%B%{$fg[blue]%}[%{$fg[green]%}%n%{$fg[green]%}@%{$fg[green]%}%m%{$fg[blue]%}] %(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )%{$fg[cyan]%}%c%{$reset_color%}"
-
-
 # Prompt with user@hostname
 # PROMPT="
 # %B%{$fg[blue]%}╭─[%{$fg[green]%}%n@%m%{$fg[blue]%}]-%{$fg[blue]%}[%{$fg[green]%}%~%{$fg[blue]%}]%{$reset_color%}\$vcs_info_msg_0_

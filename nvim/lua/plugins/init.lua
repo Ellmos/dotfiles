@@ -74,7 +74,7 @@ return require("lazy").setup({
     { "williamboman/mason.nvim" },
     { "williamboman/mason-lspconfig.nvim" },
     { "jay-babu/mason-null-ls.nvim" },
-    { "jay-babu/mason-nvim-dap.nvim" },
+    { "jay-babu/mason-nvim-dap.nvim",       dependencies = { "nvim-neotest/nvim-nio" } },
 
     -- LSP
     { "williamboman/nvim-lsp-installer" },

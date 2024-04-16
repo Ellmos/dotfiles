@@ -1,0 +1,21 @@
+export EDITOR="nvim"
+export TERMINAL="alacritty"
+export BROWSER="brave-browser"
+
+
+export MOUNETTE_TOKEN=82V9CocCZus_C77fnx7n
+
+export PGDATA="$HOME/postgres_data"
+export PGHOST="/tmp"
+export DB_USERNAME=elmos
+
+export PATH=$PATH:/usr/lib/postgresql/16/bin:/home/elmos/Documents/dotfiles/bin
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export LLVM_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer
+
+[[ ! -r /home/elmos/.opam/opam-init/init.zsh ]] || source /home/elmos/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
