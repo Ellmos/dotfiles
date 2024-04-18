@@ -1,8 +1,6 @@
 #!/bin/sh
 
-## autoload vcs and colors
 autoload -Uz vcs_info
-autoload -U colors && colors
 
 # enable only git 
 zstyle ':vcs_info:*' enable git 

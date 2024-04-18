@@ -1,9 +1,10 @@
 export ZDOTDIR=$HOME/.config/zsh
 HISTFILE=~/.zsh_history
+SAVEHIST=10000
 
 
 # some useful options (man zshoptions)
-setopt appendhistory           # Append new history entries to the history file
+setopt append_history          # Append new history entries to the history file
 setopt extended_history        # Record the timestamp of each command in the history file
 setopt hist_expire_dups_first  # Delete duplicate commands first when history file size exceeds HISTSIZE
 setopt hist_ignore_dups        # Ignore duplicate commands in the history list
@@ -41,10 +42,6 @@ function zsh_add_file() {
 function zsh_add_dir() {
     if [ -d "$ZDOTDIR/$1" ]; then
         for i in $(ls "$ZDOTDIR/$1"); do
-            # if [ "$i" = "completion.zsh" ]; then
-            #     continue
-            # fi
-
             zsh_add_file "$1/$i"
         done
     fi
@@ -52,8 +49,8 @@ function zsh_add_dir() {
 
 zsh_add_file "preload.zsh"
 zsh_add_dir "lib"
+zsh_add_dir "utils"
 zsh_add_file "plugins.zsh"
-zsh_add_file "prompt.zsh"
 zsh_add_file "aliases.zsh"
 zsh_add_file "keymaps.zsh" # leave at the end to override any potential keymaps by plugins
 source "$ZDOTDIR/exports.zsh"

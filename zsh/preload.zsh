@@ -1,8 +1,8 @@
-autoload -Uz colors && colors
+autoload -U colors && colors
 
 # completions
 zstyle ':completion:*' menu select
-autoload -Uz compinit && compinit
+autoload -U compinit && compinit
 
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
