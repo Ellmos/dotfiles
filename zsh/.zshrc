@@ -1,5 +1,6 @@
 export ZDOTDIR=$HOME/.config/zsh
-HISTFILE=~/.zsh_history
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=50000
 SAVEHIST=10000
 
 

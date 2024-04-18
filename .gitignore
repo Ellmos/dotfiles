@@ -1,13 +1,8 @@
 backupDotfiles
-
 .cache
+*.bak
+
 
 lazy-lock.json
 .luarc.json
 
-*.bak
-
-.zcompdump*
-.zcompcache
-.zsh_history
-private.zsh

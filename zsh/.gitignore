@@ -1,8 +1,4 @@
-.zcompdump
-
-_git
-git-completion.bash
-
-plugins/*
-
-
+.zcompdump*
+.zcompcache
+.zsh_history
+private.zsh

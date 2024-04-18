@@ -104,4 +104,13 @@ return require("lazy").setup({
     { "L3MON4D3/LuaSnip" },
 
     { "MrVyM/tiger-lsp-vim" },
+
+    {
+        "iamcco/markdown-preview.nvim",
+        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+        ft = { "markdown" },
+        build = function()
+            vim.fn["mkdp#util#install"]()
+        end,
+    },
 })
