@@ -5,6 +5,4 @@ private.zsh
 
 zsh-autopair
 zsh-autosuggestions
-zsh-colored-man-pages
-zsh-history-substring-search
 zsh-syntax-highlighting

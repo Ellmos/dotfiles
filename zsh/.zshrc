@@ -50,7 +50,6 @@ function zsh_add_dir() {
 
 zsh_add_file "preload.zsh"
 zsh_add_dir "lib"
-zsh_add_dir "utils"
 zsh_add_file "plugins.zsh"
 zsh_add_file "aliases.zsh"
 zsh_add_file "keymaps.zsh" # leave at the end to override any potential keymaps by plugins
