@@ -11,12 +11,11 @@ export EDITOR="nvim"
 export TERMINAL="alacritty"
 export BROWSER="brave-browser"
 
-export MOUNETTE_TOKEN=82V9CocCZus_C77fnx7n
-
 add_to_path "/usr/lib/postgresql/16/bin"
 export PGDATA="$HOME/postgres_data"
 export PGHOST="/tmp"
 export DB_USERNAME=elmos
+export USERNAME="romain.doulaud"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

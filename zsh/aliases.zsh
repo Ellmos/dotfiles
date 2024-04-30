@@ -8,7 +8,7 @@ alias ll='ls -l --color=auto'
 alias grep='grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox}'
 alias tree='tree -C'
 alias c='clear'
-alias cat='batcat'
+alias cat='bat'
 
 alias nv='nvim'
 alias vim='nvim'
