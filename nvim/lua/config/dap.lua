@@ -33,6 +33,15 @@ dap.configurations.cpp = {
         args = {},
     },
     {
+        name = "scrooge",
+        type = "lldb",
+        request = "launch",
+        program = "build/scrooge",
+        cwd = "${workspaceFolder}",
+        stopOnEntry = false,
+        args = {},
+    },
+    {
         name = "Prompt",
         type = "lldb",
         request = "launch",
