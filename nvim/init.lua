@@ -27,7 +27,7 @@ local g = vim.g
 g.loaded_netrw = true
 g.loaded_netrwPlugin = true
 
-vim.cmd("set list listchars=tab:»·,trail:·,eol:$")
+-- vim.cmd("set list listchars=tab:»·,trail:·,eol:$")
 
 -- order important: load plugins, call setup() on all of them, then setup all the keymaps
 require("plugins")

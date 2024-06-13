@@ -1,6 +1,4 @@
 #!/bin/sh
 
 kinit -f romain.doulaud@CRI.EPITA.FR
-sshfs -o reconnect romain.doulaud@ssh.cri.epita.fr:/afs/cri.epita.fr/user/r/ro/romain.doulaud/u/ /home/elmos/Desktop/sandbox/afs
-
-cd /home/elmos/Desktop/sandbox/afs
+sudo sshfs -o reconnect romain.doulaud@ssh.cri.epita.fr:/afs/cri.epita.fr/user/r/ro/romain.doulaud/u/ /home/elmos/Desktop/afs/afs

@@ -74,4 +74,5 @@ require("neodev").setup({
     },
 })
 
+require("dap-python").setup("~/.virtualenvs/debugpy/bin/python")
 require("nvim-dap-virtual-text").setup()

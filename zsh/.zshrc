@@ -57,3 +57,12 @@ zsh_add_file "keymaps.zsh" # leave at the end to override any potential keymaps 
 source "$ZDOTDIR/exports.zsh"
 
 fastfetch # kekeland
+
+# >>> juliaup initialize >>>
+
+# !! Contents within this block are managed by juliaup !!
+
+path=('/home/elmos/.juliaup/bin' $path)
+export PATH
+
+# <<< juliaup initialize <<<

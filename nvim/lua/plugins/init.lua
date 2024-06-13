@@ -36,7 +36,7 @@ return require("lazy").setup({
     { "lewis6991/spellsitter.nvim" },
 
     -- File explorer
-    { "kyazdani42/nvim-tree.lua",               dependencies = { "kyazdani42/nvim-web-devicons" } },
+    { "nvim-tree/nvim-tree.lua",                dependencies = { "kyazdani42/nvim-web-devicons" } },
     { "antosha417/nvim-lsp-file-operations",    dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-tree.lua" } },
 
     -- Telescope
@@ -89,6 +89,7 @@ return require("lazy").setup({
     { "rcarriga/nvim-dap-ui" },
     { "nvim-telescope/telescope-dap.nvim" },
     { "theHamsta/nvim-dap-virtual-text" },
+    { "mfussenegger/nvim-dap-python" },
 
     -- Completion
     { "hrsh7th/nvim-cmp" },
@@ -98,7 +99,7 @@ return require("lazy").setup({
     { "hrsh7th/cmp-cmdline" },
     { "chrisgrieser/cmp-nerdfont" },
     { "petertriho/cmp-git",                 dependencies = { "nvim-lua/plenary.nvim" } },
-    { "saadparwaiz1/cmp_luasnip" },
+    { "saadparwaiz1/cmp_luasnip",           build = "make install_jsregexp" },
 
     -- Snippet
     { "L3MON4D3/LuaSnip" },

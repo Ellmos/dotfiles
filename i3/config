@@ -48,9 +48,7 @@ bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +2%
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 2%-
 
 # Bynding PrintScrenn key 
-bindsym Print exec --no-startup-id maim -o | xclip -selection clipboard -t image/png
-bindsym Ctrl+Print exec --no-startup-id maim -o --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
-bindsym Shift+Print exec --no-startup-id maim -o --select | xclip -selection clipboard -t image/png
+bindsym Print exec --no-startup-id flameshot gui
 
 # Run a script on startup
 exec --no-startup-id "bash ~/.config/i3/scripts/startup.sh"
