@@ -1,0 +1,11 @@
+#!/bin/sh
+
+params="-speed 50"
+if [ "$#" -gt 0 ]; then
+    params="$*"
+fi
+
+oneko $params -neko -position +0+42 & # down
+oneko $params -neko -position +0-12 & # up
+oneko $params -tora -position +30+12 & # right
+oneko $params -tora -position -30+12 & # left

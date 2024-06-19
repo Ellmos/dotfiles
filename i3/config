@@ -51,6 +51,9 @@ exec --no-startup-id alacritty -e sh ~/.config/i3/scripts/start.sh
 # Enable NumLock on startup
 exec --no-startup-id numlockx on
 
+# Bynding PrintScrenn key 
+bindsym Print exec --no-startup-id flameshot gui
+
 bindsym $mod+p exec --no-startup-id "bash ~/.config/i3/scripts/dodo.sh"
 
 bindsym $mod+b exec --no-startup-id firefox

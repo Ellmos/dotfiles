@@ -70,9 +70,14 @@ return require("lazy").setup({
     { "jay-babu/mason-nvim-dap.nvim" },
 
     -- LSP
-    { "williamboman/nvim-lsp-installer" },
     { "neovim/nvim-lspconfig" },
     { "folke/neodev.nvim" }, -- Specialized in lua lsp for nvim development
+
+    -- Mason
+    { "williamboman/mason.nvim" },
+    { "williamboman/mason-lspconfig.nvim" },
+    { "jay-babu/mason-null-ls.nvim" },
+    { "jay-babu/mason-nvim-dap.nvim",       dependencies = { "nvim-neotest/nvim-nio" } },
 
     -- Formatting
     { "jose-elias-alvarez/null-ls.nvim",    dependencies = { "nvim-lua/plenary.nvim" } },

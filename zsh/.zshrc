@@ -56,4 +56,6 @@ zsh_add_file "keymaps.zsh" # leave at the end to override any potential keymaps 
 source "$ZDOTDIR/exports.zsh"
 source "$ZDOTDIR/private.zsh"
 
+
+echo "confloose L"
 # fastfetch # kekeland

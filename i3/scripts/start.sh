@@ -10,16 +10,15 @@ CHANGE_BG()
 }
 
 
-#ask to install config
 sed -i '/which zsh/d' ~/.bashrc
 rm -f ~/.config/alacritty
 
+#ask to install config
 read -r -p "Wanna install da config buddy [y/n]" response
 response=${response,,}
 if [[ ! $response =~ ^(yes|y| ) ]] && [[ ! -z $response ]]; then
     exit 0;
 fi
-# sh ~/.config/i3/start.sh 
 
 
 #install config
@@ -28,7 +27,7 @@ fi
 echo "[ \$(which zsh) ] && export SHELL=\`which zsh\` && exec \"\$SHELL\" -l" >> ~/.bashrc
 ln -s ~/afs/dotfiles/alacritty ~/.config/alacritty
 
-if [ ! $(which home-manager) ]; then
+if [ ! "$(which home-manager)" ]; then
     CHANGE_BG
     nix-channel --add https://github.com/nix-community/home-manager/archive/release-23.05.tar.gz home-manager
     nix-channel --add https://github.com/nixos/nixpkgs/archive/refs/tags/23.05.tar.gz nixpkgs
@@ -40,10 +39,18 @@ if [ ! $(which home-manager) ]; then
 fi
 
 
-# Installing nvim / packer / packages
 CHANGE_BG
 #nix-env -iA nixpkgs.neovim
-nvim --headless 2> /dev/null &
+nvim --headless &> /dev/null &
+
+# fix lua-language-server
+# sed -i '/exec/d' /home/romain.doulaud/.local/share/nvim/mason/bin/lua-language-server
+# echo 'exec "/home/romain.doulaud/.nix-profile/bin/lua-language-server" "$@"' >> /home/romain.doulaud/.local/share/nvim/mason/bin/lua-language-server
+
+#fix clangd
+# mv /home/romain.doulaud/.local/share/nvim/mason/bin/clangd /home/romain.doulaud/.local/share/nvim/mason/bin/clangd2
+# ln -s /home/romain.doulaud/.nix-profile/bin/clangd /home/romain.doulaud/.local/share/nvim/mason/bin/clangd
+
 
 CHANGE_BG
 xset r rate 250

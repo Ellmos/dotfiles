@@ -1,17 +1,22 @@
 #!/bin/sh
 
-check_error()
-{
-    if [ $? -ne 0 ]; then 
-        echo $1
-        exit 1;
-    fi
-}
 
 if [ $# -ne 1 ]; then
     echo "one argument required"
     exit 1;
 fi
+
+
+check_error()
+{
+    if [ $? -ne 0 ]; then 
+        echo "$1"
+        exit 1;
+    fi
+}
+
+! git tag | grep "$1"
+check_error "tag already exists"
 
 git commit -m "$1"
 check_error "failed to commit"
