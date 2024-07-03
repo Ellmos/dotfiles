@@ -30,6 +30,7 @@ return require("lazy").setup({
 
     -- Highlighting
     { "nvim-treesitter/nvim-treesitter",        build = ":TSUpdate" },
+    { "windwp/nvim-ts-autotag" },
 
     -- File explorer
     { "kyazdani42/nvim-tree.lua",               dependencies = { "kyazdani42/nvim-web-devicons" } },
@@ -102,4 +103,6 @@ return require("lazy").setup({
     { "L3MON4D3/LuaSnip" },
 
     { "MrVyM/tiger-lsp-vim" },
+
+    { "f-person/git-blame.nvim" },
 })

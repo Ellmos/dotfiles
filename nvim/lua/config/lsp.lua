@@ -31,6 +31,7 @@ local servers = {
     pyright = {},
     tsserver = {},
     html = {},
+    cssls = {},
     jsonls = {},
     jdtls = {},
     bashls = {
@@ -49,7 +50,6 @@ local servers = {
         --     },
         -- },
     },
-    -- hls = {}, -- In Mason: haskell-language-server
 }
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers

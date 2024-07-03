@@ -21,6 +21,7 @@ require("nvim-autopairs").setup({ disable_filetype = { "TelescopePrompt", "vim" 
 require("nvim-web-devicons").setup()
 
 -- Other config file
+require("config/git_blame")
 require("config/tree")
 require("config/yanky")
 -- require("config/null_ls")

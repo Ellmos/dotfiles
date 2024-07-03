@@ -29,3 +29,4 @@ require("nvim-treesitter.configs").setup({
     },
     disable = disable_function()
 })
+require('nvim-ts-autotag').setup()
