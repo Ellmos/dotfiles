@@ -31,9 +31,16 @@ return require("lazy").setup({
     { "akinsho/bufferline.nvim",                dependencies = { "kyazdani42/nvim-web-devicons" } },
     { "famiu/bufdelete.nvim" },
 
+    -- Terminal
+    -- {
+    --     "akinsho/toggleterm.nvim",
+    --     version = "*",
+    --     config = true,
+    -- },
+
     -- Highlighting
     { "nvim-treesitter/nvim-treesitter",        build = ":TSUpdate" },
-    { "lewis6991/spellsitter.nvim" },
+    { "windwp/nvim-ts-autotag" },
 
     -- File explorer
     { "nvim-tree/nvim-tree.lua",                dependencies = { "kyazdani42/nvim-web-devicons" } },

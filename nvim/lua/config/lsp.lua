@@ -28,13 +28,15 @@ end
 
 local servers = {
     clangd = {},
+    asm_lsp = {},
     pyright = {},
-    tsserver = {},
-    rust_analyzer = {},
     html = {},
+    tsserver = {},
+    cssls = {},
     jsonls = {},
-    -- csharp_ls = {},
     jdtls = {},
+    rust_analyzer = {},
+    -- csharp_ls = {},
     bashls = {
         default_config = {
             cmd = { "bash-language-server", "start" },

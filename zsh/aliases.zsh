@@ -23,7 +23,9 @@ alias gp='git push'
 alias gpt='git push --follow-tags'
 alias gs='git status'
 alias gl='git log'
-alias glog="git log --all --decorate --graph --oneline"
+alias glp='git log -p'
+alias glog='git log --all --decorate --graph --oneline'
+alias gd='git diff'
 alias clangf='find $(git rev-parse --show-toplevel) -name "*.h" -o -name "*.c" -o -name "*.hh" -o -name "*.cc" -o -name "*.hxx"  | xargs clang-format -i'
 
 alias gccc='gcc -Wextra -Wall -Werror -Wvla -std=c99 -pedantic -fsanitize=address -g -o main '
@@ -31,22 +33,12 @@ alias g+++='g++ -Wall -Wextra -Werror -pedantic -std=c++20 -Wold-style-cast -fsa
 alias clang+++='clang++ -Wall -Wextra -Werror -pedantic -std=c++20 -Wold-style-cast -fsanitize=address -g -o main '
 
 
-alias banquise='sudo tailscale up && sudo swanctl -q && sudo swanctl -i --child banquise'
-alias bluetooth='sudo hciconfig hci0 down && sudo rmmod btusb && sudo modprobe btusb && sudo hciconfig hci0 up && sudo bluetoothctl'
-
 alias change-output='bash ~/.config/i3/scripts/change-output.sh'
 
 alias py='python3.11'
-alias up='nmcli con up'
 
 alias delete-log='sudo find /var/log -mtime +30 -type f -delete'
 
-alias myfind='~/Desktop/ing1/myfind/myfind/myfind'
-alias 42sh='~/Desktop/ing1/42sh/69sh/src/42sh'
-
 alias reload='source ~/.zshrc'
 
-alias 69='cd ~/Desktop/ing1/42sh/69sh'
-
 alias make='make -j'
-alias tc="/home/elmos/Desktop/ing1/tiger/miau-rawr/src/tc"

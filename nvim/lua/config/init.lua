@@ -23,9 +23,6 @@ require("nvim-autopairs").setup({ disable_filetype = { "TelescopePrompt", "vim" 
 -- Dependecies
 require("nvim-web-devicons").setup()
 
--- Spell checker
-require("spellsitter").setup()
-
 -- Higlight TODO / FIXME ...
 require("todo-comments").setup()
 
