@@ -2,3 +2,5 @@
 .zcompcache
 .zsh_history
 private.zsh
+
+plugins/git

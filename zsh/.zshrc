@@ -36,33 +36,23 @@ stty stop undef                # Disable ctrl-s to freeze terminal.
 zle_highlight=('paste:none')
 
 # Import other config files
-function zsh_add_file() {
+function add_file() {
     [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
 }
 
-function zsh_add_dir() {
+function add_dir() {
     if [ -d "$ZDOTDIR/$1" ]; then
         for i in $(ls "$ZDOTDIR/$1"); do
-            zsh_add_file "$1/$i"
+            add_file "$1/$i"
         done
     fi
 }
 
-zsh_add_file "preload.zsh"
-zsh_add_dir "lib"
-zsh_add_dir "utils"
-zsh_add_file "plugins.zsh"
-zsh_add_file "aliases.zsh"
-zsh_add_file "keymaps.zsh" # leave at the end to override any potential keymaps by plugins
+add_file "preload.zsh"
+add_dir "lib"
+add_file "plugins.zsh"
+add_file "aliases.zsh"
+add_file "keymaps.zsh" # leave at the end to override any potential keymaps by plugins
 source "$ZDOTDIR/exports.zsh"
 
 fastfetch # kekeland
-
-# >>> juliaup initialize >>>
-
-# !! Contents within this block are managed by juliaup !!
-
-path=('/home/elmos/.juliaup/bin' $path)
-export PATH
-
-# <<< juliaup initialize <<<

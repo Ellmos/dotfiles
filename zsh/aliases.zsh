@@ -8,7 +8,7 @@ alias ll='ls -l --color=auto'
 alias grep='grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox}'
 alias tree='tree -C'
 alias c='clear'
-alias cat='batcat'
+alias cat='bat'
 
 alias nv='nvim'
 alias vim='nvim'
@@ -35,7 +35,7 @@ alias clang+++='clang++ -Wall -Wextra -Werror -pedantic -std=c++20 -Wold-style-c
 
 alias change-output='bash ~/.config/i3/scripts/change-output.sh'
 
-alias py='python3.11'
+alias py='python3'
 
 alias delete-log='sudo find /var/log -mtime +30 -type f -delete'
 
