@@ -52,7 +52,7 @@ require("dashboard").setup({
         },
     },
     preview = {
-        command = "cat | lolcat -F 0.3",
+        command = "lolcat",
         file_path = home .. "/.config/nvim/lua/config/startimage.cat",
         file_height = 10,
         file_width = 43,

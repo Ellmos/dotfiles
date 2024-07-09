@@ -28,7 +28,6 @@ end
 
 local servers = {
     clangd = {},
-    asm_lsp = {},
     pyright = {},
     html = {},
     tsserver = {},

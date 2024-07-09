@@ -69,16 +69,16 @@ map("n", "<F7>", "<Cmd>DapStepInto<CR>", "Dap step into")
 map("n", "<F31>", "<Cmd>DapStepOut<CR>", "Ctrl+F7: Dap step out")
 
 -------------------Smooth Scrolling------------------
-map({ "n", "v" }, "<S-j>", "<Cmd>lua Scroll('<C-d>', 1, 1)<CR>", "Scroll cursor down")
-map({ "n", "v" }, "<S-k>", "<Cmd>lua Scroll('<C-u>', 1, 1)<CR>", "Scroll cursor down")
+map({ "n", "v" }, "<S-j>", "<Cmd>lua require('cinnamon').scroll('<C-D>')<CR>", "Scroll cursor down")
+map({ "n", "v" }, "<S-k>", "<Cmd>lua require('cinnamon').scroll('<C-U>')<CR>", "Scroll cursor down")
 map({ "n", "v" }, "<S-h>", "b", "Fast movement left")
 map({ "n", "v" }, "<S-l>", "w", "Fast movement right")
 
-map({ "n", "v" }, "zz", "<Cmd>lua Scroll('zz', 0, 1)<CR>", "Center window on cusror")
-map({ "n", "v" }, "zj", "<Cmd>lua Scroll('zt', 0, 1)<CR>", "Scroll window down")
-map({ "n", "v" }, "zk", "<Cmd>lua Scroll('zb', 0, 1)<CR>", "Scroll window up")
-map({ "n", "v" }, "zh", "<Cmd>lua Scroll('zH')<CR>", "Scroll window left")
-map({ "n", "v" }, "zl", "<Cmd>lua Scroll('zL')<CR>", "Scroll window right")
+map({ "n", "v" }, "zz", "<Cmd>lua require('cinnamon').scroll('zz')<CR>", "Center window on cusror")
+map({ "n", "v" }, "zj", "<Cmd>lua require('cinnamon').scroll('zt')<CR>", "Scroll window down")
+map({ "n", "v" }, "zk", "<Cmd>lua require('cinnamon').scroll('zb')<CR>", "Scroll window up")
+map({ "n", "v" }, "zh", "<Cmd>lua require('cinnamon').scroll('zH')<CR>", "Scroll window left")
+map({ "n", "v" }, "zl", "<Cmd>lua require('cinnamon').scroll('zL')<CR>", "Scroll window right")
 
 -------------------Telescope------------------
 function telescope_root_dir(command)

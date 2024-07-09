@@ -9,10 +9,17 @@ require("bufferline").setup()
 require("project_nvim").setup({ patterns = { ".git", "*.sln" } })
 
 -- Code commenting
-require("Comment").setup()
+require("Comment").setup({ ignore = "^$" })
 
 -- Smooth scroll
-require("cinnamon").setup({ default_delay = 6, override_keymaps = true })
+require("cinnamon").setup({
+    keymaps = {
+        basic = true,
+    },
+    options = {
+        delay = 6,
+    },
+})
 
 -- Code folding
 require("fold-cycle").setup({ open_if_max_closed = false, close_if_max_opened = false })
