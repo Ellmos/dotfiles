@@ -17,7 +17,7 @@ require("cinnamon").setup({
         basic = true,
     },
     options = {
-        delay = 6,
+        delay = 5,
     },
 })
 

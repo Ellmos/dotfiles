@@ -4,6 +4,8 @@ end
 
 -------------------Utils------------------
 map("i", "<M-BS>", "<C-w>", "Delete previous word")
+map("i", "<C-BS>", "<C-w>", "Delete previous word")
+map({ "n", "v", "i" }, "<C-S>", "<Cmd>w<CR>", "Save")
 
 -- Move through buffers
 map("n", "<C-h>", "<C-w>h", "Move to left buffer")
@@ -37,7 +39,6 @@ map("n", "<S-TAB>", "<Cmd>BufferLineCyclePrev<CR>", "Move to previous buffer")
 -- Move lines with alt key
 map("n", "<A-j>", ":m +1<CR>==", "Move the current line one downward")
 map("n", "<A-k>", ":m -2<CR>==", "Move the current line one upward")
-
 map("v", "<A-j>", ":m '>+1<CR>gv=gv", "move the selected lines one downward")
 map("v", "<A-k>", ":m '<-2<CR>gv=gv", "move the selected line one upward")
 
@@ -55,8 +56,8 @@ map("n", "<leader><Tab>", "<Cmd>NvimTreeToggle<CR>", "Toggle nvim_tree")
 -- Folder
 map("n", "<leader><CR>", '<Cmd>lua require("fold-cycle").open()<CR>', "Open folder")
 map("n", "<leader><BS>", '<Cmd>lua require("fold-cycle").close()<CR>', "Close folder")
-map("n", "<leader>a<CR>", '<Cmd>lua require("fold-cycle").open_all()<CR>', "Open all folders")
-map("n", "<leader>a<BS>", '<Cmd>lua require("fold-cycle").close_all()<CR>', "Close all folders")
+map("n", "<C-m><C-l>", '<Cmd>lua require("fold-cycle").open_all()<CR>', "Open all folders")
+map("n", "<C-m><C-o>", '<Cmd>lua require("fold-cycle").close_all()<CR>', "Close all folders")
 
 -------------------DAP------------------
 map("n", "<leader>b", "<Cmd>DapToggleBreakpoint<CR>", "Toggle [B]reakpoint")
@@ -101,64 +102,19 @@ map("n", "<leader>fd", "<Cmd>Telescope diagnostics<CR>", "[F]ind [D]iagnostics")
 map("n", "<leader>fh", "<Cmd>Telescope help_tags<CR>", "[F]ind [H]elp")
 
 -------------------Yanky------------------
-map({ "n", "v" }, "y", "<Plug>(YankyYank)", "Yank text")
-map({ "n", "v" }, "p", "<Plug>(YankyPutAfter)", "Put yanked text after cursor")
-map({ "n", "v" }, "P", "<Plug>(YankyPutBefore)", "Put yanked text before cursor")
-map({ "n", "v" }, "<A-p>", "<Plug>(YankyPreviousEntry)", "Select previous entry through yank history")
-map({ "n", "v" }, "<A-n>", "<Plug>(YankyNextEntry)", "Select next entry through yank history")
-map(
-    { "n", "v" },
-    "<leader>p",
-    '<Cmd>lua require("telescope").extensions.yank_history.yank_history()<CR>',
-    "Open Yank History"
-)
+map("n", "y", "<Plug>(YankyYank)", "Yank text")
+map("n", "p", "<Plug>(YankyPutAfter)", "Put yanked text after cursor")
+map("n", "P", "<Plug>(YankyPutBefore)", "Put yanked text before cursor")
+map("n", "<A-p>", "<Plug>(YankyPreviousEntry)", "Select previous entry through yank history")
+map("n", "<A-n>", "<Plug>(YankyNextEntry)", "Select next entry through yank history")
+map("n", "<leader>p", '<Cmd>lua require("telescope").extensions.yank_history.yank_history()<CR>', "Open Yank History")
 
--------------------Commmenting------------------
-local api = require("Comment.api")
-local commentMap = vim.keymap.set
-local esc = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
+-- -------------------Commmenting------------------
+function visual_comment()
+    local esc = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
+    vim.api.nvim_feedkeys(esc, "nx", false)
+    require("Comment.api").locked("toggle.linewise")(vim.fn.visualmode())
+end
 
--- Commenting/Uncommenting single line
-commentMap(
-    "n",
-    "<leader>cc",
-    api.call("comment.linewise.current", "g@$"),
-    { expr = true, desc = "Comment current line" }
-)
-commentMap(
-    "n",
-    "<leader>CC",
-    api.call("uncomment.linewise.current", "g@$"),
-    { expr = true, desc = "Uncomment current line" }
-)
-commentMap(
-    "n",
-    "<leader>cb",
-    api.call("comment.blockwise.current", "g@$"),
-    { expr = true, desc = "Comment current block" }
-)
-commentMap(
-    "n",
-    "<leader>CB",
-    api.call("uncomment.blockwise.current", "g@$"),
-    { expr = true, desc = "Uncomment current block" }
-)
-
--- Commenting/Uncommenting multiple lines
-commentMap("x", "<leader>cc", function()
-    vim.api.nvim_feedkeys(esc, "nx", false)
-    api.locked("comment.linewise")(vim.fn.visualmode())
-end, { desc = "Comment region linewise (visual)" })
-commentMap("x", "<leader>CC", function()
-    vim.api.nvim_feedkeys(esc, "nx", false)
-    api.locked("uncomment.linewise")(vim.fn.visualmode())
-end, { desc = "Uncomment region linewise (visual)" })
-
-commentMap("x", "<leader>cb", function()
-    vim.api.nvim_feedkeys(esc, "nx", false)
-    api.locked("comment.blockwise")(vim.fn.visualmode())
-end, { desc = "Comment region blockwise (visual)" })
-commentMap("x", "<leader>CB", function()
-    vim.api.nvim_feedkeys(esc, "nx", false)
-    api.locked("uncomment.blockwise")(vim.fn.visualmode())
-end, { desc = "Uncomment region blockwise (visual)" })
+map("n", "<C-:>", "<Cmd>lua require('Comment.api').toggle.linewise.current()<CR>", "Toggle comment on current line")
+map("v", "<C-:>", "<Cmd>lua visual_comment()<CR>", "Toggle comments on selected lines")
