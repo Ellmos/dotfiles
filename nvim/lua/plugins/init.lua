@@ -16,38 +16,36 @@ vim.g.maplocalleader = " "
 
 -- https://github.com/folke/noice.nvim
 -- https://github.com/rcarriga/nvim-notify
+-- https://github.com/anuvyklack/hydra.nvim
 return require("lazy").setup({
+    -- Global dependencies needed by lots of packages
+    { "nvim-tree/nvim-web-devicons" },
+    { "nvim-lua/plenary.nvim" },
+
     -- ColorScheme
     { "ellisonleao/gruvbox.nvim" },
 
     -- Dashboard
-    { "glepnir/dashboard-nvim",                 dependencies = { "kyazdani42/nvim-web-devicons" } },
+    { "glepnir/dashboard-nvim" },
 
     -- Project manager
     { "ahmedkhalf/project.nvim" },
 
     -- Buffers
-    { "nvim-lualine/lualine.nvim",              dependencies = { "kyazdani42/nvim-web-devicons" } },
-    { "akinsho/bufferline.nvim",                dependencies = { "kyazdani42/nvim-web-devicons" } },
+    { "willothy/nvim-cokeline",                 dependencies = { "stevearc/resession.nvim" } },
+    { "nvim-lualine/lualine.nvim" },
     { "famiu/bufdelete.nvim" },
-
-    -- Terminal
-    -- {
-    --     "akinsho/toggleterm.nvim",
-    --     version = "*",
-    --     config = true,
-    -- },
+    { "bloznelis/before.nvim" },
 
     -- Highlighting
     { "nvim-treesitter/nvim-treesitter",        build = ":TSUpdate" },
-    { "windwp/nvim-ts-autotag" },
 
     -- File explorer
-    { "nvim-tree/nvim-tree.lua",                dependencies = { "kyazdani42/nvim-web-devicons" } },
-    { "antosha417/nvim-lsp-file-operations",    dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-tree.lua" } },
+    { "nvim-tree/nvim-tree.lua" },
+    { "antosha417/nvim-lsp-file-operations" },
 
     -- Telescope
-    { "nvim-telescope/telescope.nvim",          dependencies = { "nvim-lua/plenary.nvim" } },
+    { "nvim-telescope/telescope.nvim" },
     { "nvim-telescope/telescope-ui-select.nvim" },
     {
         "nvim-telescope/telescope-fzf-native.nvim",
@@ -56,13 +54,15 @@ return require("lazy").setup({
             return vim.fn.executable("make") == 1
         end,
     },
+
     -- Utils
     { "lukas-reineke/indent-blankline.nvim" },
     { "windwp/nvim-autopairs" },
+    { "windwp/nvim-ts-autotag" },
+    { "jghauser/mkdir.nvim" },
 
     -- Yanking
     { "gbprod/yanky.nvim",                  dependencies = { "kkharji/sqlite.lua" } },
-    { "chrisgrieser/cmp_yanky" },
 
     -- Smooth scrolling
     { "declancm/cinnamon.nvim" },
@@ -74,8 +74,7 @@ return require("lazy").setup({
     { "mg979/vim-visual-multi" },
 
     -- Comments
-    { "numToStr/Comment.nvim" },
-    { "folke/todo-comments.nvim",           dependencies = { "nvim-lua/plenary.nvim" } },
+    { "folke/todo-comments.nvim" },
 
     -- Mason
     { "williamboman/mason.nvim" },
@@ -89,7 +88,7 @@ return require("lazy").setup({
     { "folke/neodev.nvim" }, -- Specialized in lua lsp for nvim development
 
     -- Formatting
-    { "jose-elias-alvarez/null-ls.nvim",    dependencies = { "nvim-lua/plenary.nvim" } },
+    { "jose-elias-alvarez/null-ls.nvim" },
 
     -- Debugger
     { "mfussenegger/nvim-dap" },
@@ -104,21 +103,45 @@ return require("lazy").setup({
     { "hrsh7th/cmp-buffer" },
     { "hrsh7th/cmp-path" },
     { "hrsh7th/cmp-cmdline" },
+    { "hrsh7th/cmp-nvim-lsp-signature-help" },
     { "chrisgrieser/cmp-nerdfont" },
-    { "petertriho/cmp-git",                 dependencies = { "nvim-lua/plenary.nvim" } },
-    { "saadparwaiz1/cmp_luasnip",           build = "make install_jsregexp" },
+    { "petertriho/cmp-git" },
+    { "saadparwaiz1/cmp_luasnip" },
+    { "chrisgrieser/cmp_yanky" },
+
+    -- Copilot
+    -- { "github/copilot.vim" },
 
     -- Snippet
-    { "L3MON4D3/LuaSnip" },
+    { "L3MON4D3/LuaSnip",                   build = "make install_jsregexp" },
 
-    { "MrVyM/tiger-lsp-vim" },
-
+    -- Markdown Preview
     {
         "iamcco/markdown-preview.nvim",
         cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
         ft = { "markdown" },
-        build = function()
-            vim.fn["mkdp#util#install"]()
+        build = function(plugin)
+            if vim.fn.executable("npx") then
+                vim.cmd("!cd " .. plugin.dir .. " && cd app && npx --yes yarn install")
+            else
+                vim.cmd([[Lazy load markdown-preview.nvim]])
+                vim.fn["mkdp#util#install"]()
+            end
+        end,
+        init = function()
+            if vim.fn.executable("npx") then
+                vim.g.mkdp_filetypes = { "markdown" }
+            end
         end,
     },
+
+    -- Typescript
+    { "dmmulroy/ts-error-translator.nvim" },
+    { "dmmulroy/tsc.nvim" },
+
+    -- Java
+    { 'nvim-java/nvim-java' },
+
+    -- Git
+    { "lewis6991/gitsigns.nvim" }
 })

@@ -20,10 +20,33 @@ cmp.setup({
         end,
     },
     mapping = {
-        ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-        ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-        ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-        ["<C-e>"] = cmp.mapping.close(),
+        ["<C-k>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.mapping.scroll_docs(-4)
+            elseif vim.fn["copilot#GetDisplayedSuggestion"]().text ~= "" then
+                vim.api.nvim_feedkeys(vim.fn["copilot#Previous"](), "n", true)
+            else
+                fallback()
+            end
+        end, { "i", "c" }),
+        ["<C-j>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.mapping.scroll_docs(4)
+            elseif vim.fn["copilot#GetDisplayedSuggestion"]().text ~= "" then
+                vim.api.nvim_feedkeys(vim.fn["copilot#Next"](), "n", true)
+            else
+                fallback()
+            end
+        end, { "i", "c" }),
+        ["<C-e>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.close()
+            elseif vim.fn["copilot#GetDisplayedSuggestion"]().text ~= "" then
+                vim.api.nvim_feedkeys(vim.fn["copilot#Dismiss"](), "n", true)
+            else
+                fallback()
+            end
+        end),
         ["<CR>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
             select = false,
@@ -33,13 +56,14 @@ cmp.setup({
                 cmp.select_next_item()
             elseif luasnip.expand_or_jumpable() then
                 luasnip.expand_or_jump()
+            elseif vim.fn["copilot#GetDisplayedSuggestion"]().text ~= "" then
+                vim.api.nvim_feedkeys(vim.fn["copilot#Accept"](), "n", true)
             elseif has_words_before() then
                 cmp.complete()
             else
                 fallback()
             end
         end, { "i", "s" }),
-
         ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
@@ -52,10 +76,13 @@ cmp.setup({
     },
     sources = {
         { name = "nvim_lsp" },
+        { name = 'nvim_lsp_signature_help' },
         { name = "luasnip" },
         { name = "buffer" },
         { name = "path" },
         { name = "nerdfont" },
+        { name = "git" },
+        -- { name = "cmdline" },
         -- { name = "cmp_yanky" },
     },
     formatting = {
@@ -99,14 +126,6 @@ cmp.setup({
     },
 })
 
-cmp.setup.filetype("gitcommit", {
-    sources = {
-        { name = "git" },
-        { name = "buffer" },
-    },
-})
-require("cmp_git").setup()
-
 cmp.setup.cmdline({ "/", "?" }, {
     mapping = cmp.mapping.preset.cmdline(),
     sources = { { name = "buffer" } },
@@ -116,3 +135,5 @@ cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
 })
+
+require("cmp_git").setup()

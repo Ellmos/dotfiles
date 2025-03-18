@@ -1,18 +1,27 @@
-local map = function(mode, keymap, action, description)
+local noremap = function(mode, keymap, action, description)
     vim.keymap.set(mode, keymap, action, { desc = description, silent = true, noremap = true })
 end
 
+local remap = function(mode, keymap, action, description)
+    vim.keymap.set(mode, keymap, action, { desc = description, silent = true, remap = true })
+end
+
+
 -------------------Utils------------------
-map("i", "<M-BS>", "<C-w>", "Delete previous word")
-map("i", "<C-BS>", "<C-w>", "Delete previous word")
-map({ "n", "v", "i" }, "<C-S>", "<Cmd>w<CR>", "Save")
+noremap("i", "<M-BS>", "<C-w>", "Delete previous word")
+noremap("i", "<C-BS>", "<C-w>", "Delete previous word")
+noremap({ "n", "v", "i" }, "<C-S>", "<Cmd>w<CR>", "Save")
 
 -- Move through buffers
-map("n", "<C-h>", "<C-w>h", "Move to left buffer")
-map("n", "<C-l>", "<C-w>l", "Move to right buffer")
-map("n", "<C-j>", "<C-w>j", "Move to bottom buffer")
-map("n", "<C-k>", "<C-w>k", "Move to top buffer")
-map("n", "<C-w>", "<Cmd>Bdelete<CR>", "Close current buffer")
+noremap("n", "<C-h>", "<C-w>h", "Move to left buffer")
+noremap("n", "<C-l>", "<C-w>l", "Move to right buffer")
+noremap("n", "<C-j>", "<C-w>j", "Move to bottom buffer")
+noremap("n", "<C-k>", "<C-w>k", "Move to top buffer")
+noremap("n", "<C-w>", "<Cmd>Bdelete<CR>", "Close current buffer")
+
+-- Cycle through old edits
+noremap("n", "<A-h>", require("before").jump_to_last_edit, "Jump to last edit")
+noremap("n", "<A-l>", require("before").jump_to_next_edit, "Jump to next edit")
 
 -- Resize buffers
 function toggle_fullscreen()
@@ -26,60 +35,67 @@ function toggle_fullscreen()
     end
 end
 
-map("n", "<C-A-h>", "7<C-w><")
-map("n", "<C-A-l>", "7<C-w>>")
-map("n", "<C-A-j>", "7<C-w>+")
-map("n", "<C-A-k>", "7<C-w>-")
-map("n", "<C-f>", "<Cmd>lua toggle_fullscreen()<CR>")
+noremap("n", "<C-A-h>", "7<C-w><")
+noremap("n", "<C-A-l>", "7<C-w>>")
+noremap("n", "<C-A-j>", "7<C-w>+")
+noremap("n", "<C-A-k>", "7<C-w>-")
+noremap("n", "<C-f>", "<Cmd>lua toggle_fullscreen()<CR>")
 
 -- Switch buffer
-map("n", "<TAB>", "<Cmd>BufferLineCycleNext<CR>", "Move to next buffer")
-map("n", "<S-TAB>", "<Cmd>BufferLineCyclePrev<CR>", "Move to previous buffer")
+noremap("n", "<TAB>", "<Plug>(cokeline-focus-next)", "Move to next buffer")
+noremap("n", "<S-TAB>", "<Plug>(cokeline-focus-prev)", "Move to previous buffer")
+noremap("n", "<C-TAB>", function() require('cokeline.history'):last():focus() end, "Move to previous buffer")
 
 -- Move lines with alt key
-map("n", "<A-j>", ":m +1<CR>==", "Move the current line one downward")
-map("n", "<A-k>", ":m -2<CR>==", "Move the current line one upward")
-map("v", "<A-j>", ":m '>+1<CR>gv=gv", "move the selected lines one downward")
-map("v", "<A-k>", ":m '<-2<CR>gv=gv", "move the selected line one upward")
+noremap("n", "<A-j>", ":m +1<CR>==", "Move the current line one downward")
+noremap("n", "<A-k>", ":m -2<CR>==", "Move the current line one upward")
+noremap("v", "<A-j>", ":m '>+1<CR>gv=gv", "move the selected lines one downward")
+noremap("v", "<A-k>", ":m '<-2<CR>gv=gv", "move the selected line one upward")
 
 -- Some cool shortcut to add line ends
-map("n", "<leader>;", "<s-a>;<ESC>", 'Add ";" at the end of the current line')
-map("n", "<leader>,", "<s-a>,<ESC>", 'Add "," at the end of the current line')
-map("n", "<leader>:", "<s-a>:<ESC>", 'Add ":" at the end of the current line')
+noremap("n", "<leader>;", "<s-a>;<ESC>", 'Add ";" at the end of the current line')
+noremap("n", "<leader>,", "<s-a>,<ESC>", 'Add "," at the end of the current line')
+noremap("n", "<leader>:", "<s-a>:<ESC>", 'Add ":" at the end of the current line')
 
 -- Switch off highlighting
-map("n", "µ", "<Cmd>noh<CR>", "Switch off highlighting")
+noremap("n", "µ", "<Cmd>noh<CR>", "Switch off highlighting")
 
 -- NvimTree
-map("n", "<leader><Tab>", "<Cmd>NvimTreeToggle<CR>", "Toggle nvim_tree")
+noremap("n", "<leader><TAB>", "<Cmd>NvimTreeToggle<CR>", "Toggle nvim_tree")
 
 -- Folder
-map("n", "<leader><CR>", '<Cmd>lua require("fold-cycle").open()<CR>', "Open folder")
-map("n", "<leader><BS>", '<Cmd>lua require("fold-cycle").close()<CR>', "Close folder")
-map("n", "<C-m><C-l>", '<Cmd>lua require("fold-cycle").open_all()<CR>', "Open all folders")
-map("n", "<C-m><C-o>", '<Cmd>lua require("fold-cycle").close_all()<CR>', "Close all folders")
+noremap("n", "<leader><CR>", require("fold-cycle").open, "Open folder")
+noremap("n", "<leader><BS>", require("fold-cycle").close, "Close folder")
+noremap("n", "<C-m><C-l>", require("fold-cycle").open_all, "Open all folders")
+noremap("n", "<C-m><C-o>", require("fold-cycle").close_all, "Close all folders")
+
+-- multi line editing
+vim.g.VM_default_mappings = 0
+noremap("n", "<C-d>", "<Plug>(VM-Find-Under)", "Multi cursor editing")
+noremap("x", "<C-d>", "<Plug>(VM-Find-Subword-Under)", "Multi cursor editing")
 
 -------------------DAP------------------
-map("n", "<leader>b", "<Cmd>DapToggleBreakpoint<CR>", "Toggle [B]reakpoint")
-map("n", "<leader>fb", "<Cmd>Telescope dap list_breakpoints<CR>", "[F]ind [B]reakpoints")
-map("n", "<F5>", "<Cmd>DapContinue<CR>", "Dap run or continue")
-map("n", "<F29>", "<Cmd>DapTerminate<CR>", "Ctrl+F5: Dap terminate")
-map("n", "<F17>", "<Cmd>DapTerminate<CR><Cmd>DapContinue<CR>", "Shift+F5: Dap Restart")
-map("n", "<F6>", "<Cmd>DapStepOver<CR>", "Dap step over")
-map("n", "<F7>", "<Cmd>DapStepInto<CR>", "Dap step into")
-map("n", "<F31>", "<Cmd>DapStepOut<CR>", "Ctrl+F7: Dap step out")
+noremap("n", "<leader>b", "<Cmd>DapToggleBreakpoint<CR>", "Toggle [B]reakpoint")
+noremap("n", "<leader>fb", "<Cmd>Telescope dap list_breakpoints<CR>", "[F]ind [B]reakpoints")
+noremap("n", "<F5>", "<Cmd>DapContinue<CR>", "Dap run or continue")
+noremap("n", "<F29>", "<Cmd>DapTerminate<CR>", "Ctrl+F5: Dap terminate")
+noremap("n", "<F17>", "<Cmd>DapTerminate<CR><Cmd>DapContinue<CR>", "Shift+F5: Dap Restart")
+noremap("n", "<F6>", "<Cmd>DapStepOver<CR>", "Dap step over")
+noremap("n", "<F7>", "<Cmd>DapStepInto<CR>", "Dap step into")
+noremap("n", "<F31>", "<Cmd>DapStepOut<CR>", "Ctrl+F7: Dap step out")
 
 -------------------Smooth Scrolling------------------
-map({ "n", "v" }, "<S-j>", "<Cmd>lua require('cinnamon').scroll('<C-D>')<CR>", "Scroll cursor down")
-map({ "n", "v" }, "<S-k>", "<Cmd>lua require('cinnamon').scroll('<C-U>')<CR>", "Scroll cursor down")
-map({ "n", "v" }, "<S-h>", "b", "Fast movement left")
-map({ "n", "v" }, "<S-l>", "w", "Fast movement right")
+local cinnamon = require("cinnamon")
+noremap({ "n", "v" }, "<S-j>", function() cinnamon.scroll("<C-D>") end, "Scroll cursor down")
+noremap({ "n", "v" }, "<S-k>", function() cinnamon.scroll("<C-U>") end, "Scroll cursor down")
+noremap({ "n", "v" }, "<S-h>", "b", "Fast movement left")
+noremap({ "n", "v" }, "<S-l>", "w", "Fast movement right")
 
-map({ "n", "v" }, "zz", "<Cmd>lua require('cinnamon').scroll('zz')<CR>", "Center window on cusror")
-map({ "n", "v" }, "zj", "<Cmd>lua require('cinnamon').scroll('zt')<CR>", "Scroll window down")
-map({ "n", "v" }, "zk", "<Cmd>lua require('cinnamon').scroll('zb')<CR>", "Scroll window up")
-map({ "n", "v" }, "zh", "<Cmd>lua require('cinnamon').scroll('zH')<CR>", "Scroll window left")
-map({ "n", "v" }, "zl", "<Cmd>lua require('cinnamon').scroll('zL')<CR>", "Scroll window right")
+noremap({ "n", "v" }, "zz", function() cinnamon.scroll("zz") end, "Center window on cusror")
+noremap({ "n", "v" }, "zj", function() cinnamon.scroll("zt") end, "Scroll window down")
+noremap({ "n", "v" }, "zk", function() cinnamon.scroll("zb") end, "Scroll window up")
+noremap({ "n", "v" }, "zh", function() cinnamon.scroll("zH") end, "Scroll window left")
+noremap({ "n", "v" }, "zl", function() cinnamon.scroll("zL") end, "Scroll window right")
 
 -------------------Telescope------------------
 function telescope_root_dir(command)
@@ -92,29 +108,26 @@ function telescope_root_dir(command)
     require("telescope.builtin")[command](options)
 end
 
-map("n", "<leader>ff", '<Cmd>lua telescope_root_dir("find_files")<CR>', "[F]ind [F]iles")
-map("n", "<leader>fof", '<Cmd>lua telescope_root_dir("oldfiles")<CR>', "[O]ldfiles")
-map("n", "<leader>fg", '<Cmd>lua telescope_root_dir("live_grep")<CR>', "[L]ive [G]rep")
-map("n", "<leader>fw", '<Cmd>lua telescope_root_dir("grep_string")<CR>', "[G]rep [S]tring")
+noremap("n", "<leader>ff", '<Cmd>lua telescope_root_dir("find_files")<CR>', "[F]ind [F]iles")
+noremap("n", "<leader>fof", '<Cmd>lua telescope_root_dir("oldfiles")<CR>', "[F]ind [O]ld [F]iles")
+noremap("n", "<leader>fg", '<Cmd>lua telescope_root_dir("live_grep")<CR>', "[L]ive [G]rep")
+noremap("n", "<leader>fw", '<Cmd>lua telescope_root_dir("grep_string")<CR>', "[G]rep [S]tring")
 
-map("n", "<leader>fib", "<Cmd>Telescope current_buffer_fuzzy_find<CR>", "[F]ind [I]n [B]uffer")
-map("n", "<leader>fd", "<Cmd>Telescope diagnostics<CR>", "[F]ind [D]iagnostics")
-map("n", "<leader>fh", "<Cmd>Telescope help_tags<CR>", "[F]ind [H]elp")
+noremap("n", "<leader>fib", "<Cmd>Telescope current_buffer_fuzzy_find<CR>", "[F]ind [I]n [B]uffer")
+noremap("n", "<leader>fd", "<Cmd>Telescope diagnostics<CR>", "[F]ind [D]iagnostics")
+noremap("n", "<leader>fh", "<Cmd>Telescope help_tags<CR>", "[F]ind [H]elp")
 
 -------------------Yanky------------------
-map("n", "y", "<Plug>(YankyYank)", "Yank text")
-map("n", "p", "<Plug>(YankyPutAfter)", "Put yanked text after cursor")
-map("n", "P", "<Plug>(YankyPutBefore)", "Put yanked text before cursor")
-map("n", "<A-p>", "<Plug>(YankyPreviousEntry)", "Select previous entry through yank history")
-map("n", "<A-n>", "<Plug>(YankyNextEntry)", "Select next entry through yank history")
-map("n", "<leader>p", '<Cmd>lua require("telescope").extensions.yank_history.yank_history()<CR>', "Open Yank History")
+noremap("n", "y", "<Plug>(YankyYank)", "Yank text")
+noremap("n", "p", "<Plug>(YankyPutAfter)", "Put yanked text after cursor")
+noremap("n", "P", "<Plug>(YankyPutBefore)", "Put yanked text before cursor")
+noremap("n", "<A-p>", "<Plug>(YankyPreviousEntry)", "Select previous entry through yank history")
+noremap("n", "<A-n>", "<Plug>(YankyNextEntry)", "Select next entry through yank history")
+noremap("n", "<leader>p", require("telescope").extensions.yank_history.yank_history, "Open Yank History")
 
--- -------------------Commmenting------------------
-function visual_comment()
-    local esc = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
-    vim.api.nvim_feedkeys(esc, "nx", false)
-    require("Comment.api").locked("toggle.linewise")(vim.fn.visualmode())
-end
+-------------------Commmenting------------------
+remap("n", "<C-/>", "gcc", "Toggle comment on current line") -- qwerty 
+remap("v", "<C-/>", "gc", "Toggle comments on selected lines")-- qwerty 
 
-map("n", "<C-:>", "<Cmd>lua require('Comment.api').toggle.linewise.current()<CR>", "Toggle comment on current line")
-map("v", "<C-:>", "<Cmd>lua visual_comment()<CR>", "Toggle comments on selected lines")
+remap("n", "<C-:>", "gcc", "Toggle comment on current line") -- azerty
+remap("v", "<C-:>", "gc", "Toggle comments on selected lines")-- azerty

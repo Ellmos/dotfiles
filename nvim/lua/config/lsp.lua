@@ -1,16 +1,17 @@
 local on_attach = function(_, bufnr)
-    local map = function(keys, func, desc)
-        if desc then
-            desc = "LSP: " .. desc
+    local map = function(keymap, action, description)
+        if description then
+            description = "LSP: " .. description
         end
 
-        vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
+        vim.keymap.set("n", keymap, action, { desc = description, silent = true, noremap = true })
     end
 
-    map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-    map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+    map("<F2>", vim.lsp.buf.rename, "[R]e[n]ame")
+    -- map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+    map("<A-CR>", vim.lsp.buf.code_action, "Code Action");
 
-    -- map('gd', vim.lsp.buf.definition, '[G]oto [d]efinition')
+    map('gd', vim.lsp.buf.definition, '[G]oto [d]efinition')
     map("gD", vim.lsp.buf.hover, "[G]oto [D]ocumentation")
     map("gd", "<Cmd>Telescope lsp_definitions<CR>", "[G]oto [d]efinitions")
     map("gr", "<Cmd>Telescope lsp_references<CR>", "[G]oto [R]eferences")

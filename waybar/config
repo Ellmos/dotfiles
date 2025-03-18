@@ -7,18 +7,21 @@
 
 
     "modules-left": [
-      "hyprland/workspaces",
+      "hyprland/workspaces"
     ],
+
     "modules-center": [
-      "clock",
+      "clock"
     ],
+
     "modules-right": [
+      "hyprland/language",
       "bluetooth",
       "pulseaudio",
       "backlight",
       "battery",
       "network",
-      "temperature",
+      "temperature"
     ],
 
 
@@ -28,7 +31,7 @@
       "rewrite": {
         "": "Hyprland"
       },
-      "separate-outputs": true,
+      "separate-outputs": true
     },
 
 
@@ -36,12 +39,18 @@
       "format": "{icon}",
       "on-click": "activate",
       "format-icons": {
-        "active": " ",
+        "active": " "
       },
       "sort-by-number": true,
-      "persistent-workspaces": {
-        "HDMI-A-1": 1 // but only three on HDMI-A-1
-      },
+      // "persistent-workspaces": {
+      //  "HDMI-A-1": 1
+      // }
+    },
+
+    "hyprland/language": {
+        "format": " {} ",
+        "format-en": "US",
+        "format-fr": "FR"
     },
 
 

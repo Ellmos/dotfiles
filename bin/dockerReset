@@ -1,0 +1,57 @@
+#!/bin/sh
+
+show_help() {
+    echo "Usage: dockerReset [-i] [-n] [-h]"
+    echo "Options:"
+    echo "  -i    Remove all images"
+    echo "  -n    Remove all networks"
+    echo "  -h    Show this help message"
+    exit 0
+}
+
+REMOVE_IMAGES=false
+REMOVE_NETWORKS=false
+
+while getopts "inh" opt; do
+    case ${opt} in
+        i ) REMOVE_IMAGES=true ;;
+        n ) REMOVE_NETWORKS=true ;;
+        h ) show_help; exit 0 ;;
+        * ) show_help; exit 1 ;;
+    esac
+done
+
+# Check if there are any running or stopped containers
+CONTAINERS=$(docker ps -aq)
+
+if [ -n "$CONTAINERS" ]; then
+    echo "Stopping all containers..."
+    docker stop $CONTAINERS
+
+    echo "Removing all containers..."
+    docker rm $CONTAINERS
+else
+    echo "No containers to stop or remove."
+fi
+
+# Remove images if -i is passed and images exist
+if [ "$REMOVE_IMAGES" = true ]; then
+    IMAGES=$(docker images -q)
+    if [ -n "$IMAGES" ]; then
+        echo "Removing all images..."
+        docker image prune --all --force
+    else
+        echo "No images to remove."
+    fi
+fi
+
+# Remove networks if -n is passed and networks exist
+if [ "$REMOVE_NETWORKS" = true ]; then
+    NETWORKS=$(docker network ls -q)
+    if [ -n "$NETWORKS" ]; then
+        echo "Removing all networks..."
+        docker network prune --force
+    else
+        echo "No networks to remove."
+    fi
+fi

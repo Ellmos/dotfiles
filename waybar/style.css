@@ -99,6 +99,10 @@ button:hover {
   color: @text;
 }
 
+#language {
+    color: @flamingo
+}
+
 .modules-right,
 .modules-left,
 .modules-center {

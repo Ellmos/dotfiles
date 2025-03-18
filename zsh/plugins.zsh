@@ -26,7 +26,7 @@ function clone_git_plugins() {
     done
 }
 
-# Params
+# Variables
 static_plugins_folder="plugins/static"
 git_plugins_folder="plugins/git"
 
@@ -35,10 +35,12 @@ git_plugins=(
     zsh-users/zsh-autosuggestions
     zsh-users/zsh-history-substring-search
     zsh-users/zsh-syntax-highlighting
+    zsh-users/zsh-syntax-highlighting
 )
 
-# adding the plugins
+# adding static plugins
 add_plugin_folder "$static_plugins_folder"
 
+# adding git plugins
 clone_git_plugins git_plugins "$git_plugins_folder"
 add_plugin_folder "$git_plugins_folder"

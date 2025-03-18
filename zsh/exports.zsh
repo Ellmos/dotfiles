@@ -30,3 +30,18 @@ export LESS_TERMCAP_ZN=$(tput ssubm)
 export LESS_TERMCAP_ZV=$(tput rsubm)
 export LESS_TERMCAP_ZO=$(tput ssupm)
 export LESS_TERMCAP_ZW=$(tput rsupm)
+
+
+# NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+#Android development
+export ANDROID_HOME=$HOME/Android/Sdk
+add_to_path "$ANDROID_HOME/emulator"
+add_to_path "$ANDROID_HOME/tools"
+add_to_path "$ANDROID_HOME/tools/bin"
+add_to_path "$ANDROID_HOME/platform-tools"
+
+export JAVA_HOME="/usr/lib/jvm/java-21-openjdk"
