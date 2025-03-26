@@ -36,6 +36,7 @@ return require("lazy").setup({
     { "nvim-lualine/lualine.nvim" },
     { "famiu/bufdelete.nvim" },
     { "bloznelis/before.nvim" },
+    
 
     -- Highlighting
     { "nvim-treesitter/nvim-treesitter",        build = ":TSUpdate" },
@@ -110,7 +111,7 @@ return require("lazy").setup({
     { "chrisgrieser/cmp_yanky" },
 
     -- Copilot
-    -- { "github/copilot.vim" },
+    { "github/copilot.vim" },
 
     -- Snippet
     { "L3MON4D3/LuaSnip",                   build = "make install_jsregexp" },
@@ -134,6 +135,7 @@ return require("lazy").setup({
             end
         end,
     },
+    { "brianhuster/live-preview.nvim" },
 
     -- Typescript
     { "dmmulroy/ts-error-translator.nvim" },

@@ -40,6 +40,8 @@ require('java').setup()
 -- Git
 require('gitsigns').setup()
 
+require('livepreview.config').set()
+
 -- Other config file
 require("config/tree")
 require("config/cokeline")

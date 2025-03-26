@@ -43,6 +43,9 @@ require("cokeline").setup({
             text = function(buffer)
                 return buffer.filename .. " "
             end,
+            bold = function(buffer)
+                return buffer.is_focused
+            end,
         },
         {
             text = function(buffer)

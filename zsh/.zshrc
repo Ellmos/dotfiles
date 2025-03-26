@@ -48,6 +48,7 @@ function add_dir() {
     fi
 }
 
+fastfetch # kekeland
 
 add_file "preload.zsh"
 add_dir "lib"
@@ -56,5 +57,3 @@ add_file "aliases.zsh"
 add_file "keymaps.zsh" # leave at the end to override any potential keymaps by plugins
 source "$ZDOTDIR/exports.zsh"
 source "$ZDOTDIR/private.zsh"
-
-fastfetch # kekeland
