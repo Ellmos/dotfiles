@@ -36,6 +36,7 @@ git_plugins=(
     zsh-users/zsh-history-substring-search
     zsh-users/zsh-syntax-highlighting
     zsh-users/zsh-syntax-highlighting
+    grigorii-zander/zsh-npm-scripts-autocomplete
 )
 
 # adding static plugins

@@ -6,11 +6,10 @@ local remap = function(mode, keymap, action, description)
     vim.keymap.set(mode, keymap, action, { desc = description, silent = true, remap = true })
 end
 
-
 -------------------Utils------------------
 noremap("i", "<M-BS>", "<C-w>", "Delete previous word")
 noremap("i", "<C-BS>", "<C-w>", "Delete previous word")
-noremap({ "n", "v", "i" }, "<C-S>", "<Cmd>w<CR>", "Save")
+noremap({ "n", "v", "i" }, "<C-s>", "<Cmd>w<CR>", "Save")
 
 -- Move through buffers
 noremap("n", "<C-h>", "<C-w>h", "Move to left buffer")
@@ -62,6 +61,9 @@ noremap("n", "µ", "<Cmd>noh<CR>", "Switch off highlighting")
 
 -- NvimTree
 noremap("n", "<leader><TAB>", "<Cmd>NvimTreeToggle<CR>", "Toggle nvim_tree")
+
+-- Formatting
+noremap({ "n", "v", "i" }, "<C-S-s>", "<Cmd>Format<CR><Cmd>w<CR>", "Format current buffer")
 
 -- Folder
 noremap("n", "<leader><CR>", require("fold-cycle").open, "Open folder")

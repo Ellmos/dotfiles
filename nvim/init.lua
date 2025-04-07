@@ -30,9 +30,11 @@ g.loaded_netrwPlugin = true
 -- vim.cmd("set list listchars=tab:»·,trail:·,eol:$")
 vim.cmd([[autocmd FileType * setlocal formatoptions-=ro]])
 
+
 -- order important: load plugins, call setup() on all of them, then setup all the keymaps
 require("plugins")
 require("config")
 require("keymaps")
 
+vim.notify = require("notify")
 vim.cmd("colorscheme gruvbox")

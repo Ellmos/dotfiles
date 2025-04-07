@@ -1,14 +1,14 @@
 -- Theme
 require("gruvbox").setup({
-    contrast = "medium",
-    overrides = {
-        TabLineFill = { bg = "#181919" },
-        SignColumn = { bg = "#181919" },
-        DiagnosticSignError = { bg = "#181919" },
-        DiagnosticSignWarn = { bg = "#181919" },
-        DiagnosticSignInfo = { bg = "#181919" },
-        DiagnosticSignHint = { bg = "#181919" }
-    }
+	contrast = "medium",
+	overrides = {
+		TabLineFill = { bg = "#181919" },
+		SignColumn = { bg = "#181919" },
+		DiagnosticSignError = { bg = "#181919", fg = "#ff0000" },
+		DiagnosticSignWarn = { bg = "#181919", fg = "#fabd2f" },
+		DiagnosticSignInfo = { bg = "#181919" },
+		DiagnosticSignHint = { bg = "#181919" },
+	},
 })
 
 -- Dependecies
@@ -21,6 +21,8 @@ require("before").setup({ history_size = 100 })
 -- Project
 require("project_nvim").setup({ patterns = { ".git", "*.sln" } })
 
+require("notify").setup({ background_colour = "#000000" })
+
 -- Higlight TODO / FIXME ...
 require("todo-comments").setup()
 
@@ -32,23 +34,29 @@ require("nvim-autopairs").setup({ disable_filetype = { "TelescopePrompt", "vim" 
 
 -- Typescript shit
 require("ts-error-translator").setup()
-require('tsc').setup()
+require("tsc").setup()
 
 -- Java shit
-require('java').setup()
+require("java").setup()
 
 -- Git
-require('gitsigns').setup()
+require("gitsigns").setup()
 
-require('livepreview.config').set()
+require("livepreview.config").set()
+
+require("colorizer").setup()
+
+require("mason").setup()
 
 -- Other config file
 require("config/tree")
 require("config/cokeline")
 require("config/yanky")
-require("config/null_ls")
+require("config/neodev")
 require("config/cmp")
 require("config/lsp")
+require("config/conform")
+require("config/lint")
 require("config/treesitter")
 require("config/dashboard")
 require("config/indent-blankline")

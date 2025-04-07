@@ -1,13 +1,13 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable",
-        lazypath,
-    })
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable",
+		lazypath,
+	})
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -18,132 +18,138 @@ vim.g.maplocalleader = " "
 -- https://github.com/rcarriga/nvim-notify
 -- https://github.com/anuvyklack/hydra.nvim
 return require("lazy").setup({
-    -- Global dependencies needed by lots of packages
-    { "nvim-tree/nvim-web-devicons" },
-    { "nvim-lua/plenary.nvim" },
+	-- Global dependencies needed by lots of packages
+	{ "nvim-tree/nvim-web-devicons" },
+	{ "nvim-lua/plenary.nvim" },
 
-    -- ColorScheme
-    { "ellisonleao/gruvbox.nvim" },
+	-- ColorScheme
+	{ "ellisonleao/gruvbox.nvim" },
 
-    -- Dashboard
-    { "glepnir/dashboard-nvim" },
+	-- Notifications
+	{ "rcarriga/nvim-notify" },
 
-    -- Project manager
-    { "ahmedkhalf/project.nvim" },
+	-- Dashboard
+	{ "glepnir/dashboard-nvim" },
 
-    -- Buffers
-    { "willothy/nvim-cokeline",                 dependencies = { "stevearc/resession.nvim" } },
-    { "nvim-lualine/lualine.nvim" },
-    { "famiu/bufdelete.nvim" },
-    { "bloznelis/before.nvim" },
-    
+	-- Project manager
+	{ "ahmedkhalf/project.nvim" },
 
-    -- Highlighting
-    { "nvim-treesitter/nvim-treesitter",        build = ":TSUpdate" },
+	-- Buffers
+	{ "willothy/nvim-cokeline", dependencies = { "stevearc/resession.nvim" } },
+	{ "nvim-lualine/lualine.nvim" },
+	{ "famiu/bufdelete.nvim" },
+	{ "bloznelis/before.nvim" },
 
-    -- File explorer
-    { "nvim-tree/nvim-tree.lua" },
-    { "antosha417/nvim-lsp-file-operations" },
+	-- Highlighting
+	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 
-    -- Telescope
-    { "nvim-telescope/telescope.nvim" },
-    { "nvim-telescope/telescope-ui-select.nvim" },
-    {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
-        cond = function()
-            return vim.fn.executable("make") == 1
-        end,
-    },
+	-- File explorer
+	{ "nvim-tree/nvim-tree.lua" },
+	{ "antosha417/nvim-lsp-file-operations" },
 
-    -- Utils
-    { "lukas-reineke/indent-blankline.nvim" },
-    { "windwp/nvim-autopairs" },
-    { "windwp/nvim-ts-autotag" },
-    { "jghauser/mkdir.nvim" },
+	-- Telescope
+	{ "nvim-telescope/telescope.nvim" },
+	{ "nvim-telescope/telescope-ui-select.nvim" },
+	{
+		"nvim-telescope/telescope-fzf-native.nvim",
+		build = "make",
+		cond = function()
+			return vim.fn.executable("make") == 1
+		end,
+	},
 
-    -- Yanking
-    { "gbprod/yanky.nvim",                  dependencies = { "kkharji/sqlite.lua" } },
+	-- Utils
+	{ "lukas-reineke/indent-blankline.nvim" },
+	{ "windwp/nvim-autopairs" },
+	{ "windwp/nvim-ts-autotag" },
+	{ "jghauser/mkdir.nvim" },
+	{ "norcalli/nvim-colorizer.lua" },
 
-    -- Smooth scrolling
-    { "declancm/cinnamon.nvim" },
+	-- Yanking
+	{ "gbprod/yanky.nvim", dependencies = { "kkharji/sqlite.lua" } },
 
-    -- Code folding
-    { "jghauser/fold-cycle.nvim" },
+	-- Smooth scrolling
+	{ "declancm/cinnamon.nvim" },
 
-    -- Multiline Editing
-    { "mg979/vim-visual-multi" },
+	-- Code folding
+	{ "jghauser/fold-cycle.nvim" },
 
-    -- Comments
-    { "folke/todo-comments.nvim" },
+	-- Multiline Editing
+	{ "mg979/vim-visual-multi" },
 
-    -- Mason
-    { "williamboman/mason.nvim" },
-    { "williamboman/mason-lspconfig.nvim" },
-    { "jay-babu/mason-null-ls.nvim" },
-    { "jay-babu/mason-nvim-dap.nvim",       dependencies = { "nvim-neotest/nvim-nio" } },
+	-- Comments
+	{ "folke/todo-comments.nvim" },
 
-    -- LSP
-    { "williamboman/nvim-lsp-installer" },
-    { "neovim/nvim-lspconfig" },
-    { "folke/neodev.nvim" }, -- Specialized in lua lsp for nvim development
+	-- Mason
+	{ "williamboman/mason.nvim" },
 
-    -- Formatting
-    { "jose-elias-alvarez/null-ls.nvim" },
+	-- LSP
+	{ "neovim/nvim-lspconfig" },
+	{ "folke/neodev.nvim" },
+	{ "williamboman/mason-lspconfig.nvim" },
 
-    -- Debugger
-    { "mfussenegger/nvim-dap" },
-    { "rcarriga/nvim-dap-ui" },
-    { "nvim-telescope/telescope-dap.nvim" },
-    { "theHamsta/nvim-dap-virtual-text" },
-    { "mfussenegger/nvim-dap-python" },
+	-- Linter
+	{ "mfussenegger/nvim-lint" },
+	{ "rshkarin/mason-nvim-lint" },
 
-    -- Completion
-    { "hrsh7th/nvim-cmp" },
-    { "hrsh7th/cmp-nvim-lsp" },
-    { "hrsh7th/cmp-buffer" },
-    { "hrsh7th/cmp-path" },
-    { "hrsh7th/cmp-cmdline" },
-    { "hrsh7th/cmp-nvim-lsp-signature-help" },
-    { "chrisgrieser/cmp-nerdfont" },
-    { "petertriho/cmp-git" },
-    { "saadparwaiz1/cmp_luasnip" },
-    { "chrisgrieser/cmp_yanky" },
+	-- Formatting
+	{ "stevearc/conform.nvim" },
+	{ "zapling/mason-conform.nvim" },
 
-    -- Copilot
-    { "github/copilot.vim" },
+	-- Debugger
+	{ "mfussenegger/nvim-dap" },
+	{ "rcarriga/nvim-dap-ui" },
+	{ "nvim-telescope/telescope-dap.nvim" },
+	{ "theHamsta/nvim-dap-virtual-text" },
+	{ "mfussenegger/nvim-dap-python" },
+	{ "jay-babu/mason-nvim-dap.nvim", dependencies = { "nvim-neotest/nvim-nio" } },
 
-    -- Snippet
-    { "L3MON4D3/LuaSnip",                   build = "make install_jsregexp" },
+	-- Completion
+	{ "hrsh7th/nvim-cmp" },
+	{ "hrsh7th/cmp-nvim-lsp" },
+	{ "hrsh7th/cmp-buffer" },
+	{ "hrsh7th/cmp-path" },
+	{ "hrsh7th/cmp-cmdline" },
+	{ "hrsh7th/cmp-nvim-lsp-signature-help" },
+	{ "chrisgrieser/cmp-nerdfont" },
+	{ "petertriho/cmp-git" },
+	{ "saadparwaiz1/cmp_luasnip" },
+	{ "chrisgrieser/cmp_yanky" },
 
-    -- Markdown Preview
-    {
-        "iamcco/markdown-preview.nvim",
-        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-        ft = { "markdown" },
-        build = function(plugin)
-            if vim.fn.executable("npx") then
-                vim.cmd("!cd " .. plugin.dir .. " && cd app && npx --yes yarn install")
-            else
-                vim.cmd([[Lazy load markdown-preview.nvim]])
-                vim.fn["mkdp#util#install"]()
-            end
-        end,
-        init = function()
-            if vim.fn.executable("npx") then
-                vim.g.mkdp_filetypes = { "markdown" }
-            end
-        end,
-    },
-    { "brianhuster/live-preview.nvim" },
+	-- Copilot
+	{ "github/copilot.vim" },
 
-    -- Typescript
-    { "dmmulroy/ts-error-translator.nvim" },
-    { "dmmulroy/tsc.nvim" },
+	-- Snippet
+	{ "L3MON4D3/LuaSnip", build = "make install_jsregexp" },
 
-    -- Java
-    { 'nvim-java/nvim-java' },
+	-- Markdown Preview
+	{
+		"iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		ft = { "markdown" },
+		build = function(plugin)
+			if vim.fn.executable("npx") then
+				vim.cmd("!cd " .. plugin.dir .. " && cd app && npx --yes yarn install")
+			else
+				vim.cmd([[Lazy load markdown-preview.nvim]])
+				vim.fn["mkdp#util#install"]()
+			end
+		end,
+		init = function()
+			if vim.fn.executable("npx") then
+				vim.g.mkdp_filetypes = { "markdown" }
+			end
+		end,
+	},
+	{ "brianhuster/live-preview.nvim" },
 
-    -- Git
-    { "lewis6991/gitsigns.nvim" }
+	-- Typescript
+	{ "dmmulroy/ts-error-translator.nvim" },
+	{ "dmmulroy/tsc.nvim" },
+
+	-- Java
+	{ "nvim-java/nvim-java" },
+
+	-- Git
+	{ "lewis6991/gitsigns.nvim" },
 })
