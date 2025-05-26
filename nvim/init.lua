@@ -14,7 +14,7 @@ set.scrolloff = 7
 set.modifiable = true
 set.fileencoding = "utf-8"
 set.termguicolors = true
-set.colorcolumn = { 80 }
+set.colorcolumn = { 100 }
 
 set.number = true
 set.cursorline = true
@@ -36,5 +36,4 @@ require("plugins")
 require("config")
 require("keymaps")
 
-vim.notify = require("notify")
 vim.cmd("colorscheme gruvbox")

@@ -21,8 +21,6 @@ require("before").setup({ history_size = 100 })
 -- Project
 require("project_nvim").setup({ patterns = { ".git", "*.sln" } })
 
-require("notify").setup({ background_colour = "#000000" })
-
 -- Higlight TODO / FIXME ...
 require("todo-comments").setup()
 
@@ -48,11 +46,18 @@ require("colorizer").setup()
 
 require("mason").setup()
 
+require("ts_context_commentstring").setup({
+	enable_autocmd = false,
+})
+local get_option = vim.filetype.get_option
+vim.filetype.get_option = function(filetype, option)
+	return option == "commentstring" and require("ts_context_commentstring.internal").calculate_commentstring()
+		or get_option(filetype, option)
+end
 -- Other config file
 require("config/tree")
 require("config/cokeline")
 require("config/yanky")
-require("config/neodev")
 require("config/cmp")
 require("config/lsp")
 require("config/conform")

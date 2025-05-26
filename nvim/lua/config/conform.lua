@@ -1,4 +1,4 @@
-local format_options = { timeout_ms = 500, lsp_format = "fallback" }
+local format_options = { lsp_fallback = true }
 
 require("conform").setup({
 	formatters_by_ft = {

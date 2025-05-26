@@ -23,7 +23,7 @@ end
 
 local servers = {
 	clangd = {}, -- C, C++
-	pyright = {}, -- Python
+	-- pyright = {}, -- Python
 	html = {}, -- HTML
 	ts_ls = {}, -- TypeScript & JavaScript
 	cssls = {}, -- CSS

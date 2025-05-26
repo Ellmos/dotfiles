@@ -15,7 +15,6 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- https://github.com/folke/noice.nvim
--- https://github.com/rcarriga/nvim-notify
 -- https://github.com/anuvyklack/hydra.nvim
 return require("lazy").setup({
 	-- Global dependencies needed by lots of packages
@@ -24,9 +23,6 @@ return require("lazy").setup({
 
 	-- ColorScheme
 	{ "ellisonleao/gruvbox.nvim" },
-
-	-- Notifications
-	{ "rcarriga/nvim-notify" },
 
 	-- Dashboard
 	{ "glepnir/dashboard-nvim" },
@@ -79,13 +75,13 @@ return require("lazy").setup({
 
 	-- Comments
 	{ "folke/todo-comments.nvim" },
+	{ "JoosepAlviste/nvim-ts-context-commentstring" },
 
 	-- Mason
 	{ "williamboman/mason.nvim" },
 
 	-- LSP
 	{ "neovim/nvim-lspconfig" },
-	{ "folke/neodev.nvim" },
 	{ "williamboman/mason-lspconfig.nvim" },
 
 	-- Linter
@@ -152,4 +148,8 @@ return require("lazy").setup({
 
 	-- Git
 	{ "lewis6991/gitsigns.nvim" },
+
+	-- Lua development
+	{ "milisims/nvim-luaref" },
+	{ "rafcamlet/nvim-luapad" },
 })
