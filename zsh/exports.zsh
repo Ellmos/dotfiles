@@ -5,8 +5,7 @@ function add_to_path() {
     fi
 }
 
-add_to_path "/home/elmos/Documents/dotfiles/bin"
-add_to_path "/home/elmos/.local/bin"
+add_to_path "$ZDOTDIR/bin"
 
 export EDITOR="nvim"
 export TERMINAL="alacritty"

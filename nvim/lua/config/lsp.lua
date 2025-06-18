@@ -15,6 +15,7 @@ local on_attach = function(_, bufnr)
 	map("gd", "<Cmd>Telescope lsp_definitions<CR>", "[G]oto [d]efinitions")
 	map("gr", "<Cmd>Telescope lsp_references<CR>", "[G]oto [R]eferences")
 	map("gi", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
+	map("gp", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", "[G]oto [P]review Definition")
 	map("<leader>d", vim.diagnostic.open_float, "[D]iagnostic")
 
 	map("<leader>ds", "<Cmd>Telescope lsp_document_symbols<CR>", "[D]ocument [S]ymbols")
@@ -36,7 +37,7 @@ local servers = {
 	sqlls = {}, -- SQL
 	dockerls = {}, -- Docker
 	csharp_ls = {}, -- C#
-    angularls = {}, -- Angular
+	angularls = {}, -- Angular
 	bashls = { -- Bash
 		default_config = {
 			cmd = { "bash-language-server", "start" },

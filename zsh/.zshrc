@@ -58,6 +58,10 @@ add_file "keymaps.zsh" # leave at the end to override any potential keymaps by p
 source "$ZDOTDIR/exports.zsh"
 source "$ZDOTDIR/private.zsh"
 
-
-# Load Angular CLI autocompletion.
-# source <(ng completion script)
+# pnpm
+export PNPM_HOME="/home/elmos/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

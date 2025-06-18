@@ -1,8 +1,9 @@
 #!/bin/sh
 
 show_help() {
-    echo "Usage: dockerReset [-i] [-n] [-h]"
+    echo "Usage: dockerReset [-i] [-n] [-v] [-r] [-h]"
     echo "Options:"
+    echo "  -c    Remove all containers"
     echo "  -i    Remove all images"
     echo "  -n    Remove all networks"
     echo "  -v    Remove all volumes"
@@ -10,34 +11,42 @@ show_help() {
     exit 0
 }
 
+REMOVE_CONTAINERS=false
 REMOVE_IMAGES=false
 REMOVE_NETWORKS=false
 REMOVE_VOLUMES=false
 
-while getopts "invh" opt; do
+while getopts "cinvh" opt; do
     case ${opt} in
-        i ) REMOVE_IMAGES=true ;;
-        n ) REMOVE_NETWORKS=true ;;
-        v ) REMOVE_VOLUMES=true ;;
-        h ) show_help;;
-        * ) show_help;;
+    c) REMOVE_CONTAINERS=true ;;
+    i) REMOVE_IMAGES=true ;;
+    n) REMOVE_NETWORKS=true ;;
+    v) REMOVE_VOLUMES=true ;;
+    h) show_help ;;
+    *) show_help ;;
     esac
 done
 
-# Check if there are any running or stopped containers
+# Stop all containers if any are present
 CONTAINERS=$(docker ps -aq)
-
 if [ -n "$CONTAINERS" ]; then
     echo "Stopping all containers..."
     docker stop $CONTAINERS
-
-    echo "Removing all containers..."
-    docker rm $CONTAINERS
 else
-    echo "No containers to stop or remove."
+    echo "No containers to stop."
 fi
 
-# Remove images if -i is passed and images exist
+# Remove containers if -r is passed
+if [ "$REMOVE_CONTAINERS" = true ]; then
+    if [ -n "$CONTAINERS" ]; then
+        echo "Removing all containers..."
+        docker rm $CONTAINERS
+    else
+        echo "No containers to remove."
+    fi
+fi
+
+# Remove images if -i is passed
 if [ "$REMOVE_IMAGES" = true ]; then
     IMAGES=$(docker images -q)
     if [ -n "$IMAGES" ]; then
@@ -48,7 +57,7 @@ if [ "$REMOVE_IMAGES" = true ]; then
     fi
 fi
 
-# Remove networks if -n is passed and networks exist
+# Remove networks if -n is passed
 if [ "$REMOVE_NETWORKS" = true ]; then
     NETWORKS=$(docker network ls -q)
     if [ -n "$NETWORKS" ]; then
@@ -59,7 +68,7 @@ if [ "$REMOVE_NETWORKS" = true ]; then
     fi
 fi
 
-# Remove volumes if -v is passed and networks exist
+# Remove volumes if -v is passed
 if [ "$REMOVE_VOLUMES" = true ]; then
     VOLUMES=$(docker volume ls -q)
     if [ -n "$VOLUMES" ]; then
