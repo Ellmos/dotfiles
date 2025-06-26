@@ -16,6 +16,7 @@ require("conform").setup({
 		markdown = { "prettier" },
 		sql = { "sqlfmt" },
 		bash = { "shfmt" },
+        java = { "prettier" },
 	},
 
 	-- Autoformat on save
