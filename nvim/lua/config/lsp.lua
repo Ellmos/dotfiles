@@ -74,3 +74,7 @@ require("mason-lspconfig").setup_handlers({
 		})
 	end,
 })
+
+require('lsp-lens').setup({
+  enable = false,
+})

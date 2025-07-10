@@ -91,6 +91,7 @@ return require("lazy").setup({
 	-- LSP
 	{ "neovim/nvim-lspconfig" },
 	{ "williamboman/mason-lspconfig.nvim" },
+	{ "VidocqH/lsp-lens.nvim" },
 
 	-- Linter
 	{ "mfussenegger/nvim-lint" },

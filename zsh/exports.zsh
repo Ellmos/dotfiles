@@ -38,4 +38,5 @@ add_to_path "$ANDROID_HOME/tools"
 add_to_path "$ANDROID_HOME/tools/bin"
 add_to_path "$ANDROID_HOME/platform-tools"
 
-export JAVA_HOME="/usr/lib/jvm/java-21-openjdk"
+# Lazy docker 
+add_to_path "$HOME/.local/bin"

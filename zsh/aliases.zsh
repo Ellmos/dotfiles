@@ -43,12 +43,15 @@ alias reload='source ~/.zshrc'
 
 alias make='make -j'
 
-alias dc='docker-compose'
-alias dcu='docker-compose up'
-alias dcud='docker-compose up -d'
-alias dcd='docker-compose down'
+alias dc='docker compose'
+alias dcu='docker compose up'
+alias dcud='docker compose up -d'
+alias dcubd='docker compose up --build -d'
+alias dcd='docker compose down'
 
 alias lint='yarn run eslint --fix'
+
+alias plic="cd ~/Desktop/ing2/plic"
 
 # Not making binary out of this because it needs to change the cwd
 function gccd() {
