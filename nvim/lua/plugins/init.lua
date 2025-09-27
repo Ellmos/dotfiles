@@ -44,7 +44,7 @@ return require("lazy").setup({
 	{ "antosha417/nvim-lsp-file-operations" },
 
 	-- Telescope
-	{ "nvim-telescope/telescope.nvim" },
+	{ "nvim-telescope/telescope.nvim", tag = '0.1.7' },
 	{ "nvim-telescope/telescope-ui-select.nvim" },
 	{
 		"nvim-telescope/telescope-fzf-native.nvim",
@@ -127,7 +127,7 @@ return require("lazy").setup({
 	-- Snippet
 	{ "L3MON4D3/LuaSnip", build = "make install_jsregexp" },
 
-	-- Markdown Preview
+	-- Markdown
 	{
 		"iamcco/markdown-preview.nvim",
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },

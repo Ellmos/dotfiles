@@ -1,0 +1,15 @@
+#!/bin/sh
+
+CURRENT_VERSION=$(cat /opt/Discord/resources/build_info.json | grep version | sed 's/.*: "\(.*\)".*/\1/gm')
+
+URL=$(curl "https://discord.com/api/download/stable?platform=linux&format=tar.gz" | grep discordapp | sed "s/.*<a href=\"\(.*\)\".*/\1/gm")
+
+NEW_VERSION=$(echo "$URL" | sed "s/.*discord-\(.*\).tar.gz/\1/gm")
+
+if [ "$CURRENT_VERSION" = "$NEW_VERSION" ]; then
+    exit 0
+fi
+
+wget -O /tmp/discord.tar.gz $URL
+cd /opt
+sudo tar xvf /tmp/discord.tar.gz

@@ -1,0 +1,31 @@
+#!/bin/sh
+
+SWAPDIR="$HOME/.local/state/nvim/swap"
+
+[ ! -d "$SWAPDIR" ] && echo "No swap directory found: $SWAPDIR" && exit 1
+
+
+for swp in "$SWAPDIR"/*.swp; do
+    [ -e "$swp" ] || continue
+
+    base=$(basename "$swp" .swp)
+    original_file=$(echo "$base" | tr '%' '/')
+
+    echo "$original_file"
+
+    if [ -z "$original_file" ]; then
+        echo "Could not detect original file from: $swp"
+        continue
+    fi
+
+    nvim -es -r "$original_file" +":w" +":q" 2>&1
+
+    status_code=$?
+
+    if [ $status_code -eq 0 ] && [ -s "$original_file" ]; then
+        echo "Recovery successful -> $original_file"
+        rm -f "$swp"
+    else
+        echo "Recovery failed for: $original_file"
+    fi
+done

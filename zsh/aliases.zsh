@@ -7,7 +7,7 @@ alias ls='ls --color=auto'
 alias la='ls -A --color=auto'
 alias ll='ls -l --color=auto'
 alias grep='grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox}'
-alias tree='tree -C'
+alias tree='tree -C -I ".git|node_modules|__pycache__"'
 alias c='clear'
 alias cat='bat'
 
@@ -27,6 +27,7 @@ alias gl='git log'
 alias glp='git log -p'
 alias glog='git log --all --decorate --graph --oneline'
 alias gd='git diff'
+alias gds='git diff --staged'
 
 alias clangf='find $(git rev-parse --show-toplevel) -name "*.h" -o -name "*.c" -o -name "*.hh" -o -name "*.cc" -o -name "*.hxx"  | xargs clang-format -i'
 alias gccc='gcc -Wextra -Wall -Werror -Wvla -std=c99 -pedantic -fsanitize=address -g -o main '
@@ -51,7 +52,9 @@ alias dcd='docker compose down'
 
 alias lint='yarn run eslint --fix'
 
-alias plic="cd ~/Desktop/ing2/plic"
+alias plic="cd ~/Desktop/mti/plic"
+alias front="cd ~/Desktop/mti/plic/front/PLIC-App"
+alias back="cd ~/Desktop/mti/plic/back/"
 
 # Not making binary out of this because it needs to change the cwd
 function gccd() {

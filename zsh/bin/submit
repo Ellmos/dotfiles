@@ -18,7 +18,7 @@ if [ $? -eq 0 ]; then
     exit 1
 fi
 
-git status --porcelain | grep -q '^[AM]'
+git status --porcelain | grep -q '^[AMRD]'
 if [ $? -ne 0 ]; then
     echo "no changes to commit"
     exit 1

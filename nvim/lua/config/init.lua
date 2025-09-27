@@ -35,7 +35,7 @@ require("ts-error-translator").setup()
 require("tsc").setup()
 
 -- Java shit
-require("java").setup()
+-- require("java").setup()
 
 -- Git
 require("gitsigns").setup()

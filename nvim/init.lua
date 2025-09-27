@@ -30,6 +30,10 @@ g.loaded_netrwPlugin = true
 -- vim.cmd("set list listchars=tab:»·,trail:·,eol:$")
 vim.cmd([[autocmd FileType * setlocal formatoptions-=ro]])
 
+vim.diagnostic.config({
+	-- virtual_lines = true,
+	virtual_text = true,
+})
 
 -- order important: load plugins, call setup() on all of them, then setup all the keymaps
 require("plugins")

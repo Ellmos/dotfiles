@@ -1,29 +1,28 @@
 # Dotfiles
 
-The config is made to run on debian 12 with i3 as a window manager
-The `install.sh` script install and setup the entire config and place the old dotfiles inside the backupDotfiles directory.
+This repository contains the configurations on the various tools i use the most.
+You will find configurations for:
+
+- alacritty
+- fonts
+- hypr
+- i3
+- nvim
+- picom
+- polybar
+- rofi
+- waybar
+- zsh
 
 
 ## Installation
-First you need to add your user to the sudoers group
-```
-su -
-```
 
-```
-usermod -aG sudo <user>
-exit
-```
+To use these dotfiles you can clone the repository and create symbolic links to the configuration you want to use.
 
-```
-su - <user>
-```
-
-
-Now you can install everything
-```
-sudo apt install -y git
+```bash
 git clone https://github.com/Ellmos/dotfiles.git
 cd dotfiles
-./install.sh
+
+# Example for alacritty
+ln -s $(pwd)/alacritty ~/.config/alacritty
 ```
