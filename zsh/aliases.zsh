@@ -13,7 +13,7 @@ alias cat='bat'
 
 alias nv='nvim'
 alias vim='nvim'
-alias rmswap='rm -rf ~/.local/state/nvim/swap/*'
+alias nvimSwapDelete='rm -rf ~/.local/state/nvim/swap/*'
 alias gdb='gdb -tui'
 alias brave='brave-browser'
 
@@ -34,11 +34,7 @@ alias gccc='gcc -Wextra -Wall -Werror -Wvla -std=c99 -pedantic -fsanitize=addres
 alias g+++='g++ -Wall -Wextra -Werror -pedantic -std=c++20 -Wold-style-cast -fsanitize=address -g -o main '
 alias clang+++='clang++ -Wall -Wextra -Werror -pedantic -std=c++20 -Wold-style-cast -fsanitize=address -g -o main '
 
-alias change-output='bash ~/.config/i3/scripts/change-output.sh'
-
 alias py='python3'
-
-alias delete-log='sudo find /var/log -mtime +30 -type f -delete'
 
 alias reload='source ~/.zshrc'
 
@@ -49,12 +45,16 @@ alias dcu='docker compose up'
 alias dcud='docker compose up -d'
 alias dcubd='docker compose up --build -d'
 alias dcd='docker compose down'
+alias dps='docker ps'
+alias dpsf='docker ps --format "table {{.Image}}\t{{.Names}}\t{{.Status}}"'
 
 alias lint='yarn run eslint --fix'
 
 alias plic="cd ~/Desktop/mti/plic"
 alias front="cd ~/Desktop/mti/plic/front/PLIC-App"
 alias back="cd ~/Desktop/mti/plic/back/"
+
+alias k="kubectl"
 
 # Not making binary out of this because it needs to change the cwd
 function gccd() {
