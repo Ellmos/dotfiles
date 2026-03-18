@@ -37,15 +37,16 @@ return require("lazy").setup({
 	{ "bloznelis/before.nvim" },
 
 	-- Highlighting
-	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+	{ "nvim-treesitter/nvim-treesitter", branch = "master", build = ":TSUpdate" },
 
 	-- File explorer
 	{ "nvim-tree/nvim-tree.lua" },
 	{ "antosha417/nvim-lsp-file-operations" },
 
 	-- Telescope
-	{ "nvim-telescope/telescope.nvim", tag = '0.1.7' },
+	{ "nvim-telescope/telescope.nvim", tag = "0.1.7" },
 	{ "nvim-telescope/telescope-ui-select.nvim" },
+	{ "imNel/monorepo.nvim" },
 	{
 		"nvim-telescope/telescope-fzf-native.nvim",
 		build = "make",
@@ -101,14 +102,6 @@ return require("lazy").setup({
 	{ "stevearc/conform.nvim" },
 	{ "zapling/mason-conform.nvim" },
 
-	-- Debugger
-	{ "mfussenegger/nvim-dap" },
-	{ "rcarriga/nvim-dap-ui" },
-	{ "nvim-telescope/telescope-dap.nvim" },
-	{ "theHamsta/nvim-dap-virtual-text" },
-	{ "mfussenegger/nvim-dap-python" },
-	{ "jay-babu/mason-nvim-dap.nvim", dependencies = { "nvim-neotest/nvim-nio" } },
-
 	-- Completion
 	{ "hrsh7th/nvim-cmp" },
 	{ "hrsh7th/cmp-nvim-lsp" },
@@ -152,13 +145,19 @@ return require("lazy").setup({
 	{ "dmmulroy/ts-error-translator.nvim" },
 	{ "dmmulroy/tsc.nvim" },
 
-	-- Java
-	{ "nvim-java/nvim-java" },
-
 	-- Git
 	{ "lewis6991/gitsigns.nvim" },
+	{ "FabijanZulj/blame.nvim" },
+    { "akinsho/git-conflict.nvim", tag = 'v2.1.0'},
 
 	-- Lua development
 	{ "milisims/nvim-luaref" },
 	{ "rafcamlet/nvim-luapad" },
+
+	-- yarn pnp
+	{ "lbrayner/vim-rzip" },
+
+	-- Scratch buffer
+
+	{ "LintaoAmons/scratch.nvim", event = "VeryLazy" },
 })

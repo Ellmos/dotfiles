@@ -18,7 +18,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		map("gD", vim.lsp.buf.hover, "[G]oto [D]ocumentation")
 		map("gd", "<Cmd>Telescope lsp_definitions<CR>", "[G]oto [d]efinitions")
 		map("gr", "<Cmd>Telescope lsp_references<CR>", "[G]oto [R]eferences")
-		map("gi", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
+		map("gi", "<Cmd>Telescope lsp_implementations<CR>", "[G]oto [I]mplementation")
 		map("gp", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", "[G]oto [P]review Definition")
 		map("<leader>d", vim.diagnostic.open_float, "[D]iagnostic")
 
@@ -28,39 +28,42 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 local servers = {
-	clangd = {}, -- C, C++
-	pyright = {}, -- Python
-	html = {}, -- HTML
+	-- clangd = {}, -- C, C++
+	-- pyright = {}, -- Python
+	-- html = {}, -- HTML
 	ts_ls = {}, -- TypeScript & JavaScript
-	cssls = {}, -- CSS
-	tailwindcss = {}, -- Tailwind
-	jsonls = {}, -- JSON
-	-- jdtls = {}, -- Java
-	lemminx = {}, -- XML
-	yamlls = {}, -- YAML
-	sqlls = {}, -- SQL
-	dockerls = {}, -- Docker
-	csharp_ls = {}, -- C#
-	angularls = {}, -- Angular
-	bashls = { -- Bash
-		default_config = {
-			cmd = { "bash-language-server", "start" },
-			filetypes = { "sh" },
+	eslint = {
+		settings = {
+			nodePath = ".yarn/sdks",
 		},
 	},
+	cssls = {}, -- CSS
+	-- tailwindcss = {}, -- Tailwind
+	-- jsonls = {}, -- JSON
+	-- lemminx = {}, -- XML
+	-- yamlls = {}, -- YAML
+	-- sqlls = {}, -- SQL
+	-- dockerls = {}, -- Docker
+	bashls = {}, -- Bash
 	lua_ls = { -- Lua
-		Lua = {
-			workspace = { checkThirdParty = false },
-			telemetry = { enable = false },
-			diagnostics = { globals = { "vim" } },
-			completion = {
-				callSnippet = "Replace",
+		settings = {
+			Lua = {
+				diagnostics = {
+					globals = { "vim" },
+				},
 			},
 		},
 	},
 }
 
+-- setup the servers
+for server, config in pairs(servers) do
+	vim.lsp.config(server, config)
+end
+
+-- Install the servers
 require("mason").setup()
+
 
 require("mason-lspconfig").setup({
 	ensure_installed = vim.tbl_keys(servers),

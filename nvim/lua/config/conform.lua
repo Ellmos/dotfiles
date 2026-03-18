@@ -3,7 +3,7 @@ local format_options = { lsp_fallback = true }
 require("conform").setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
-		python = { "black", "isort" },
+		-- python = { "black", "isort" },
 		javascript = { "prettier" },
 		typescript = { "prettier" },
 		typescriptreact = { "prettier" },
@@ -16,9 +16,6 @@ require("conform").setup({
 		markdown = { "prettier" },
 		sql = { "sqlfmt" },
 		bash = { "shfmt" },
-		java = { "prettier" },
-		c = { "clang_format" },
-		cpp = { "clang_format" },
 	},
 
 	-- Autoformat on save

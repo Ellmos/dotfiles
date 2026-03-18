@@ -32,19 +32,20 @@ require("nvim-autopairs").setup({ disable_filetype = { "TelescopePrompt", "vim" 
 
 -- Typescript shit
 require("ts-error-translator").setup()
-require("tsc").setup()
-
--- Java shit
--- require("java").setup()
+require("tsc").setup({
+	bin_path = ".yarn/sdks/typescript/bin/tsc",
+})
 
 -- Git
 require("gitsigns").setup()
+require("blame").setup()
+require("git-conflict").setup({
+	default_mappings = false,
+})
 
 require("livepreview.config").set()
 
 require("colorizer").setup()
-
-require("mason").setup()
 
 require("ts_context_commentstring").setup({
 	enable_autocmd = false,
@@ -54,6 +55,14 @@ vim.filetype.get_option = function(filetype, option)
 	return option == "commentstring" and require("ts_context_commentstring.internal").calculate_commentstring()
 		or get_option(filetype, option)
 end
+
+require("scratch").setup({
+	file_picker = "telescope",
+	filetypes = { "txt", "js", "ts", "md", "json", "yaml", "sh" },
+})
+
+require("monorepo").setup()
+
 -- Other config file
 require("config/tree")
 require("config/cokeline")
@@ -65,6 +74,5 @@ require("config/lint")
 require("config/treesitter")
 require("config/dashboard")
 require("config/indent-blankline")
-require("config/dap")
 require("config/telescope")
 require("config/cinnamon")

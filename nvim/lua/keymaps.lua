@@ -76,16 +76,6 @@ vim.g.VM_default_mappings = 0
 noremap("n", "<C-d>", "<Plug>(VM-Find-Under)", "Multi cursor editing")
 noremap("x", "<C-d>", "<Plug>(VM-Find-Subword-Under)", "Multi cursor editing")
 
--------------------DAP------------------
-noremap("n", "<leader>b", "<Cmd>DapToggleBreakpoint<CR>", "Toggle [B]reakpoint")
-noremap("n", "<leader>fb", "<Cmd>Telescope dap list_breakpoints<CR>", "[F]ind [B]reakpoints")
-noremap("n", "<F5>", "<Cmd>DapContinue<CR>", "Dap run or continue")
-noremap("n", "<F29>", "<Cmd>DapTerminate<CR>", "Ctrl+F5: Dap terminate")
-noremap("n", "<F17>", "<Cmd>DapTerminate<CR><Cmd>DapContinue<CR>", "Shift+F5: Dap Restart")
-noremap("n", "<F6>", "<Cmd>DapStepOver<CR>", "Dap step over")
-noremap("n", "<F7>", "<Cmd>DapStepInto<CR>", "Dap step into")
-noremap("n", "<F31>", "<Cmd>DapStepOut<CR>", "Ctrl+F7: Dap step out")
-
 -------------------Smooth Scrolling------------------
 local cinnamon = require("cinnamon")
 noremap({ "n", "v" }, "<S-j>", function() cinnamon.scroll("<C-D>") end, "Scroll cursor down")
@@ -112,9 +102,9 @@ end
 
 noremap("n", "<leader>ff", '<Cmd>lua telescope_root_dir("find_files")<CR>', "[F]ind [F]iles")
 noremap("n", "<leader>fof", '<Cmd>lua telescope_root_dir("oldfiles")<CR>', "[F]ind [O]ld [F]iles")
-noremap("n", "<leader>fg", '<Cmd>lua telescope_root_dir("live_grep")<CR>', "[L]ive [G]rep")
-noremap("n", "<leader>fw", '<Cmd>lua telescope_root_dir("grep_string")<CR>', "[G]rep [S]tring")
-
+noremap("n", "<leader>fb", '<Cmd>lua telescope_root_dir("buffers")<CR>', "[F]ind [B]uffers")
+noremap("n", "<leader>fg", '<Cmd>lua telescope_root_dir("live_grep")<CR>', "[F]ind [G]rep")
+noremap("n", "<leader>fw", '<Cmd>lua telescope_root_dir("grep_string")<CR>', "[F]ind [W]ord")
 noremap("n", "<leader>fib", "<Cmd>Telescope current_buffer_fuzzy_find<CR>", "[F]ind [I]n [B]uffer")
 noremap("n", "<leader>fd", "<Cmd>Telescope diagnostics<CR>", "[F]ind [D]iagnostics")
 noremap("n", "<leader>fh", "<Cmd>Telescope help_tags<CR>", "[F]ind [H]elp")
