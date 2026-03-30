@@ -18,8 +18,8 @@ require("nvim-web-devicons").setup()
 require("lualine").setup({ options = { theme = "nord" } })
 require("before").setup({ history_size = 100 })
 
--- Project
-require("project_nvim").setup({ patterns = { ".git", "*.sln" } })
+-- Terminal
+require("toggleterm").setup()
 
 -- Higlight TODO / FIXME ...
 require("todo-comments").setup()
@@ -60,8 +60,6 @@ require("scratch").setup({
 	file_picker = "telescope",
 	filetypes = { "txt", "js", "ts", "md", "json", "yaml", "sh" },
 })
-
-require("monorepo").setup()
 
 -- Other config file
 require("config/tree")

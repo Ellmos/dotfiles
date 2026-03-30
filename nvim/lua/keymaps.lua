@@ -61,6 +61,7 @@ noremap("n", "µ", "<Cmd>noh<CR>", "Switch off highlighting")
 
 -- NvimTree
 noremap("n", "<leader><TAB>", "<Cmd>NvimTreeToggle<CR>", "Toggle nvim_tree")
+noremap("n", "<leader>fe", "<Cmd>NvimTreeFindFile<CR>", "[F]ind [H]elp") -- close to telsecope
 
 -- Formatting
 noremap({ "n", "v", "i" }, "<C-S-s>", "<Cmd>Format<CR><Cmd>w<CR>", "Format current buffer")
@@ -90,24 +91,15 @@ noremap({ "n", "v" }, "zh", function() cinnamon.scroll("zH") end, "Scroll window
 noremap({ "n", "v" }, "zl", function() cinnamon.scroll("zL") end, "Scroll window right")
 
 -------------------Telescope------------------
-function telescope_root_dir(command)
-    local root = string.gsub(vim.fn.system("git rev-parse --show-toplevel"), "\n", "")
-    local options = {}
-    if vim.v.shell_error == 0 then
-        options.cwd = root
-    end
-
-    require("telescope.builtin")[command](options)
-end
-
-noremap("n", "<leader>ff", '<Cmd>lua telescope_root_dir("find_files")<CR>', "[F]ind [F]iles")
-noremap("n", "<leader>fof", '<Cmd>lua telescope_root_dir("oldfiles")<CR>', "[F]ind [O]ld [F]iles")
-noremap("n", "<leader>fb", '<Cmd>lua telescope_root_dir("buffers")<CR>', "[F]ind [B]uffers")
-noremap("n", "<leader>fg", '<Cmd>lua telescope_root_dir("live_grep")<CR>', "[F]ind [G]rep")
-noremap("n", "<leader>fw", '<Cmd>lua telescope_root_dir("grep_string")<CR>', "[F]ind [W]ord")
+noremap("n", "<leader>ff", "<Cmd>Telescope find_files<CR>", "[F]ind [F]iles")
+noremap("n", "<leader>fof", "<Cmd>Telescope oldfiles<CR>", "[F]ind [O]ld [F]iles")
+noremap("n", "<leader>fb", "<Cmd>Telescope buffers<CR>", "[F]ind [B]uffers")
+noremap("n", "<leader>fg", "<Cmd>Telescope live_grep<CR>", "[F]ind [G]rep")
+noremap("n", "<leader>fw", "<Cmd>Telescope grep_string<CR>", "[F]ind [W]ord")
 noremap("n", "<leader>fib", "<Cmd>Telescope current_buffer_fuzzy_find<CR>", "[F]ind [I]n [B]uffer")
 noremap("n", "<leader>fd", "<Cmd>Telescope diagnostics<CR>", "[F]ind [D]iagnostics")
 noremap("n", "<leader>fh", "<Cmd>Telescope help_tags<CR>", "[F]ind [H]elp")
+noremap("n", "<leader>fn", "<Cmd>Telescope node-workspace<CR>", "[F]ind [N]ode-workspace")
 
 -------------------Yanky------------------
 noremap("n", "y", "<Plug>(YankyYank)", "Yank text")

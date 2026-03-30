@@ -11,7 +11,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			vim.keymap.set("n", keymap, action, { desc = description, silent = true, noremap = true, buffer = bufnr })
 		end
 
-		map("<F2>", vim.lsp.buf.rename, "[R]e[n]ame")
+		map("<F2>", vim.lsp.buf.rename, "Rename")
 		map("<A-CR>", vim.lsp.buf.code_action, "Code Action")
 
 		map("gd", vim.lsp.buf.definition, "[G]oto [d]efinition")
@@ -22,8 +22,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		map("gp", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", "[G]oto [P]review Definition")
 		map("<leader>d", vim.diagnostic.open_float, "[D]iagnostic")
 
-		map("<leader>ds", "<Cmd>Telescope lsp_document_symbols<CR>", "[D]ocument [S]ymbols")
-		map("<leader>ws", "<Cmd>Telescope lsp_dynamic_workspace_symbols<CR>", "[W]orkspace [S]ymbols")
+		map("<leader>fs", "<Cmd>Telescope lsp_dynamic_workspace_symbols<CR>", "[F]ind [S]ymbols")
 	end,
 })
 

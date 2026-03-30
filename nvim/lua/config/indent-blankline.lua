@@ -12,5 +12,5 @@ require("ibl").setup({
             "dashboard",
         },
     },
-    scope = { enabled = false },
+    scope = { enabled = false }
 })

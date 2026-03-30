@@ -27,14 +27,12 @@ return require("lazy").setup({
 	-- Dashboard
 	{ "glepnir/dashboard-nvim" },
 
-	-- Project manager
-	{ "ahmedkhalf/project.nvim" },
-
 	-- Buffers
 	{ "willothy/nvim-cokeline", dependencies = { "stevearc/resession.nvim" } },
 	{ "nvim-lualine/lualine.nvim" },
 	{ "famiu/bufdelete.nvim" },
 	{ "bloznelis/before.nvim" },
+	{ "j-morano/buffer_manager.nvim" },
 
 	-- Highlighting
 	{ "nvim-treesitter/nvim-treesitter", branch = "master", build = ":TSUpdate" },
@@ -46,14 +44,9 @@ return require("lazy").setup({
 	-- Telescope
 	{ "nvim-telescope/telescope.nvim", tag = "0.1.7" },
 	{ "nvim-telescope/telescope-ui-select.nvim" },
-	{ "imNel/monorepo.nvim" },
-	{
-		"nvim-telescope/telescope-fzf-native.nvim",
-		build = "make",
-		cond = function()
-			return vim.fn.executable("make") == 1
-		end,
-	},
+	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+	{ "nvim-telescope/telescope-project.nvim" },
+	{ "ec965/telescope-node-workspace.nvim" },
 
 	-- Utils
 	{ "lukas-reineke/indent-blankline.nvim" },
@@ -61,6 +54,9 @@ return require("lazy").setup({
 	{ "windwp/nvim-ts-autotag" },
 	{ "jghauser/mkdir.nvim" },
 	{ "norcalli/nvim-colorizer.lua" },
+
+	-- Terminal
+	{ "akinsho/toggleterm.nvim" },
 
 	-- Goto Preview
 	{
@@ -148,7 +144,7 @@ return require("lazy").setup({
 	-- Git
 	{ "lewis6991/gitsigns.nvim" },
 	{ "FabijanZulj/blame.nvim" },
-    { "akinsho/git-conflict.nvim", tag = 'v2.1.0'},
+	{ "akinsho/git-conflict.nvim", tag = "v2.1.0" },
 
 	-- Lua development
 	{ "milisims/nvim-luaref" },

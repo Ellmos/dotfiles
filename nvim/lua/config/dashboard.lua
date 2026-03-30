@@ -16,7 +16,7 @@ require("dashboard").setup({
             {
                 icon = "󰥨  ",
                 desc = "Recent Projects                       ",
-                action = "Telescope projects",
+                action = "Telescope project",
                 key = "b",
                 icon_hl = "Title",
                 desc_hl = "String",
@@ -25,7 +25,7 @@ require("dashboard").setup({
             {
                 icon = "󰱼  ",
                 desc = "Find File                             ",
-                action = "Telescope find_files find_command=rg,--hidden,--files",
+                action = "Telescope find_files",
                 key = "c",
                 icon_hl = "Title",
                 desc_hl = "String",
