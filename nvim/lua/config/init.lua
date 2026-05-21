@@ -18,9 +18,6 @@ require("nvim-web-devicons").setup()
 require("lualine").setup({ options = { theme = "nord" } })
 require("before").setup({ history_size = 100 })
 
--- Terminal
-require("toggleterm").setup()
-
 -- Higlight TODO / FIXME ...
 require("todo-comments").setup()
 
@@ -58,19 +55,21 @@ end
 
 require("scratch").setup({
 	file_picker = "telescope",
-	filetypes = { "txt", "js", "ts", "md", "json", "yaml", "sh" },
+	filetypes = { "txt", "js", "ts", "javascriptreact", "typescriptreact", "md", "json", "yaml", "sh" },
 })
 
 -- Other config file
-require("config/tree")
-require("config/cokeline")
-require("config/yanky")
-require("config/cmp")
-require("config/lsp")
-require("config/conform")
-require("config/lint")
-require("config/treesitter")
-require("config/dashboard")
-require("config/indent-blankline")
-require("config/telescope")
-require("config/cinnamon")
+require("config.tree")
+require("config.cokeline")
+require("config.yanky")
+require("config.cmp")
+require("config.lsp")
+require("config.conform")
+require("config.lint")
+require("config.treesitter")
+require("config.dashboard")
+require("config.indent-blankline")
+require("config.telescope")
+require("config.cinnamon")
+require("config.copilot")
+require("config.toggleterm")

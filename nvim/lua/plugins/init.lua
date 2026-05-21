@@ -35,14 +35,14 @@ return require("lazy").setup({
 	{ "j-morano/buffer_manager.nvim" },
 
 	-- Highlighting
-	{ "nvim-treesitter/nvim-treesitter", branch = "master", build = ":TSUpdate" },
+	{ "nvim-treesitter/nvim-treesitter", branch = "main", build = ":TSUpdate" },
 
 	-- File explorer
 	{ "nvim-tree/nvim-tree.lua" },
 	{ "antosha417/nvim-lsp-file-operations" },
 
 	-- Telescope
-	{ "nvim-telescope/telescope.nvim", tag = "0.1.7" },
+	{ "nvim-telescope/telescope.nvim", version = "0.2.2" },
 	{ "nvim-telescope/telescope-ui-select.nvim" },
 	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 	{ "nvim-telescope/telescope-project.nvim" },
@@ -112,6 +112,7 @@ return require("lazy").setup({
 
 	-- Copilot
 	{ "github/copilot.vim" },
+    { "CopilotC-Nvim/CopilotChat.nvim" },
 
 	-- Snippet
 	{ "L3MON4D3/LuaSnip", build = "make install_jsregexp" },
@@ -154,6 +155,5 @@ return require("lazy").setup({
 	{ "lbrayner/vim-rzip" },
 
 	-- Scratch buffer
-
 	{ "LintaoAmons/scratch.nvim", event = "VeryLazy" },
 })

@@ -61,7 +61,7 @@ noremap("n", "µ", "<Cmd>noh<CR>", "Switch off highlighting")
 
 -- NvimTree
 noremap("n", "<leader><TAB>", "<Cmd>NvimTreeToggle<CR>", "Toggle nvim_tree")
-noremap("n", "<leader>fe", "<Cmd>NvimTreeFindFile<CR>", "[F]ind [H]elp") -- close to telsecope
+noremap("n", "<leader>ft", "<Cmd>NvimTreeFindFile<CR>", "[F]ind [T]ree")
 
 -- Formatting
 noremap({ "n", "v", "i" }, "<C-S-s>", "<Cmd>Format<CR><Cmd>w<CR>", "Format current buffer")
@@ -100,6 +100,7 @@ noremap("n", "<leader>fib", "<Cmd>Telescope current_buffer_fuzzy_find<CR>", "[F]
 noremap("n", "<leader>fd", "<Cmd>Telescope diagnostics<CR>", "[F]ind [D]iagnostics")
 noremap("n", "<leader>fh", "<Cmd>Telescope help_tags<CR>", "[F]ind [H]elp")
 noremap("n", "<leader>fn", "<Cmd>Telescope node-workspace<CR>", "[F]ind [N]ode-workspace")
+noremap("n", "<leader>fp", "<Cmd>Telescope project<CR>", "[F]ind [P]roject")
 
 -------------------Yanky------------------
 noremap("n", "y", "<Plug>(YankyYank)", "Yank text")
@@ -115,3 +116,10 @@ remap("v", "<C-/>", "gc", "Toggle comments on selected lines")-- qwerty
 
 remap("n", "<C-:>", "gcc", "Toggle comment on current line") -- azerty
 remap("v", "<C-:>", "gc", "Toggle comments on selected lines")-- azerty
+
+-------------------CopilotChat------------------
+noremap("n", "<leader>c", "<Cmd>CopilotChatToggle<CR>", "Toggle CopilotChat")
+
+-------------------Terminal------------------
+noremap("n", "<leader>t", "<Cmd>ToggleTerm<CR>", "Open terminal")
+noremap("t", "<Esc>", "<C-\\><C-n>", "Exit terminal mode")

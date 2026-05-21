@@ -16,7 +16,7 @@ require("dashboard").setup({
             {
                 icon = "󰥨  ",
                 desc = "Recent Projects                       ",
-                action = "Telescope project",
+                action = ":lua require('telescope').extensions.project.project({ display_type = 'full'  })",
                 key = "b",
                 icon_hl = "Title",
                 desc_hl = "String",

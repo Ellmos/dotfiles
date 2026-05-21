@@ -28,6 +28,11 @@ alias glp='git log -p'
 alias glog='git log --all --decorate --graph --oneline'
 alias gd='git diff'
 alias gds='git diff --staged'
+alias gr='git rebase'
+alias gri='git rebase -i'
+alias grc='git rebase --continue'
+alias gra='git rebase --abort'
+
 
 alias clangf='find $(git rev-parse --show-toplevel) -name "*.h" -o -name "*.c" -o -name "*.hh" -o -name "*.cc" -o -name "*.hxx"  | xargs clang-format -i'
 alias gccc='gcc -Wextra -Wall -Werror -Wvla -std=c99 -pedantic -fsanitize=address -g -o main '

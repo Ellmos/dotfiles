@@ -39,7 +39,13 @@ require("telescope").setup({
 				n = {
 					["<c-w>"] = actions.delete_buffer + actions.move_to_top,
 				},
+				i = {
+					["<c-w>"] = actions.delete_buffer + actions.move_to_top,
+				},
 			},
+		},
+		oldfiles = {
+			cwd_only = true,
 		},
 	},
 	extensions = {
@@ -47,6 +53,10 @@ require("telescope").setup({
 			require("telescope.themes").get_dropdown(),
 		},
 		project = {
+			display_type = "full",
+			base_dirs = {
+				"~/Desktop/",
+			},
 			on_project_selected = function(prompt_bufnr)
 				project_actions.change_working_directory(prompt_bufnr, false)
 
