@@ -72,9 +72,6 @@ return require("lazy").setup({
 	-- Smooth scrolling
 	{ "declancm/cinnamon.nvim" },
 
-	-- Code folding
-	{ "jghauser/fold-cycle.nvim" },
-
 	-- Multiline Editing
 	{ "mg979/vim-visual-multi" },
 

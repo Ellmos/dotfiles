@@ -21,16 +21,13 @@ require("before").setup({ history_size = 100 })
 -- Higlight TODO / FIXME ...
 require("todo-comments").setup()
 
--- Code folding
-require("fold-cycle").setup({ open_if_max_closed = false, close_if_max_opened = false })
-
 -- Autocomplete pairs (brackets, quotes....)
 require("nvim-autopairs").setup({ disable_filetype = { "TelescopePrompt", "vim" } })
 
 -- Typescript shit
 require("ts-error-translator").setup()
 require("tsc").setup({
-	bin_path = ".yarn/sdks/typescript/bin/tsc",
+	bin_path = "/opt/homebrew/bin/tsc",
 })
 
 -- Git

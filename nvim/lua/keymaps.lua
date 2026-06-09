@@ -10,8 +10,10 @@ end
 noremap("i", "<M-BS>", "<C-w>", "Delete previous word")
 noremap("i", "<C-BS>", "<C-w>", "Delete previous word")
 noremap({ "n", "v", "i" }, "<C-s>", "<Cmd>w<CR>", "Save")
+-- noremap("n", "<leader><BS>", "<ESC>I<BS><ESC>", "Collapse line above")
+noremap("n", "<leader><BS>", "J", "Collapse line above")
 
--- Move through buffers
+    -- Move through buffers
 noremap("n", "<C-h>", "<C-w>h", "Move to left buffer")
 noremap("n", "<C-l>", "<C-w>l", "Move to right buffer")
 noremap("n", "<C-j>", "<C-w>j", "Move to bottom buffer")
@@ -66,13 +68,7 @@ noremap("n", "<leader>ft", "<Cmd>NvimTreeFindFile<CR>", "[F]ind [T]ree")
 -- Formatting
 noremap({ "n", "v", "i" }, "<C-S-s>", "<Cmd>Format<CR><Cmd>w<CR>", "Format current buffer")
 
--- Folder
-noremap("n", "<leader><CR>", require("fold-cycle").open, "Open folder")
-noremap("n", "<leader><BS>", require("fold-cycle").close, "Close folder")
-noremap("n", "<C-m><C-l>", require("fold-cycle").open_all, "Open all folders")
-noremap("n", "<C-m><C-o>", require("fold-cycle").close_all, "Close all folders")
-
--- multi line editing
+-- Multi line editing
 vim.g.VM_default_mappings = 0
 noremap("n", "<C-d>", "<Plug>(VM-Find-Under)", "Multi cursor editing")
 noremap("x", "<C-d>", "<Plug>(VM-Find-Subword-Under)", "Multi cursor editing")
@@ -118,7 +114,7 @@ remap("n", "<C-:>", "gcc", "Toggle comment on current line") -- azerty
 remap("v", "<C-:>", "gc", "Toggle comments on selected lines")-- azerty
 
 -------------------CopilotChat------------------
-noremap("n", "<leader>c", "<Cmd>CopilotChatToggle<CR>", "Toggle CopilotChat")
+noremap({"n", "v"}, "<leader>c", "<Cmd>CopilotChatToggle<CR>", "Toggle CopilotChat")
 
 -------------------Terminal------------------
 noremap("n", "<leader>t", "<Cmd>ToggleTerm<CR>", "Open terminal")
