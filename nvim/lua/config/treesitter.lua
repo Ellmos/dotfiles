@@ -15,7 +15,8 @@ require("nvim-treesitter.configs").setup({
         "vim",
         "rasi",
         "bash",
-        "java"
+        "java",
+        "go"
     },
     sync_install = false,
     indent = { enable = true },

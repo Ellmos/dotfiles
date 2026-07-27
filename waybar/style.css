@@ -32,22 +32,29 @@ button:hover {
 }
 
 #workspaces button {
-  padding: 0 5px;
-  background-color: transparent;
-  color: #ffffff;
+  padding: 0 10px;
+  margin: 0 4px;
+  background: transparent;
+  color: @overlay1;
+  border-radius: 10px;
+  transition: all 0.2s ease;
 }
 
 #workspaces button:hover {
-  background: rgba(0, 0, 0, 0.2);
+  background: @surface1;
+  color: @text;
+  box-shadow: none;
 }
 
-#workspaces button.focused {
-  background-color: @lavender;
-  box-shadow: inset 0 -3px #ffffff;
+#workspaces button.active {
+  background: @lavender;
+  color: @base;
+  font-weight: bold;
 }
 
 #workspaces button.urgent {
-  background-color: #eb4d4b;
+  background: @red;
+  color: @base;
 }
 
 #mode {

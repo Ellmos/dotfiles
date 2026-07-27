@@ -38,5 +38,9 @@ add_to_path "$ANDROID_HOME/tools"
 add_to_path "$ANDROID_HOME/tools/bin"
 add_to_path "$ANDROID_HOME/platform-tools"
 
-# Lazy docker 
-add_to_path "$HOME/.local/bin"
+add_to_path "$HOME/.local/bin" # local binaries
+
+add_to_path "$HOME/.krew/bin" # kube plugin manager
+
+export PGDATA="$HOME/postgres_data"
+export PGHOST="/tmp"

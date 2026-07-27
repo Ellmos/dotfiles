@@ -15,7 +15,7 @@ require("gruvbox").setup({
 require("nvim-web-devicons").setup()
 
 -- buffers
-require("lualine").setup({ options = { theme = "nord" } })
+require("lualine").setup({options = { theme = "nord" }})
 require("before").setup({ history_size = 100 })
 
 -- Project

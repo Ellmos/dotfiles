@@ -7,7 +7,7 @@ alias ls='ls --color=auto'
 alias la='ls -A --color=auto'
 alias ll='ls -l --color=auto'
 alias grep='grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox}'
-alias tree='tree -C -I ".git|node_modules|__pycache__"'
+alias tree='tree -C -I ".git|node_modules|__pycache__|env"'
 alias c='clear'
 alias cat='bat'
 
@@ -35,6 +35,10 @@ alias g+++='g++ -Wall -Wextra -Werror -pedantic -std=c++20 -Wold-style-cast -fsa
 alias clang+++='clang++ -Wall -Wextra -Werror -pedantic -std=c++20 -Wold-style-cast -fsanitize=address -g -o main '
 
 alias py='python3'
+alias pym='python3 -m'
+alias ur='uv run'
+alias upy='uv run python'
+alias upym='uv run python -m'
 
 alias reload='source ~/.zshrc'
 
@@ -43,6 +47,7 @@ alias make='make -j'
 alias dc='docker compose'
 alias dcu='docker compose up'
 alias dcud='docker compose up -d'
+alias dcub='docker compose up --build'
 alias dcubd='docker compose up --build -d'
 alias dcd='docker compose down'
 alias dps='docker ps'
@@ -53,6 +58,7 @@ alias lint='yarn run eslint --fix'
 alias plic="cd ~/Desktop/mti/plic"
 alias front="cd ~/Desktop/mti/plic/front/PLIC-App"
 alias back="cd ~/Desktop/mti/plic/back/"
+alias ipCopy="echo -n \"$(hostname -I | cut -d' ' -f1)\" | clipcopy"
 
 alias k="kubectl"
 

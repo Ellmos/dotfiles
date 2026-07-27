@@ -29,19 +29,21 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 local servers = {
 	clangd = {}, -- C, C++
-	pyright = {}, -- Python
+	-- pyright = {}, -- Python
+    ty = {},
 	html = {}, -- HTML
 	ts_ls = {}, -- TypeScript & JavaScript
 	cssls = {}, -- CSS
-	tailwindcss = {}, -- Tailwind
+	-- tailwindcss = {}, -- Tailwind
 	jsonls = {}, -- JSON
 	-- jdtls = {}, -- Java
 	lemminx = {}, -- XML
 	yamlls = {}, -- YAML
-	sqlls = {}, -- SQL
+	-- sqlls = {}, -- SQL
 	dockerls = {}, -- Docker
 	csharp_ls = {}, -- C#
 	angularls = {}, -- Angular
+	golangci_lint_ls = {}, -- Go
 	bashls = { -- Bash
 		default_config = {
 			cmd = { "bash-language-server", "start" },
