@@ -12,7 +12,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 
 		map("<F2>", vim.lsp.buf.rename, "Rename")
-		map("<A-CR>", vim.lsp.buf.code_action, "Code Action")
+		map("<A-CR>", function()
+			vim.lsp.buf.code_action({ context = { only = { "quickfix" } } })
+		end, "Code Action")
 
 		map("gd", vim.lsp.buf.definition, "[G]oto [d]efinition")
 		map("gD", vim.lsp.buf.hover, "[G]oto [D]ocumentation")
@@ -62,7 +64,6 @@ end
 
 -- Install the servers
 require("mason").setup()
-
 
 require("mason-lspconfig").setup({
 	ensure_installed = vim.tbl_keys(servers),

@@ -1,0 +1,601 @@
+#!/bin/sh
+# gwt — wrapper that delegates to the compiled TypeScript CLI.
+# Build: cd "$(dirname "$0")/../tools/gwt-js" && npm install && npm run build
+_gwt_js="$(cd "$(dirname "$0")/../tools/gwt-js" && pwd)/dist/index.js"
+exec node "$_gwt_js" "$@"
+
+# ── legacy shell implementation (kept for reference) ─────────────────────────
+# shellcheck disable=all
+return 0 2>/dev/null || true
+
+set -e
+
+# ── helpers ───────────────────────────────────────────────────────────────────
+
+abort() {
+  printf 'error: %s\n' "$*" >&2
+  exit 1
+}
+
+# Resolve the gwt repo root from any directory inside it (worktree or root).
+# Accepts an optional directory argument to run git from (defaults to $PWD).
+find_repo_root() {
+  dir="${1:-.}"
+  git_common=$(git -C "$dir" rev-parse --git-common-dir 2>/dev/null) \
+    || abort "not inside a gwt repo"
+  case "$git_common" in
+    /*) ;;
+    *)  git_common="$(cd "$dir" && pwd)/$git_common" ;;
+  esac
+  dirname "$(cd "$git_common" && pwd)"
+}
+
+# Echo the lowest unused numeric pool slot name (1, 2, 3, …).
+next_pool_slot() {
+  pool_dir="$1"
+  n=1
+  while [ -e "$pool_dir/$n" ]; do
+    n=$((n + 1))
+  done
+  printf '%s' "$n"
+}
+
+# Rewrite one-line metadata files that store absolute paths under the old root.
+rewrite_path_file() {
+  file="$1"
+  old_root="$2"
+  new_root="$3"
+  [ -f "$file" ] || return 0
+
+  line=$(head -n 1 "$file")
+  case "$line" in
+    "gitdir: $old_root"*)
+      printf 'gitdir: %s\n' "$new_root${line#"gitdir: $old_root"}" > "$file"
+      ;;
+    "$old_root"*)
+      printf '%s\n' "$new_root${line#"$old_root"}" > "$file"
+      ;;
+  esac
+}
+
+config_dir_path() {
+  repo_root="$1"
+  printf '%s/.gwt' "$repo_root"
+}
+
+pwd_map_file_path() {
+  repo_root="$1"
+  printf '%s/pwd-map' "$(config_dir_path "$repo_root")"
+}
+
+ensure_config_dir() {
+  repo_root="$1"
+  mkdir -p "$(config_dir_path "$repo_root")"
+}
+
+worktree_name_from_path() {
+  repo_root="$1"
+  wt_path="$2"
+  case "$wt_path" in
+    "$repo_root") printf 'root' ;;
+    "$repo_root"/*) printf '%s' "${wt_path#"$repo_root"/}" ;;
+    *) return 1 ;;
+  esac
+}
+
+get_worktree_pwd() {
+  repo_root="$1"
+  wt_name="$2"
+  map_file="$(pwd_map_file_path "$repo_root")"
+  [ -f "$map_file" ] || return 1
+
+  awk -F '\t' -v key="$wt_name" '$1 == key { print $2; found=1; exit } END { if (!found) exit 1 }' "$map_file"
+}
+
+set_worktree_pwd() {
+  repo_root="$1"
+  wt_name="$2"
+  rel_path="$3"
+
+  ensure_config_dir "$repo_root"
+  map_file="$(pwd_map_file_path "$repo_root")"
+  tmp_file=$(mktemp)
+
+  if [ -f "$map_file" ]; then
+    awk -F '\t' -v key="$wt_name" -v val="$rel_path" '
+      BEGIN { updated=0 }
+      $1 == key {
+        print key "\t" val
+        updated=1
+        next
+      }
+      { print }
+      END {
+        if (!updated) print key "\t" val
+      }
+    ' "$map_file" > "$tmp_file"
+  else
+    printf '%s\t%s\n' "$wt_name" "$rel_path" > "$tmp_file"
+  fi
+
+  mv "$tmp_file" "$map_file"
+}
+
+unset_worktree_pwd() {
+  repo_root="$1"
+  wt_name="$2"
+  map_file="$(pwd_map_file_path "$repo_root")"
+  [ -f "$map_file" ] || return 0
+
+  tmp_file=$(mktemp)
+  awk -F '\t' -v key="$wt_name" '$1 != key { print }' "$map_file" > "$tmp_file"
+  mv "$tmp_file" "$map_file"
+}
+
+# Run an optional hook script after `gwt add` inside the new worktree.
+# Hook location: <repo_root>/.gwt/post-add.sh
+run_post_add_hook() {
+  repo_root="$1"
+  target="$2"
+  branch="$3"
+  created_new_branch="$4"
+
+  hook="$repo_root/.gwt/post-add.sh"
+  [ -f "$hook" ] || return 0
+
+  (
+    cd "$target" || exit 1
+    GWT_REPO_ROOT="$repo_root" \
+    GWT_WORKTREE_PATH="$target" \
+    GWT_WORKTREE_NAME="$(basename "$target")" \
+    GWT_BRANCH="$branch" \
+    GWT_ADD_CREATED_BRANCH="$created_new_branch" \
+    sh "$hook"
+  ) || abort "post-add hook failed: $hook"
+}
+
+# ── commands ──────────────────────────────────────────────────────────────────
+
+usage() {
+  cat <<EOF
+Usage: gwt <command> [options]
+
+Commands:
+  clone <url> [folder]            Clone a repo using the bare+worktree layout
+  add   <name> [<branch>] -c -b <base>    Create new branch from <base> in a worktree
+  add   <name> [<branch>]                 Check out existing branch in a worktree
+  cd    <name>            Print absolute path of an active worktree (for: cd "\$(gwt cd <name>)")
+  config edit [file]      Open .gwt in editor (or a specific file inside .gwt)
+  config set pwd [path]   Set worktree default subdirectory for `gwt cd`
+  done  [path]            Release current (or given) worktree back to pool
+  move  <from> <to>       Rename a worktree directory (branch unchanged)
+  relocate <new>          Rename/move the whole gwt repo from inside it
+  relocate <src> <new>    Rename/move a gwt repo from outside it
+  list                    Show active and idle (pooled) worktrees
+
+Hook:
+  If present, runs after `gwt add` inside the new worktree:
+    .gwt/post-add.sh
+
+Config:
+  - `gwt config edit [file]` opens `.gwt` (or `.gwt/<file>`)
+  - `gwt config set pwd [path]` stores a worktree-specific path used by `gwt cd`
+    (without [path], the current directory is used)
+
+EOF
+  exit 1
+}
+
+cmd_clone() {
+  case "$1" in -h|--help) usage ;; esac
+  url="$1"
+  folder="$2"
+
+  [ -z "$url" ] && abort "missing repository URL"
+  [ -z "$folder" ] && folder="$(basename "$url" .git)"
+
+  [ -e "$folder" ] && abort "destination '$folder' already exists"
+
+  mkdir -p "$folder/.bare"
+  git -C "$folder/.bare" init --bare
+
+  git -C "$folder/.bare" remote add origin "$url"
+  git -C "$folder/.bare" config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+  git -C "$folder/.bare" fetch origin
+
+  git -C "$folder/.bare" remote set-head origin -a
+  default_branch=$(git -C "$folder/.bare" symbolic-ref --short refs/remotes/origin/HEAD | sed 's#^origin/##')
+
+  # Add a worktree for the default branch
+  git -C "$folder/.bare" worktree add "../$default_branch" "$default_branch"
+
+  # Setup the root .git file so Git recognizes the root directory
+  printf 'gitdir: ./.bare\n' > "$folder/.git"
+  printf 'ref: refs/heads/gwt\n' > "$folder/.bare/HEAD"
+
+  # Create a default post-add hook scaffold.
+  mkdir -p "$folder/.gwt"
+  cat > "$folder/.gwt/post-add.sh" <<'EOF'
+#!/bin/sh
+
+# Runs after `gwt add` inside the target worktree.
+# Available environment variables:
+# - GWT_REPO_ROOT
+# - GWT_WORKTREE_PATH
+# - GWT_WORKTREE_NAME
+# - GWT_BRANCH
+# - GWT_ADD_CREATED_BRANCH
+
+# Example:
+# if [ -f package.json ]; then
+#   npm install
+# fi
+EOF
+
+  printf 'Done. Bare repo at %s/.bare, default worktree at %s/%s\n' \
+    "$folder" "$folder" "$default_branch"
+}
+
+
+cmd_add() {
+  new_branch=0
+  base_ref=""
+  name=""
+  branch=""
+  next_is_base=0
+  for arg in "$@"; do
+    if [ "$next_is_base" = "1" ]; then
+      base_ref="$arg"
+      next_is_base=0
+      continue
+    fi
+    case "$arg" in
+      -c)        new_branch=1 ;;
+      -b)        next_is_base=1 ;;
+      -h|--help) usage ;;
+      -*)        abort "unknown flag '$arg'" ;;
+      *)
+        if [ -z "$name" ]; then
+          name="$arg"
+        elif [ -z "$branch" ]; then
+          branch="$arg"
+        else
+          abort "unexpected argument '$arg'"
+        fi
+        ;;
+    esac
+  done
+  [ -z "$name" ] && abort "usage: gwt add <name> [<branch>] [-c [-b <base>]]"
+  # Branch defaults to the worktree name when not specified
+  [ -z "$branch" ] && branch="$name"
+  # -b without -c makes no sense
+  [ -n "$base_ref" ] && [ "$new_branch" = "0" ] && abort "-b requires -c"
+
+  repo_root=$(find_repo_root)
+  if [ "$new_branch" = "1" ] && [ -z "$base_ref" ]; then
+    # When creating from inside a worktree, default base to its current branch.
+    current_wt_root=$(git rev-parse --show-toplevel 2>/dev/null || true)
+    if [ -n "$current_wt_root" ] && [ "$current_wt_root" != "$repo_root" ]; then
+      base_ref=$(git -C "$current_wt_root" symbolic-ref --quiet --short HEAD 2>/dev/null || true)
+      [ -z "$base_ref" ] && abort "current worktree is detached; pass -b <base> explicitly"
+    else
+      abort "-c requires -b <base> when run from the repo root"
+    fi
+  fi
+
+  pool_dir="$repo_root/.pool"
+  target="$repo_root/$name"
+
+  [ -e "$target" ] && abort "worktree '$branch' already exists at '$target'"
+
+  # Find the first available (lowest-numbered) pool slot
+  idle_slot=""
+  if [ -d "$pool_dir" ]; then
+    for entry in "$pool_dir"/*/; do
+      [ -d "$entry" ] || break          # no subdirs — glob expanded to literal
+      name=$(basename "$entry")
+      case "$name" in *[!0-9]*) continue ;; esac  # skip non-numeric names
+      idle_slot="${entry%/}"
+      break
+    done
+  fi
+
+  if [ -n "$idle_slot" ]; then
+    # ── reuse a pool worktree ─────────────────────────────────────────────
+    # Validate branch exists BEFORE moving the pool slot, so a missing branch
+    # doesn't leave the worktree stranded outside the pool.
+    if [ "$new_branch" = "0" ]; then
+      git -C "$repo_root/.bare" rev-parse --verify "refs/heads/$branch" > /dev/null 2>&1 \
+        || git -C "$repo_root/.bare" rev-parse --verify "refs/remotes/origin/$branch" > /dev/null 2>&1 \
+        || abort "branch '$branch' not found; use -c to create it"
+    fi
+
+    git -C "$repo_root/.bare" worktree move "$idle_slot" "$target"
+    if [ "$new_branch" = "1" ]; then
+      git -C "$target" switch -c "$branch" "$base_ref"
+    else
+      git -C "$target" switch "$branch"
+    fi
+  else
+    # ── create a fresh worktree ───────────────────────────────────────────
+    if [ "$new_branch" = "1" ]; then
+      git -C "$repo_root/.bare" worktree add -b "$branch" "$target" "$base_ref"
+    else
+      git -C "$repo_root/.bare" worktree add "$target" "$branch" 2>/dev/null \
+        || abort "branch '$branch' not found; use -c to create it"
+    fi
+  fi
+
+  run_post_add_hook "$repo_root" "$target" "$branch" "$new_branch"
+
+  printf '%s\n' "$target"
+}
+
+cmd_done() {
+  case "$1" in -h|--help) usage ;; esac
+  input_path="${1:-$(pwd)}"
+  path=$(cd "$input_path" 2>/dev/null && pwd) \
+    || abort "path '$input_path' does not exist"
+  wt_root=$(git -C "$path" rev-parse --show-toplevel 2>/dev/null) \
+    || abort "path '$input_path' is not inside a git worktree"
+
+  repo_root=$(find_repo_root "$wt_root")
+  pool_dir="$repo_root/.pool"
+  wt_name=$(worktree_name_from_path "$repo_root" "$wt_root") \
+    || abort "cannot resolve worktree name"
+
+  [ "$wt_root" = "$repo_root" ]       && abort "cannot release the repo root"
+  [ "$wt_root" = "$repo_root/.bare" ] && abort "cannot release the bare repo"
+  case "$wt_root" in
+    "$pool_dir"/*) abort "worktree is already in the pool" ;;
+  esac
+
+  if [ -n "$(git -C "$wt_root" status --porcelain 2>/dev/null)" ]; then
+    abort "worktree has uncommitted changes — commit or stash first"
+  fi
+
+  git -C "$wt_root" checkout --detach HEAD
+
+  mkdir -p "$pool_dir"
+  slot=$(next_pool_slot "$pool_dir")
+  git -C "$repo_root/.bare" worktree move "$wt_root" "$pool_dir/$slot"
+
+  unset_worktree_pwd "$repo_root" "$wt_name"
+
+  printf 'Worktree parked in pool slot %s.\n' "$slot"
+}
+
+cmd_move() {
+  case "$1" in -h|--help) usage ;; esac
+  from="$1"; to="$2"
+  { [ -z "$from" ] || [ -z "$to" ]; } && abort "usage: gwt move <from> <to>"
+
+  repo_root=$(find_repo_root)
+  pool_dir="$repo_root/.pool"
+  src="$repo_root/$from"
+  dst="$repo_root/$to"
+
+  [ -d "$src" ] || abort "worktree '$from' does not exist"
+  [ -e "$dst" ] && abort "destination '$to' already exists"
+  case "$src" in
+    "$pool_dir"/*) abort "cannot move a pool slot — use 'gwt add' to activate it" ;;
+  esac
+
+  git -C "$repo_root/.bare" worktree move "$src" "$dst"
+  printf '%s\n' "$dst"
+}
+
+cmd_cd() {
+  case "$1" in -h|--help) usage ;; esac
+  name="$1"
+  [ -z "$name" ] && abort "usage: gwt cd <name>"
+
+  repo_root=$(find_repo_root)
+  pool_dir="$repo_root/.pool"
+
+  if [ "$name" = "root" ]; then
+    printf '%s\n' "$repo_root"
+    return 0
+  fi
+
+  target="$repo_root/$name"
+
+  target=$(cd "$target" 2>/dev/null && pwd) \
+    || abort "worktree '$name' does not exist"
+
+  [ "$target" = "$repo_root/.bare" ] && abort "cannot cd to the bare repo"
+  case "$target" in
+    "$pool_dir"/*) abort "cannot cd to an idle pool slot; activate it with 'gwt add'" ;;
+  esac
+
+  git -C "$repo_root/.bare" worktree list --porcelain | grep -Fqx "worktree $target" \
+    || abort "'$name' is not an active worktree"
+
+  configured_rel=$(get_worktree_pwd "$repo_root" "$name" 2>/dev/null || true)
+  if [ -n "$configured_rel" ] && [ "$configured_rel" != "." ]; then
+    target="$target/$configured_rel"
+  fi
+
+  [ -d "$target" ] || abort "configured cd path does not exist: '$target'"
+  printf '%s\n' "$target"
+}
+
+cmd_config() {
+  subcmd="$1"
+  case "$subcmd" in
+    -h|--help|'') usage ;;
+  esac
+  shift
+
+  repo_root=$(find_repo_root)
+  config_dir="$(config_dir_path "$repo_root")"
+  ensure_config_dir "$repo_root"
+
+  case "$subcmd" in
+    edit)
+      file_arg="$1"
+      if [ -n "$file_arg" ]; then
+        case "$file_arg" in
+          /*) target="$file_arg" ;;
+          *)  target="$config_dir/$file_arg" ;;
+        esac
+      else
+        target="$config_dir"
+      fi
+
+      editor="${VISUAL:-${EDITOR:-vi}}"
+      "$editor" "$target"
+      ;;
+    set)
+      key="$1"
+      shift
+      case "$key" in
+        pwd)
+          path_arg="$1"
+          current_wt_root=$(git rev-parse --show-toplevel 2>/dev/null) \
+            || abort "run this command from inside a worktree"
+
+          wt_name=$(worktree_name_from_path "$repo_root" "$current_wt_root") \
+            || abort "current directory is outside this gwt repo"
+          [ "$wt_name" = "root" ] && abort "cannot set worktree pwd for repo root"
+          case "$current_wt_root" in
+            "$repo_root/.pool"/*) abort "cannot set worktree pwd for pooled worktrees" ;;
+          esac
+
+          if [ -z "$path_arg" ]; then
+            abs_target=$(pwd)
+          else
+            case "$path_arg" in
+              /*) abs_target="$path_arg" ;;
+              *)  abs_target="$PWD/$path_arg" ;;
+            esac
+          fi
+
+          abs_target=$(cd "$abs_target" 2>/dev/null && pwd) \
+            || abort "path does not exist: '$abs_target'"
+
+          case "$abs_target" in
+            "$current_wt_root") rel_target='.' ;;
+            "$current_wt_root"/*) rel_target=${abs_target#"$current_wt_root"/} ;;
+            *) abort "path must be inside current worktree: '$current_wt_root'" ;;
+          esac
+
+          set_worktree_pwd "$repo_root" "$wt_name" "$rel_target"
+          printf 'Set default path for worktree %s to %s\n' "$wt_name" "$rel_target"
+          ;;
+        *) abort "unknown config key '$key' (supported: pwd)" ;;
+      esac
+      ;;
+    *) abort "unknown config subcommand '$subcmd'" ;;
+  esac
+}
+
+cmd_relocate() {
+  case "$1" in -h|--help) usage ;; esac
+
+  if [ "$#" -eq 1 ]; then
+    src_root=$(find_repo_root)
+    dst_arg="$1"
+    case "$dst_arg" in
+      /*) dst_root="$dst_arg" ;;
+      *)  dst_root="$(dirname "$src_root")/$dst_arg" ;;
+    esac
+  elif [ "$#" -eq 2 ]; then
+    src_root=$(cd "$1" 2>/dev/null && pwd) || abort "path '$1' does not exist"
+    dst_arg="$2"
+    case "$dst_arg" in
+      /*) dst_root="$dst_arg" ;;
+      *)  dst_root="$(pwd)/$dst_arg" ;;
+    esac
+  else
+    abort "usage: gwt relocate <new> | gwt relocate <src> <new>"
+  fi
+
+  [ -d "$src_root/.bare" ] || abort "'$src_root' is not a gwt repo root (.bare missing)"
+  [ -f "$src_root/.git" ] || abort "'$src_root' is not a gwt repo root (.git missing)"
+
+  # Canonicalize destination parent, preserve destination basename as entered.
+  dst_parent=$(dirname "$dst_root")
+  dst_name=$(basename "$dst_root")
+  dst_parent_abs=$(cd "$dst_parent" 2>/dev/null && pwd) \
+    || abort "destination parent '$dst_parent' does not exist"
+  dst_root="$dst_parent_abs/$dst_name"
+
+  [ "$src_root" = "$dst_root" ] && abort "source and destination are identical"
+  case "$dst_root" in "$src_root"/*) abort "destination cannot be inside source" ;; esac
+  [ -e "$dst_root" ] && abort "destination '$dst_root' already exists"
+
+  old_root="$src_root"
+  mv "$old_root" "$dst_root"
+
+  # Update bare metadata pointing to linked worktrees
+  for meta in "$dst_root/.bare/worktrees"/*/gitdir; do
+    [ -f "$meta" ] || continue
+    rewrite_path_file "$meta" "$old_root" "$dst_root"
+  done
+
+  # Update each linked worktree .git file that points into .bare/worktrees/*
+  find "$dst_root" -type f -name .git \
+    ! -path "$dst_root/.git" \
+    ! -path "$dst_root/.bare/*" | while IFS= read -r gitfile; do
+      rewrite_path_file "$gitfile" "$old_root" "$dst_root"
+    done
+
+  printf '%s\n' "$dst_root"
+}
+
+cmd_list() {
+  case "$1" in -h|--help) usage ;; esac
+  repo_root=$(find_repo_root)
+  pool_dir="$repo_root/.pool"
+  wt_output=$(git -C "$repo_root/.bare" worktree list 2>/dev/null)
+
+  printf '\033[1mRoot:\033[0m %s\n\n' "$repo_root"
+
+  printf '\033[1mActive worktrees:\033[0m\n'
+  printf '%s\n' "$wt_output" | while IFS= read -r line; do
+    [ -z "$line" ] && continue
+    wt_path=$(printf '%s' "$line" | awk '{print $1}')
+    rest=${line#"$wt_path"}
+    [ "$wt_path" = "$repo_root/.bare" ] && continue
+    case "$wt_path" in "$pool_dir"/*) continue ;; esac
+    case "$wt_path" in
+      "$repo_root") wt_rel='.' ;;
+      "$repo_root"/*) wt_rel=${wt_path#"$repo_root"/} ;;
+      *) wt_rel=$wt_path ;;
+    esac
+    printf '  %s%s\n' "$wt_rel" "$rest"
+  done
+
+  printf '\n\033[1mIdle (pool):\033[0m\n'
+  printf '%s\n' "$wt_output" | while IFS= read -r line; do
+    [ -z "$line" ] && continue
+    wt_path=$(printf '%s' "$line" | awk '{print $1}')
+    case "$wt_path" in
+      "$pool_dir"/*) printf '  slot %s\n' "$(basename "$wt_path")" ;;
+    esac
+  done
+  # The while runs in a subshell; check the pool dir directly for the (none) label
+  if [ ! -d "$pool_dir" ] || [ -z "$(ls -A "$pool_dir" 2>/dev/null)" ]; then
+    printf '  (none)\n'
+  fi
+}
+
+# ── entrypoint ────────────────────────────────────────────────────────────────
+
+cmd="$1"
+[ -z "$cmd" ] && usage
+shift
+
+case "$cmd" in
+  -h|--help) usage ;;
+  clone) cmd_clone "$@" ;;
+  add)   cmd_add   "$@" ;;
+  cd)    cmd_cd    "$@" ;;
+  config) cmd_config "$@" ;;
+  done)  cmd_done  "$@" ;;
+  move)  cmd_move  "$@" ;;
+  relocate) cmd_relocate "$@" ;;
+  list)  cmd_list  "$@" ;;
+  *)     abort "unknown command '$cmd'" ;;
+esac

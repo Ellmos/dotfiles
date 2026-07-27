@@ -55,3 +55,8 @@ add_file "aliases.zsh"
 add_file "keymaps.zsh" # leave at the end to override any potential keymaps by plugins
 source "$ZDOTDIR/exports.zsh"
 source "$ZDOTDIR/private.zsh"
+
+eval "$(zoxide init zsh)"
+
+# wcli autocompletion
+[ -f "/Users/romain.doulaud/.wcli/autocomplete/wcli-completion.zsh" ] && source "/Users/romain.doulaud/.wcli/autocomplete/wcli-completion.zsh"

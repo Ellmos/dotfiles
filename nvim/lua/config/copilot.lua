@@ -1,5 +1,5 @@
 require("CopilotChat").setup({
-	model = "claude-sonnet-4.6",
+	model = "auto",
   trusted_tools = { 'file', 'glob', 'grep' },
 
 	-- Disable all default mappings
