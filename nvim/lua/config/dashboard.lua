@@ -16,7 +16,7 @@ require("dashboard").setup({
             {
                 icon = "󰥨  ",
                 desc = "Recent Projects                       ",
-                action = "Telescope projects",
+                action = ":lua require('telescope').extensions.project.project({ display_type = 'full'  })",
                 key = "b",
                 icon_hl = "Title",
                 desc_hl = "String",
@@ -25,7 +25,7 @@ require("dashboard").setup({
             {
                 icon = "󰱼  ",
                 desc = "Find File                             ",
-                action = "Telescope find_files find_command=rg,--hidden,--files",
+                action = "Telescope find_files",
                 key = "c",
                 icon_hl = "Title",
                 desc_hl = "String",
@@ -43,7 +43,7 @@ require("dashboard").setup({
             {
                 icon = "  ",
                 desc = "Edit Dotfiles                         ",
-                action = ":e /home/elmos/Documents/dotfiles/",
+                action = ":e $HOME/Documents/dotfiles/",
                 key = "e",
                 icon_hl = "Title",
                 desc_hl = "String",
@@ -54,6 +54,15 @@ require("dashboard").setup({
                 desc = "Open Current Folder                   ",
                 action = ":e .",
                 key = "f",
+                icon_hl = "Title",
+                desc_hl = "String",
+                key_hl = "Number",
+            },
+            {
+                icon = "  ",
+                desc = "Open Scratch File                     ",
+                action = ":Scratch",
+                key = "g",
                 icon_hl = "Title",
                 desc_hl = "String",
                 key_hl = "Number",

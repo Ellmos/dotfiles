@@ -1,6 +1,7 @@
 autoload -U colors && colors
 
 # completions
+fpath=($ZDOTDIR/completions $fpath)
 zstyle ':completion:*' menu select
 autoload -U compinit && compinit
 

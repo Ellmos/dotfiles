@@ -19,9 +19,8 @@ lint.linters_by_ft = {
 	go = { "golangcilint" },
 }
 
-require("mason-nvim-lint").setup({
-	ignore_install = { "custom_formatter" },
-})
+require("mason-nvim-lint").setup({})
+>>>>>>> origin/mac
 
 -- Auto-trigger linting on save and buffer changes
 vim.api.nvim_create_autocmd({ "BufWritePost", "TextChanged", "InsertLeave" }, {

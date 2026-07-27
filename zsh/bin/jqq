@@ -1,0 +1,172 @@
+#!/bin/sh
+
+# Catch SIGINT and ignore it
+trap true INT
+
+COLOR_DEBUG="\033[1;36m"   # Cyan
+COLOR_INFO="\033[1;35m"    # Magenta
+COLOR_NOTICE="\033[1;34m"  # Blue
+COLOR_WARNING="\033[1;33m" # Yellow
+COLOR_ERROR="\033[1;31m"   # Red
+COLOR_OTHER="\033[1;32m"   # Green
+COLOR_RESET="\033[0m"
+
+# --- Defaults ---
+remove_fields=""
+only_fields=""
+no_header=false
+filter_levels=""
+
+# --- Usage ---
+usage() {
+    cat <<EOF
+Usage: $(basename "$0") [OPTIONS]
+
+Options:
+  -r FIELDS   Comma-separated list of JSON fields to remove from output
+  -o FIELDS   Comma-separated list of JSON fields to exclusively output
+  -H          Suppress the log header (level + timestamp)
+  -l LEVELS   Comma-separated list of log levels to display (debug,info,notice,warning,error)
+  -h          Show this help message
+
+Examples:
+  some-cmd | $(basename "$0") -r timestamp,requestId
+  some-cmd | $(basename "$0") -o message,error
+  some-cmd | $(basename "$0") -H -o message
+  some-cmd | $(basename "$0") -l error,warning
+  some-cmd | $(basename "$0") -l info -o message
+EOF
+    exit 0
+}
+
+# --- Argument parsing ---
+while getopts "r:o:Hl:h" opt; do
+    case "$opt" in
+        r) remove_fields="$OPTARG" ;;
+        o) only_fields="$OPTARG" ;;
+        H) no_header=true ;;
+        l) filter_levels="$OPTARG" ;;
+        h) usage ;;
+        ?)
+            echo "Unknown option: -$OPTARG" >&2
+            usage
+            ;;
+    esac
+done
+
+if [ -n "$remove_fields" ] && [ -n "$only_fields" ]; then
+    echo "Error: -r and -o are mutually exclusive." >&2
+    exit 1
+fi
+
+# --- Validate -l levels ---
+if [ -n "$filter_levels" ]; then
+    IFS=','
+    for lvl in $filter_levels; do
+        lvl=$(echo "$lvl" | tr -d ' ')
+        case "$lvl" in
+            debug|info|notice|warning|error) ;;
+            *)
+                echo "Error: invalid level '$lvl'. Valid levels are: debug, info, warning, error." >&2
+                exit 1
+                ;;
+        esac
+    done
+    unset IFS
+fi
+
+# --- Check if a level is in the filter list ---
+# Returns 0 (true) if the level should be displayed, 1 (false) otherwise
+level_is_selected() {
+    lvl="$1"
+
+    # No filter set: always display
+    [ -z "$filter_levels" ] && return 0
+
+    IFS=','
+    for allowed in $filter_levels; do
+        allowed=$(echo "$allowed" | tr -d ' ')
+        if [ "$lvl" = "$allowed" ]; then
+            unset IFS
+            return 0
+        fi
+    done
+    unset IFS
+    return 1
+}
+
+# --- Build jq filter for field selection ---
+build_jq_filter() {
+    mode="$1"   # "remove" or "only"
+    fields="$2" # comma-separated
+
+    result=""
+    IFS=','
+    for field in $fields; do
+        field=$(echo "$field" | tr -d ' ')
+        [ -z "$field" ] && continue
+        if [ "$mode" = "remove" ]; then
+            result="${result:+$result, }.$field"
+        else
+            result="${result:+$result, }$field"
+        fi
+    done
+    unset IFS
+
+    if [ "$mode" = "remove" ]; then
+        echo "del($result)"
+    else
+        echo "{$result}"
+    fi
+}
+
+if [ -n "$remove_fields" ]; then
+    jq_filter=$(build_jq_filter "remove" "$remove_fields")
+elif [ -n "$only_fields" ]; then
+    jq_filter=$(build_jq_filter "only" "$only_fields")
+else
+    jq_filter="."
+fi
+
+# --- Main loop ---
+while IFS= read -r line; do
+    if echo "$line" | jq . >/dev/null 2>&1; then
+        level=$(echo "$line" | jq -r '.level // empty')
+
+        # Apply level filter: skip line entirely if level is not selected
+        if ! level_is_selected "$level"; then
+            continue
+        fi
+
+        # Strip the level field before further processing
+        json_without_level=$(echo "$line" | jq 'del(.level)')
+
+        # Apply field filter (-r or -o)
+        filtered_json=$(echo "$json_without_level" | jq "$jq_filter")
+
+        # Get the current time in HH:MM:SS.mmm format
+        now=$(date "+%s.%N" | awk -F. '{printf "%02d:%02d:%02d.%03d\n",$1/3600%24,$1/60%60,$1%60,$2/1000000}')
+
+        case "$level" in
+            debug)   color="$COLOR_DEBUG" ;;
+            info)    color="$COLOR_INFO" ;;
+            notice)  color="$COLOR_NOTICE" ;;
+            warning) color="$COLOR_WARNING" ;;
+            error)   color="$COLOR_ERROR" ;;
+            *)       color="$COLOR_OTHER" ;;
+        esac
+
+        # Print header unless -H is set
+        if [ "$no_header" = false ] && [ -n "$level" ]; then
+            printf "%b[%s] %s%b\n" "$color" "$now" "$level" "$COLOR_RESET"
+        fi
+
+        echo "$filtered_json" | jq .
+    else
+        # Non-JSON lines: only print if no level filter is active
+        # (they have no level, so they can't match any filter)
+        if [ -z "$filter_levels" ]; then
+            echo "$line"
+        fi
+    fi
+done

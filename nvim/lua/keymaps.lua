@@ -10,8 +10,10 @@ end
 noremap("i", "<M-BS>", "<C-w>", "Delete previous word")
 noremap("i", "<C-BS>", "<C-w>", "Delete previous word")
 noremap({ "n", "v", "i" }, "<C-s>", "<Cmd>w<CR>", "Save")
+-- noremap("n", "<leader><BS>", "<ESC>I<BS><ESC>", "Collapse line above")
+noremap("n", "<leader><BS>", "J", "Collapse line above")
 
--- Move through buffers
+    -- Move through buffers
 noremap("n", "<C-h>", "<C-w>h", "Move to left buffer")
 noremap("n", "<C-l>", "<C-w>l", "Move to right buffer")
 noremap("n", "<C-j>", "<C-w>j", "Move to bottom buffer")
@@ -61,30 +63,15 @@ noremap("n", "µ", "<Cmd>noh<CR>", "Switch off highlighting")
 
 -- NvimTree
 noremap("n", "<leader><TAB>", "<Cmd>NvimTreeToggle<CR>", "Toggle nvim_tree")
+noremap("n", "<leader>ft", "<Cmd>NvimTreeFindFile<CR>", "[F]ind [T]ree")
 
 -- Formatting
 noremap({ "n", "v", "i" }, "<C-S-s>", "<Cmd>Format<CR><Cmd>w<CR>", "Format current buffer")
 
--- Folder
-noremap("n", "<leader><CR>", require("fold-cycle").open, "Open folder")
-noremap("n", "<leader><BS>", require("fold-cycle").close, "Close folder")
-noremap("n", "<C-m><C-l>", require("fold-cycle").open_all, "Open all folders")
-noremap("n", "<C-m><C-o>", require("fold-cycle").close_all, "Close all folders")
-
--- multi line editing
+-- Multi line editing
 vim.g.VM_default_mappings = 0
 noremap("n", "<C-d>", "<Plug>(VM-Find-Under)", "Multi cursor editing")
 noremap("x", "<C-d>", "<Plug>(VM-Find-Subword-Under)", "Multi cursor editing")
-
--------------------DAP------------------
-noremap("n", "<leader>b", "<Cmd>DapToggleBreakpoint<CR>", "Toggle [B]reakpoint")
-noremap("n", "<leader>fb", "<Cmd>Telescope dap list_breakpoints<CR>", "[F]ind [B]reakpoints")
-noremap("n", "<F5>", "<Cmd>DapContinue<CR>", "Dap run or continue")
-noremap("n", "<F29>", "<Cmd>DapTerminate<CR>", "Ctrl+F5: Dap terminate")
-noremap("n", "<F17>", "<Cmd>DapTerminate<CR><Cmd>DapContinue<CR>", "Shift+F5: Dap Restart")
-noremap("n", "<F6>", "<Cmd>DapStepOver<CR>", "Dap step over")
-noremap("n", "<F7>", "<Cmd>DapStepInto<CR>", "Dap step into")
-noremap("n", "<F31>", "<Cmd>DapStepOut<CR>", "Ctrl+F7: Dap step out")
 
 -------------------Smooth Scrolling------------------
 local cinnamon = require("cinnamon")
@@ -100,24 +87,16 @@ noremap({ "n", "v" }, "zh", function() cinnamon.scroll("zH") end, "Scroll window
 noremap({ "n", "v" }, "zl", function() cinnamon.scroll("zL") end, "Scroll window right")
 
 -------------------Telescope------------------
-function telescope_root_dir(command)
-    local root = string.gsub(vim.fn.system("git rev-parse --show-toplevel"), "\n", "")
-    local options = {}
-    if vim.v.shell_error == 0 then
-        options.cwd = root
-    end
-
-    require("telescope.builtin")[command](options)
-end
-
-noremap("n", "<leader>ff", '<Cmd>lua telescope_root_dir("find_files")<CR>', "[F]ind [F]iles")
-noremap("n", "<leader>fof", '<Cmd>lua telescope_root_dir("oldfiles")<CR>', "[F]ind [O]ld [F]iles")
-noremap("n", "<leader>fg", '<Cmd>lua telescope_root_dir("live_grep")<CR>', "[L]ive [G]rep")
-noremap("n", "<leader>fw", '<Cmd>lua telescope_root_dir("grep_string")<CR>', "[G]rep [S]tring")
-
+noremap("n", "<leader>ff", "<Cmd>Telescope find_files<CR>", "[F]ind [F]iles")
+noremap("n", "<leader>fof", "<Cmd>Telescope oldfiles<CR>", "[F]ind [O]ld [F]iles")
+noremap("n", "<leader>fb", "<Cmd>Telescope buffers<CR>", "[F]ind [B]uffers")
+noremap("n", "<leader>fg", "<Cmd>Telescope live_grep<CR>", "[F]ind [G]rep")
+noremap("n", "<leader>fw", "<Cmd>Telescope grep_string<CR>", "[F]ind [W]ord")
 noremap("n", "<leader>fib", "<Cmd>Telescope current_buffer_fuzzy_find<CR>", "[F]ind [I]n [B]uffer")
 noremap("n", "<leader>fd", "<Cmd>Telescope diagnostics<CR>", "[F]ind [D]iagnostics")
 noremap("n", "<leader>fh", "<Cmd>Telescope help_tags<CR>", "[F]ind [H]elp")
+noremap("n", "<leader>fn", "<Cmd>Telescope node-workspace<CR>", "[F]ind [N]ode-workspace")
+noremap("n", "<leader>fp", "<Cmd>Telescope project<CR>", "[F]ind [P]roject")
 
 -------------------Yanky------------------
 noremap("n", "y", "<Plug>(YankyYank)", "Yank text")
@@ -133,3 +112,10 @@ remap("v", "<C-/>", "gc", "Toggle comments on selected lines")-- qwerty
 
 remap("n", "<C-:>", "gcc", "Toggle comment on current line") -- azerty
 remap("v", "<C-:>", "gc", "Toggle comments on selected lines")-- azerty
+
+-------------------CopilotChat------------------
+noremap({"n", "v"}, "<leader>c", "<Cmd>CopilotChatToggle<CR>", "Toggle CopilotChat")
+
+-------------------Terminal------------------
+noremap("n", "<leader>t", "<Cmd>ToggleTerm<CR>", "Open terminal")
+noremap("t", "<Esc>", "<C-\\><C-n>", "Exit terminal mode")

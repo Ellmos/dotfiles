@@ -18,33 +18,28 @@ require("nvim-web-devicons").setup()
 require("lualine").setup({options = { theme = "nord" }})
 require("before").setup({ history_size = 100 })
 
--- Project
-require("project_nvim").setup({ patterns = { ".git", "*.sln" } })
-
 -- Higlight TODO / FIXME ...
 require("todo-comments").setup()
-
--- Code folding
-require("fold-cycle").setup({ open_if_max_closed = false, close_if_max_opened = false })
 
 -- Autocomplete pairs (brackets, quotes....)
 require("nvim-autopairs").setup({ disable_filetype = { "TelescopePrompt", "vim" } })
 
 -- Typescript shit
 require("ts-error-translator").setup()
-require("tsc").setup()
-
--- Java shit
--- require("java").setup()
+require("tsc").setup({
+	bin_path = "/opt/homebrew/bin/tsc",
+})
 
 -- Git
 require("gitsigns").setup()
+require("blame").setup()
+require("git-conflict").setup({
+	default_mappings = false,
+})
 
 require("livepreview.config").set()
 
 require("colorizer").setup()
-
-require("mason").setup()
 
 require("ts_context_commentstring").setup({
 	enable_autocmd = false,
@@ -54,17 +49,24 @@ vim.filetype.get_option = function(filetype, option)
 	return option == "commentstring" and require("ts_context_commentstring.internal").calculate_commentstring()
 		or get_option(filetype, option)
 end
+
+require("scratch").setup({
+	file_picker = "telescope",
+	filetypes = { "txt", "js", "ts", "javascriptreact", "typescriptreact", "md", "json", "yaml", "sh" },
+})
+
 -- Other config file
-require("config/tree")
-require("config/cokeline")
-require("config/yanky")
-require("config/cmp")
-require("config/lsp")
-require("config/conform")
-require("config/lint")
-require("config/treesitter")
-require("config/dashboard")
-require("config/indent-blankline")
-require("config/dap")
-require("config/telescope")
-require("config/cinnamon")
+require("config.tree")
+require("config.cokeline")
+require("config.yanky")
+require("config.cmp")
+require("config.lsp")
+require("config.conform")
+require("config.lint")
+require("config.treesitter")
+require("config.dashboard")
+require("config.indent-blankline")
+require("config.telescope")
+require("config.cinnamon")
+require("config.copilot")
+require("config.toggleterm")

@@ -1,0 +1,24 @@
+#!/bin/sh
+
+if [ $# -eq 0 ]; then
+    echo "Usage: forFolder <command> [args...]" >&2
+    exit 1
+fi
+
+current_dir=$(pwd)
+current_name=$(basename "$current_dir")
+
+echo current_name: "$current_name"
+
+for dir in "$(ls $current_name*)"; do
+    [ -d "$dir" ] || continue
+    echo parent dir: "$parent_dir"
+    echo prefix: "$prefix"
+    echo dir: "$dir"
+    folder_name=$(basename "$dir")
+    cd "$dir"
+    echo current dir: $(pwd)
+    echo "==> $folder_name"
+    "$@"
+    cd "$current_dir"
+done

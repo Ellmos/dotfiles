@@ -5,55 +5,39 @@ autoload -Uz vcs_info
 # enable only git 
 zstyle ':vcs_info:*' enable git 
 
-# setup a hook that runs before every ptompt (slows down zsh on epita computers)
+# setup a hook that runs before every prompt
 precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
 
-# add a function to check for untracked files in the directory.
-# from https://github.com/zsh-users/zsh/blob/master/Misc/vcs_info-examples
-zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
-# 
-+vi-git-untracked(){
-    if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
-        # This will show the marker if there are any untracked files in repo.
-        git status --porcelain | grep '??' &> /dev/null ; then
-        hook_com[staged]+='!' # signify new files with a bang
-    fi
+# Disable slow built-in check-for-changes, use custom fast version instead
+zstyle ':vcs_info:git:*' check-for-changes false
+
+# Custom fast hook using git plumbing commands (much faster than git status)
+zstyle ':vcs_info:git*+set-message:*' hooks git-fast-status
+
++vi-git-fast-status() {
+    # Only run in git repos
+    [[ $(git rev-parse --is-inside-work-tree 2>/dev/null) == 'true' ]] || return
+
+    local staged="" unstaged=""
+
+    # Check for staged changes (uses git plumbing, very fast)
+    # Exit code 1 = changes exist
+    git diff-index --cached --quiet HEAD -- 2>/dev/null || staged="S"
+
+    # Check for unstaged changes (uses git plumbing, very fast)
+    git diff-files --quiet 2>/dev/null || unstaged="U"
+
+    # Set the markers in hook_com
+    hook_com[staged]+="$staged"
+    hook_com[unstaged]+="$unstaged"
 }
 
-zstyle ':vcs_info:*' check-for-changes true
+# Custom format for git info in prompt
 zstyle ':vcs_info:git:*' formats " %{$fg[blue]%}(%{$fg[red]%}%m%u%c%{$fg[yellow]%}%{$fg[magenta]%} %b%{$fg[blue]%})"
-
-
-
-# Timer on right side of terminal
-# function preexec() {
-#   timer=${timer:-$SECONDS}
-# }
-#
-# function precmd() {
-#   if [ $timer ]; then
-#     timer_show=$(($SECONDS - $timer))
-#     export RPROMPT="%F{cyan}${timer_show}s %{$reset_color%}"
-#     unset timer
-#   fi
-# }
-
-# Prompt with user@hostname
-# PROMPT="
-# %B%{$fg[blue]%}╭─[%{$fg[green]%}%n@%m%{$fg[blue]%}]-%{$fg[blue]%}[%{$fg[green]%}%~%{$fg[blue]%}]%{$reset_color%}\$vcs_info_msg_0_
-# %B%{$fg[blue]%}╰──╼ %{$reset_color%}"
-
-# Prompt with user
-# PROMPT="
-# %B%{$fg[blue]%}╭─[%{$fg[green]%}%n%{$fg[blue]%}]-%{$fg[blue]%}[%{$fg[green]%}%~%{$fg[blue]%}]%{$reset_color%}\$vcs_info_msg_0_
-# %B%{$fg[blue]%}╰──╼ %{$reset_color%}"
-
 
 # Prompt without user@hostname
 PROMPT="
 %B%{$fg[blue]%}╭─%{$fg[blue]%}[%{$fg[green]%}%~%{$fg[blue]%}]%{$reset_color%}\$vcs_info_msg_0_
 %B%{$fg[blue]%}╰──%(?:%{$fg[blue]%}╼:%{$fg[red]%}╼) %{$reset_color%}"
-
-

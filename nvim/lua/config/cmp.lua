@@ -1,5 +1,5 @@
 vim.cmd([[
-set completeopt=menuone,noinsert,noselect
+set completeopt=menuone,noinsert,noselect,popup
 highlight! default link CmpItemKind CmpItemMenuDefault
 ]])
 

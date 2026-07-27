@@ -1,14 +1,15 @@
-local format_options = { lsp_fallback = true }
+local format_options = { lsp_format = "fallback" }
 
 require("conform").setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
 		python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
-		javascript = { "prettier" },
-		typescript = { "prettier" },
-		typescriptreact = { "prettier" },
-		jsx = { "prettier" },
-		tsx = { "prettier" },
+		-- python = { "black", "isort" },
+		-- javascript = { "prettier" },
+		-- typescript = { "prettier" },
+		-- typescriptreact = { "prettier" },
+		-- jsx = { "prettier" },
+		-- tsx = { "prettier" },
 		html = { "prettier" },
 		css = { "prettier" },
 		json = { "prettier" },

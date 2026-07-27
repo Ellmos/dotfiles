@@ -18,7 +18,8 @@ alias gdb='gdb -tui'
 alias brave='brave-browser'
 
 alias ga='git add .'
-alias gc='git commit -m'
+alias gc='git commit -S'
+alias gcm='git commit -S -m'
 alias gt='git tag -ma'
 alias gp='git push'
 alias gpt='git push --follow-tags'
@@ -28,6 +29,12 @@ alias glp='git log -p'
 alias glog='git log --all --decorate --graph --oneline'
 alias gd='git diff'
 alias gds='git diff --staged'
+alias gr='git rebase'
+alias gri='git rebase -i'
+alias grc='git rebase --continue'
+alias gra='git rebase --abort'
+alias gw='git worktree'
+
 
 alias clangf='find $(git rev-parse --show-toplevel) -name "*.h" -o -name "*.c" -o -name "*.hh" -o -name "*.cc" -o -name "*.hxx"  | xargs clang-format -i'
 alias gccc='gcc -Wextra -Wall -Werror -Wvla -std=c99 -pedantic -fsanitize=address -g -o main '
@@ -61,6 +68,26 @@ alias back="cd ~/Desktop/mti/plic/back/"
 alias ipCopy="echo -n \"$(hostname -I | cut -d' ' -f1)\" | clipcopy"
 
 alias k="kubectl"
+
+# Keep gwt as a binary for logic, but handle `cd` in-shell so cwd really changes.
+function gwt() {
+    if [ "$#" -gt 0 ] && [ "$1" = "cd" ]; then
+        shift
+        if [ "$#" -ne 1 ]; then
+            command gwt cd "$@"
+            return $?
+        fi
+
+        local target
+        target="$(command gwt cd "$1")" || return $?
+        builtin cd "$target"
+        return $?
+    fi
+
+    command gwt "$@"
+}
+
+(( $+functions[compdef] )) && compdef _gwt gwt
 
 # Not making binary out of this because it needs to change the cwd
 function gccd() {

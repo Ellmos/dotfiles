@@ -54,6 +54,11 @@ require("cokeline").setup({
 		{
 			-- Filename
 			text = function(buffer)
+				return buffer.unique_prefix
+			end,
+		},
+		{
+			text = function(buffer)
 				return buffer.filename .. " "
 			end,
 			bold = function(buffer)

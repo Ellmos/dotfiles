@@ -27,32 +27,26 @@ return require("lazy").setup({
 	-- Dashboard
 	{ "glepnir/dashboard-nvim" },
 
-	-- Project manager
-	{ "ahmedkhalf/project.nvim" },
-
 	-- Buffers
 	{ "willothy/nvim-cokeline", dependencies = { "stevearc/resession.nvim" } },
 	{ "nvim-lualine/lualine.nvim" },
 	{ "famiu/bufdelete.nvim" },
 	{ "bloznelis/before.nvim" },
+	{ "j-morano/buffer_manager.nvim" },
 
 	-- Highlighting
-	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+	{ "nvim-treesitter/nvim-treesitter", branch = "main", build = ":TSUpdate" },
 
 	-- File explorer
 	{ "nvim-tree/nvim-tree.lua" },
 	{ "antosha417/nvim-lsp-file-operations" },
 
 	-- Telescope
-	{ "nvim-telescope/telescope.nvim", tag = "0.1.7" },
+	{ "nvim-telescope/telescope.nvim", version = "0.2.2" },
 	{ "nvim-telescope/telescope-ui-select.nvim" },
-	{
-		"nvim-telescope/telescope-fzf-native.nvim",
-		build = "make",
-		cond = function()
-			return vim.fn.executable("make") == 1
-		end,
-	},
+	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+	{ "nvim-telescope/telescope-project.nvim" },
+	{ "ec965/telescope-node-workspace.nvim" },
 
 	-- Utils
 	{ "lukas-reineke/indent-blankline.nvim" },
@@ -60,6 +54,9 @@ return require("lazy").setup({
 	{ "windwp/nvim-ts-autotag" },
 	{ "jghauser/mkdir.nvim" },
 	{ "norcalli/nvim-colorizer.lua" },
+
+	-- Terminal
+	{ "akinsho/toggleterm.nvim" },
 
 	-- Goto Preview
 	{
@@ -74,9 +71,6 @@ return require("lazy").setup({
 
 	-- Smooth scrolling
 	{ "declancm/cinnamon.nvim" },
-
-	-- Code folding
-	{ "jghauser/fold-cycle.nvim" },
 
 	-- Multiline Editing
 	{ "mg979/vim-visual-multi" },
@@ -101,14 +95,6 @@ return require("lazy").setup({
 	{ "stevearc/conform.nvim" },
 	{ "zapling/mason-conform.nvim" },
 
-	-- Debugger
-	{ "mfussenegger/nvim-dap" },
-	{ "rcarriga/nvim-dap-ui" },
-	{ "nvim-telescope/telescope-dap.nvim" },
-	{ "theHamsta/nvim-dap-virtual-text" },
-	{ "mfussenegger/nvim-dap-python" },
-	{ "jay-babu/mason-nvim-dap.nvim", dependencies = { "nvim-neotest/nvim-nio" } },
-
 	-- Completion
 	{ "hrsh7th/nvim-cmp" },
 	{ "hrsh7th/cmp-nvim-lsp" },
@@ -123,6 +109,7 @@ return require("lazy").setup({
 
 	-- Copilot
 	{ "github/copilot.vim" },
+    { "CopilotC-Nvim/CopilotChat.nvim" },
 
 	-- Snippet
 	{ "L3MON4D3/LuaSnip", build = "make install_jsregexp" },
@@ -152,16 +139,18 @@ return require("lazy").setup({
 	{ "dmmulroy/ts-error-translator.nvim" },
 	{ "dmmulroy/tsc.nvim" },
 
-	-- Java
-	{ "nvim-java/nvim-java" },
-
 	-- Git
 	{ "lewis6991/gitsigns.nvim" },
+	{ "FabijanZulj/blame.nvim" },
+	{ "akinsho/git-conflict.nvim", tag = "v2.1.0" },
 
 	-- Lua development
 	{ "milisims/nvim-luaref" },
 	{ "rafcamlet/nvim-luapad" },
 
-	-- View archives content
+	-- yarn pnp
 	{ "lbrayner/vim-rzip" },
+
+	-- Scratch buffer
+	{ "LintaoAmons/scratch.nvim", event = "VeryLazy" },
 })
