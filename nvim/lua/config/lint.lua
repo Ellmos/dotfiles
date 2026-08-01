@@ -20,7 +20,6 @@ lint.linters_by_ft = {
 }
 
 require("mason-nvim-lint").setup({})
->>>>>>> origin/mac
 
 -- Auto-trigger linting on save and buffer changes
 vim.api.nvim_create_autocmd({ "BufWritePost", "TextChanged", "InsertLeave" }, {
