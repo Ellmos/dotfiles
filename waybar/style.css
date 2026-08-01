@@ -107,7 +107,7 @@ button:hover {
 }
 
 #language {
-    color: @flamingo
+  color: @flamingo;
 }
 
 .modules-right,

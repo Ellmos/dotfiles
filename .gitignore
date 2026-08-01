@@ -3,6 +3,5 @@ backupDotfiles
 *.bak
 
 lazy-lock.json
-.luarc.json
 
 .DS_Store

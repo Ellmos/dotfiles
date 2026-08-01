@@ -65,7 +65,6 @@ hl.config({
 			enabled = true,
 			range = 4,
 			render_power = 3,
-			color = 0xee1a1a1a, -- converted from rgba(1a1a1aee)
 		},
 	},
 
@@ -91,7 +90,7 @@ hl.animation({ leaf = "workspaces", enabled = true, speed = 6, bezier = "default
 hl.config({
 	input = {
 		kb_layout = "fr, us",
-		kb_options = "grp:win_space_toggle",
+		-- kb_options = "grp:win_space_toggle",
 
 		numlock_by_default = true,
 		repeat_delay = 250,
@@ -128,15 +127,15 @@ hl.bind(mod .. " + SHIFT + A", hl.dsp.window.close())
 hl.bind(mod .. " + SHIFT + E", hl.dsp.exec_cmd("bash ~/.config/rofi/powermenu.sh"))
 hl.bind(mod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
 hl.bind(mod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "maximized" }))
-hl.bind(mod .. " + D", hl.dsp.exec_cmd("rofi -show drun -theme ~/.config/rofi/themes/drun.rasi"))
-hl.bind(mod .. " + SHIFT + D", hl.dsp.exec_cmd("rofi -show run -theme ~/.config/rofi/themes/run.rasi"))
+hl.bind(mod .. " + SPACE", hl.dsp.exec_cmd("rofi -show drun -theme ~/.config/rofi/themes/drun.rasi"))
+hl.bind(mod .. " + SHIFT + SPACE", hl.dsp.exec_cmd("rofi -show run -theme ~/.config/rofi/themes/run.rasi"))
 hl.bind(mod .. " + W", hl.dsp.exec_cmd("rofi -show window -theme ~/.config/rofi/themes/window.rasi"))
 hl.bind(
 	mod .. " + B",
 	hl.dsp.exec_cmd("/usr/bin/brave-browser-stable --enable-features=TouchpadOverscrollHistoryNavigation")
 )
 hl.bind(mod .. " + P", hl.dsp.exec_cmd("hyprlock"))
-hl.bind(mod .. " + SHIFT + space", hl.dsp.window.float({ action = "toggle" }))
+hl.bind(mod .. " + CONTROL + F", hl.dsp.window.float({ action = "toggle" }))
 
 -- Audio Keys
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"))

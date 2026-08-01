@@ -30,7 +30,8 @@
     "hyprland/language": {
         "format": " {} ",
         "format-en": "US",
-        "format-fr": "FR"
+        "format-fr": "FR",
+        "on-click": "hyprctl switchxkblayout current next"
     },
     "clock": {
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
