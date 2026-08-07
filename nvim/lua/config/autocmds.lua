@@ -6,6 +6,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+-- For debug purpose (open Lazy on startup)
 -- vim.api.nvim_create_autocmd("VimEnter", {
 -- 	callback = function()
 -- 		vim.defer_fn(function()
