@@ -1,22 +1,27 @@
-return {
-	"declancm/cinnamon.nvim",
-	opts = {
-		keymaps = {
-			basic = false,
-			extra = false,
-		},
-		options = {
-			delay = 4,
-		},
-	},
-  keys = {
-    { "<S-j>", function() require("cinnamon").scroll("<C-D>") end, mode = { "n", "v" }, desc = "Scroll cursor down" },
-    { "<S-k>", function() require("cinnamon").scroll("<C-U>") end, mode = { "n", "v" }, desc = "Scroll cursor up" },
+local function scroll(key)
+  return function()
+    require("cinnamon").scroll(key)
+  end
+end
 
-    { "zz", function() require("cinnamon").scroll("zz") end, mode = { "n", "v" }, desc = "Center window on cursor" },
-    { "zj", function() require("cinnamon").scroll("zt") end, mode = { "n", "v" }, desc = "Scroll window down" },
-    { "zk", function() require("cinnamon").scroll("zb") end, mode = { "n", "v" }, desc = "Scroll window up" },
-    { "zh", function() require("cinnamon").scroll("zH") end, mode = { "n", "v" }, desc = "Scroll window left" },
-    { "zl", function() require("cinnamon").scroll("zL") end, mode = { "n", "v" }, desc = "Scroll window right" },
- },
+return {
+  "declancm/cinnamon.nvim",
+  opts = {
+    keymaps = {
+      basic = false,
+      extra = false,
+    },
+    options = {
+      delay = 4,
+    },
+  },
+  keys = {
+    { "<S-j>", scroll("<C-D>"), mode = { "n", "v" }, desc = "Scroll cursor down" },
+    { "<S-k>", scroll("<C-U>"), mode = { "n", "v" }, desc = "Scroll cursor up" },
+    { "zz", scroll("zz"), mode = { "n", "v" }, desc = "Center window on cursor" },
+    { "zj", scroll("zt"), mode = { "n", "v" }, desc = "Scroll window down" },
+    { "zk", scroll("zb"), mode = { "n", "v" }, desc = "Scroll window up" },
+    { "zh", scroll("zH"), mode = { "n", "v" }, desc = "Scroll window left" },
+    { "zl", scroll("zL"), mode = { "n", "v" }, desc = "Scroll window right" },
+  },
 }

@@ -14,13 +14,13 @@ return {
   },
   {
     "windwp/nvim-ts-autotag",
-	  event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPre", "BufNewFile" },
     opts = {
       opts = {
         enable_close = true,
         enable_rename = true,
-        enable_close_on_slash = true -- Auto close on trailing </
+        enable_close_on_slash = true, -- Auto close on trailing </
       },
-    }
-  }
+    },
+  },
 }

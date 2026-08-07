@@ -1,15 +1,15 @@
 return {
-	"gbprod/yanky.nvim",
-	dependencies = {
+  "gbprod/yanky.nvim",
+  dependencies = {
     "kkharji/sqlite.lua",
   },
-	opts = {
-		ring = { storage = "sqlite" },
+  opts = {
+    ring = { storage = "sqlite" },
     highlight = {
       on_put = false,
       on_yank = false,
     },
-	},
+  },
   keys = {
     { "y", "<Plug>(YankyYank)", mode = { "n", "v" }, desc = "Yank text" },
     { "p", "<Plug>(YankyPutAfter)", mode = { "n", "v" }, desc = "Put yanked text after cursor" },

@@ -27,7 +27,3 @@ set.splitright = true
 set.splitbelow = true
 
 vim.diagnostic.config({ virtual_text = true })
-
--- Disable netrw to let nvim-tree handle file browsing
-vim.g.loaded_netrw = true
-vim.g.loaded_netrwPlugin = true

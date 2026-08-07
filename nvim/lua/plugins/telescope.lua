@@ -7,8 +7,20 @@ return {
     { "nvim-telescope/telescope-project.nvim" },
     { "ec965/telescope-node-workspace.nvim" },
   },
-	cmd = "Telescope",
   lazy = true,
+  cmd = "Telescope",
+  keys = {
+    { "<leader>ff", "<Cmd>Telescope find_files<CR>", desc = "[F]ind [F]iles" },
+    { "<leader>fof", "<Cmd>Telescope oldfiles<CR>", desc = "[F]ind [O]ld [F]iles" },
+    { "<leader>fb", "<Cmd>Telescope buffers<CR>", desc = "[F]ind [B]uffers" },
+    { "<leader>fg", "<Cmd>Telescope live_grep<CR>", desc = "[F]ind [G]rep" },
+    { "<leader>fw", "<Cmd>Telescope grep_string<CR>", desc = "[F]ind [W]ord" },
+    { "<leader>fib", "<Cmd>Telescope current_buffer_fuzzy_find<CR>", desc = "[F]ind [I]n [B]uffer" },
+    { "<leader>fd", "<Cmd>Telescope diagnostics<CR>", desc = "[F]ind [D]iagnostics" },
+    { "<leader>fh", "<Cmd>Telescope help_tags<CR>", desc = "[F]ind [H]elp" },
+    { "<leader>fn", "<Cmd>Telescope node-workspace<CR>", desc = "[F]ind [N]ode-workspace" },
+    { "<leader>fp", "<Cmd>Telescope project<CR>", desc = "[F]ind [P]roject" },
+  },
   opts = {
     defaults = {
       preview = {
@@ -31,11 +43,7 @@ return {
               filepath, -- Terminal image viewer command
             }, { on_stdout = send_output, stdout_buffered = true, pty = true })
           else
-            require("telescope.previewers.utils").set_preview_message(
-              bufnr,
-              opts.winid,
-              "Binary cannot be previewed"
-            )
+            require("telescope.previewers.utils").set_preview_message(bufnr, opts.winid, "Binary cannot be previewed")
           end
         end,
       },
@@ -98,16 +106,4 @@ return {
     telescope.load_extension("project")
     telescope.load_extension("node-workspace")
   end,
-  keys = {
-    { "<leader>ff", "<Cmd>Telescope find_files<CR>", desc = "[F]ind [F]iles" },
-    { "<leader>fof", "<Cmd>Telescope oldfiles<CR>", desc = "[F]ind [O]ld [F]iles" },
-    { "<leader>fb", "<Cmd>Telescope buffers<CR>", desc = "[F]ind [B]uffers" },
-    { "<leader>fg", "<Cmd>Telescope live_grep<CR>", desc = "[F]ind [G]rep" },
-    { "<leader>fw", "<Cmd>Telescope grep_string<CR>", desc = "[F]ind [W]ord" },
-    { "<leader>fib", "<Cmd>Telescope current_buffer_fuzzy_find<CR>", desc = "[F]ind [I]n [B]uffer" },
-    { "<leader>fd", "<Cmd>Telescope diagnostics<CR>", desc = "[F]ind [D]iagnostics" },
-    { "<leader>fh", "<Cmd>Telescope help_tags<CR>", desc = "[F]ind [H]elp" },
-    { "<leader>fn", "<Cmd>Telescope node-workspace<CR>", desc = "[F]ind [N]ode-workspace" },
-    { "<leader>fp", "<Cmd>Telescope project<CR>", desc = "[F]ind [P]roject" },
-  },
 }

@@ -50,10 +50,10 @@ return {
         error("Usage: Format [enable | disable]")
       end
     end, {
-    nargs = "?",
-    complete = function(_, _, _)
-      return { "enable", "disable" }
-    end,
-  })
-end,
+      nargs = "?",
+      complete = function(_, _, _)
+        return { "enable", "disable" }
+      end,
+    })
+  end,
 }
