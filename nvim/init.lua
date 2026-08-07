@@ -1,47 +1,11 @@
-local set = vim.opt
-
-set.expandtab = true
-set.smarttab = true
-set.cindent = true
-set.tabstop = 2
-set.softtabstop = 2
-set.shiftwidth = 2
-set.foldmethod = "indent"
-set.foldlevel = 1000
-
-set.wrap = false
-set.whichwrap:append({ ["<"] = true, [">"] = true, ["["] = true, ["]"] = true })
-set.scrolloff = 7
-set.modifiable = true
-set.fileencoding = "utf-8"
-set.termguicolors = true
-set.colorcolumn = { 120 }
-
-set.number = true
-set.cursorline = true
-set.hidden = true
-set.clipboard = "unnamedplus"
-set.filetype.plugin = "on"
-
-vim.opt.splitright = true
-vim.opt.splitbelow = true
-
--- for nvim-tree
-local g = vim.g
-g.loaded_netrw = true
-g.loaded_netrwPlugin = true
-
--- vim.cmd("set list listchars=tab:»·,trail:·,eol:$")
-vim.cmd([[autocmd FileType * setlocal formatoptions-=ro]])
-
-vim.diagnostic.config({
-	-- virtual_lines = true,
-	virtual_text = true,
-})
+require("config.options")
+require("config.keymaps")
+require("config.lazy")
+require("config.autocmds")
 
 -- order important: load plugins, call setup() on all of them, then setup all the keymaps
-require("plugins")
-require("config")
-require("keymaps")
+-- require("plugins")
+-- require("config")
+-- require("keymaps")
 
 vim.cmd("colorscheme gruvbox")
