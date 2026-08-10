@@ -58,7 +58,12 @@ bindings = [
   { key = "Return", mods = "Super", action = "SpawnNewInstance" },
   { key = "W", mods = "Command", action = "None" },
   # { key = "Back", mods = "Control", chars = "\uE000" }
-  { key = "Back", mods = "Control", chars = "\u0017" }
+  { key = "Back", mods = "Control", chars = "\u0017" },
+
+  # switch tab with option tab and option shift tab
+  { key = "Tab", mods = "Option", action = "SelectNextTab" },
+  { key = "Tab", mods = "Option|Shift", action = "SelectPreviousTab" }
+
 ]
 
 [[mouse.bindings]]
