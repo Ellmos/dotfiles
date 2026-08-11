@@ -48,7 +48,7 @@ return {
         },
         {
           icon = "  ",
-          desc = "Open [H]ere                           ",
+          desc = "Open [H]ere                          ",
           action = ":e .",
           key = "h",
           icon_hl = "Title",
@@ -57,7 +57,7 @@ return {
         },
         {
           icon = "  ",
-          desc = "[S]cratch File                      ",
+          desc = "[S]cratch File                       ",
           action = ":Scratch",
           key = "s",
           icon_hl = "Title",
@@ -66,9 +66,9 @@ return {
         },
         {
           icon = "  ",
-          desc = "[E]dit Dotfiles                     ",
+          desc = "[D]otfiles                           ",
           action = ":e $HOME/Documents/dotfiles/",
-          key = "e",
+          key = "d",
           icon_hl = "Title",
           desc_hl = "String",
           key_hl = "Number",

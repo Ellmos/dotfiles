@@ -9,10 +9,6 @@ return {
     linters_by_ft = {
       lua = { "luacheck" },
       python = { "ruff" },
-      typescript = { "eslint_d" },
-      typescriptreact = { "eslint_d" },
-      jsx = { "eslint_d" },
-      tsx = { "eslint_d" },
       html = { "htmlhint" },
       css = { "stylelint" },
       json = { "jsonlint" },

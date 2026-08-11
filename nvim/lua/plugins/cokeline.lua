@@ -20,6 +20,7 @@ return {
             text = function(buf)
               return buf.filetype
             end,
+            bg = "NONE",
             bold = true,
           },
         },
@@ -29,26 +30,41 @@ return {
         fg = function(buffer)
           return buffer.is_focused and get_hex("Normal", "fg") or get_hex("Comment", "fg")
         end,
-        bg = "NONE",
+        bg = function(buffer)
+          return buffer.is_focused and get_hex("CursorLine", "bg") or "NONE"
+        end,
       },
 
       components = {
+        -- separator
         {
           text = function(buffer)
-            return buffer.index ~= 1 and " ▏" or ""
+            return buffer.is_first and "" or " ▏"
           end,
           fg = function()
             return get_hex("Normal", "fg")
           end,
+          bg = "NONE",
         },
         {
           text = function(buffer)
-            return " " .. buffer.devicon.icon
+            return buffer.is_focused and "" or " "
+          end,
+          fg = function()
+            return get_hex("CursorLine", "bg")
+          end,
+          bg = "NONE",
+        },
+        -- devicon
+        {
+          text = function(buffer)
+            return buffer.devicon.icon
           end,
           fg = function(buffer)
             return buffer.devicon.color
           end,
         },
+        -- unique prefix
         {
           text = function(buffer)
             return buffer.unique_prefix
@@ -58,6 +74,7 @@ return {
           end,
           italic = true,
         },
+        -- filename
         {
           text = function(buffer)
             return buffer.filename .. " "
@@ -66,6 +83,7 @@ return {
             return buffer.is_focused
           end,
         },
+        -- close button
         {
           text = function(buffer)
             return buffer.is_modified and "" or "󰖭"
@@ -83,7 +101,29 @@ return {
           end,
         },
         {
-          text = " ",
+          text = function(buffer)
+            return buffer.is_focused and "" or " "
+          end,
+          fg = function()
+            return get_hex("CursorLine", "bg")
+          end,
+          bg = "NONE",
+        },
+      },
+      tabs = {
+        placement = "left",
+        components = {
+          {
+            text = function(tab)
+              return tab.is_first and tab.is_last and "" or " " .. tab.number .. " "
+            end,
+            fg = function(tab)
+              return tab.is_active and get_hex("Normal", "fg") or get_hex("Comment", "fg")
+            end,
+            bg = function(tab)
+              return tab.is_active and get_hex("CursorLine", "bg") or "NONE"
+            end,
+          },
         },
       },
     }

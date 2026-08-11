@@ -6,6 +6,14 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+
+-- vim.api.nvim_create_autocmd("FileType", {
+-- 	pattern = "*",
+-- 	callback = function(event)
+--     print("FileType event triggered for filetype: " .. event.match)
+-- 	end,
+-- })
+
 -- For debug purpose (open Lazy on startup)
 -- vim.api.nvim_create_autocmd("VimEnter", {
 -- 	callback = function()
@@ -14,3 +22,5 @@ vim.api.nvim_create_autocmd("FileType", {
 -- 		end, 10)
 -- 	end,
 -- })
+
+

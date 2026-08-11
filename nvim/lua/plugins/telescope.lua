@@ -1,3 +1,5 @@
+local actions = require("telescope.actions")
+
 return {
   "nvim-telescope/telescope.nvim",
   dependencies = {
@@ -7,8 +9,6 @@ return {
     { "nvim-telescope/telescope-project.nvim" },
     { "ec965/telescope-node-workspace.nvim" },
   },
-  lazy = true,
-  cmd = "Telescope",
   keys = {
     { "<leader>ff", "<Cmd>Telescope find_files<CR>", desc = "[F]ind [F]iles" },
     { "<leader>fof", "<Cmd>Telescope oldfiles<CR>", desc = "[F]ind [O]ld [F]iles" },
@@ -53,16 +53,10 @@ return {
       buffers = {
         mappings = {
           n = {
-            ["<c-w>"] = function()
-              local actions = require("telescope.actions")
-              return actions.delete_buffer + actions.move_to_top
-            end,
+            ["<C-w>"] = actions.delete_buffer,
           },
           i = {
-            ["<c-w>"] = function()
-              local actions = require("telescope.actions")
-              return actions.delete_buffer + actions.move_to_top
-            end,
+            ["<C-w>"] = actions.delete_buffer,
           },
         },
       },

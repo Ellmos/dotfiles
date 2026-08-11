@@ -5,6 +5,12 @@ return {
     "williamboman/mason.nvim",
     "mason-org/mason-lspconfig.nvim",
     "antosha417/nvim-lsp-file-operations",
+    {
+      "rmagatti/goto-preview",
+      dependencies = { "rmagatti/logger.nvim" },
+      event = "BufEnter",
+      config = true, -- necessary as per https://github.com/rmagatti/goto-preview/issues/88
+    },
   },
   keys = {
     { "<F2>", vim.lsp.buf.rename, desc = "Rename" },
@@ -15,13 +21,13 @@ return {
       end,
       desc = "Code Action",
     },
-    { "gd", vim.lsp.buf.definition, desc = "[G]oto [d]efinition" },
+    { "gd", "<Cmd>Telescope lsp_definitions<CR>", desc = "[G]oto [d]efinition" },
     { "gD", vim.lsp.buf.hover, desc = "[G]oto [D]ocumentation" },
-    { "gr", vim.lsp.buf.references, desc = "[G]oto [R]eferences" },
-    { "gi", vim.lsp.buf.implementation, desc = "[G]oto [I]mplementation" },
-    { "gp", vim.lsp.util.preview_location, desc = "[G]oto [P]review" },
+    { "gr", "<Cmd>Telescope lsp_references<CR>", desc = "[G]oto [R]eferences" },
+    { "gi", "<Cmd>Telescope lsp_implementations<CR>", desc = "[G]oto [I]mplementation" },
+    { "gp", "<CMD>lua require('goto-preview').goto_preview_definition()<CR>", desc = "[G]oto [P]review" },
     { "<leader>d", vim.diagnostic.open_float, desc = "[D]iagnostic" },
-    { "<leader>fs", vim.lsp.buf.workspace_symbol, desc = "[F]ind [S]ymbols" },
+    { "<leader>fs", "<Cmd>Telescope lsp_dynamic_workspace_symbols<CR>", desc = "[F]ind [S]ymbols" },
   },
   opts = {
     capabilities = {
@@ -44,12 +50,10 @@ return {
       },
       cssls = {}, -- CSS
       jsonls = {}, -- JSON
-      jdtls = {}, -- Java
       lemminx = {}, -- XML
       yamlls = {}, -- YAML
       sqlls = {}, -- SQL
       dockerls = {}, -- Docker
-      golangci_lint_ls = {}, -- Go
       bashls = { -- Bash
         default_config = {
           cmd = { "bash-language-server", "start" },
