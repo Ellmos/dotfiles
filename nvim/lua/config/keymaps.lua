@@ -25,13 +25,17 @@ noremap("n", "<leader><BS>", "J", "Collapse line above")
 noremap({ "n", "v" }, "<S-h>", "b", "Fast movement left")
 noremap({ "n", "v" }, "<S-l>", "w", "Fast movement right")
 
--- Move through buffers
-noremap("n", "<C-h>", "<C-w>h", "Move to left buffer")
-noremap("n", "<C-l>", "<C-w>l", "Move to right buffer")
-noremap("n", "<C-j>", "<C-w>j", "Move to bottom buffer")
-noremap("n", "<C-k>", "<C-w>k", "Move to top buffer")
+-- Move through windows
+noremap("n", "<C-h>", "<C-w>h", "Move to left window")
+noremap("n", "<C-l>", "<C-w>l", "Move to right window")
+noremap("n", "<C-j>", "<C-w>j", "Move to bottom window")
+noremap("n", "<C-k>", "<C-w>k", "Move to top window")
 
--- Resize buffers
+-- Move through windows
+noremap("n", "<C-t>", "<CMD>tabn<CR>", "Move to next tabpage")
+noremap("n", "<C-S-t>", "<CMD>tabp<CR>", "Move to previous tabpage")
+
+-- Resize windows
 local function toggle_fullscreen()
 	if vim.bo.filetype == "NvimTree" then
 		return

@@ -1,3 +1,17 @@
+local function get_buffer_state(buffer)
+  if buffer.is_focused then
+    return "focused"
+  end
+
+  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+    if buffer.number == vim.api.nvim_win_get_buf(win) then
+      return "visible"
+    end
+  end
+
+  return "inactive"
+end
+
 return {
   "willothy/nvim-cokeline",
   dependencies = {
@@ -5,7 +19,56 @@ return {
   },
   lazy = false,
   opts = function()
-    local get_hex = require("cokeline.hlgroups").get_hl_attr
+    local get_hl_attr = require("cokeline.hlgroups").get_hl_attr
+
+    local colors = {
+      selected = function()
+        return get_hl_attr("String", "fg")
+      end,
+      text = function()
+        return get_hl_attr("Normal", "fg")
+      end,
+      subtle = function()
+        return get_hl_attr("Comment", "fg")
+      end,
+      transparent = function()
+        return "NONE"
+      end,
+      highlight = function()
+        return get_hl_attr("CursorLine", "bg")
+      end,
+    }
+
+    local hl = {
+      focused = {
+        fg = colors.selected,
+        bg = colors.highlight,
+        bold = true,
+      },
+      visible = {
+        fg = colors.selected,
+        bg = colors.transparent,
+        bold = false,
+      },
+      inactive = {
+        fg = colors.subtle,
+        bg = colors.transparent,
+        bold = false,
+      },
+    }
+
+    local function hl_fg(buffer)
+      local state = get_buffer_state(buffer)
+      return hl[state].fg()
+    end
+
+    local function hl_bg(buffer)
+      return hl[get_buffer_state(buffer)].bg()
+    end
+
+    local function hl_bold(buffer)
+      return hl[get_buffer_state(buffer)].bold
+    end
 
     return {
       history = {
@@ -14,25 +77,21 @@ return {
       },
 
       sidebar = {
-        filetype = { "NvimTree" },
         components = {
           {
-            text = function(buf)
-              return buf.filetype
+            text = "NvimTree",
+            fg = function(buffer)
+              return buffer.is_focused and colors.text() or colors.subtle()
             end,
-            bg = "NONE",
-            bold = true,
+            bg = colors.transparent,
           },
         },
       },
 
       default_hl = {
-        fg = function(buffer)
-          return buffer.is_focused and get_hex("Normal", "fg") or get_hex("Comment", "fg")
-        end,
-        bg = function(buffer)
-          return buffer.is_focused and get_hex("CursorLine", "bg") or "NONE"
-        end,
+        fg = hl_fg,
+        bg = hl_bg,
+        bold = hl_bold,
       },
 
       components = {
@@ -41,18 +100,14 @@ return {
           text = function(buffer)
             return buffer.is_first and "" or " ▏"
           end,
-          fg = function()
-            return get_hex("Normal", "fg")
-          end,
+          fg = colors.text,
           bg = "NONE",
         },
         {
           text = function(buffer)
             return buffer.is_focused and "" or " "
           end,
-          fg = function()
-            return get_hex("CursorLine", "bg")
-          end,
+          fg = colors.highlight,
           bg = "NONE",
         },
         -- devicon
@@ -69,9 +124,6 @@ return {
           text = function(buffer)
             return buffer.unique_prefix
           end,
-          bold = function(buffer)
-            return buffer.is_focused
-          end,
           italic = true,
         },
         -- filename
@@ -79,14 +131,11 @@ return {
           text = function(buffer)
             return buffer.filename .. " "
           end,
-          bold = function(buffer)
-            return buffer.is_focused
-          end,
         },
         -- close button
         {
           text = function(buffer)
-            return buffer.is_modified and "" or "󰖭"
+            return buffer.is_modified and " " or "󰖭 "
           end,
           on_click = function(_, _, _, _, buffer)
             if not buffer.is_modified then
@@ -97,17 +146,15 @@ return {
             return buffer.is_focused
           end,
           fg = function(buffer)
-            return buffer.is_modified and "#00FFFF" or get_hex("Normal", "fg")
+            return buffer.is_modified and "#00FFFF" or colors.text()
           end,
         },
         {
           text = function(buffer)
             return buffer.is_focused and "" or " "
           end,
-          fg = function()
-            return get_hex("CursorLine", "bg")
-          end,
-          bg = "NONE",
+          fg = colors.highlight,
+          bg = colors.transparent,
         },
       },
       tabs = {
@@ -118,10 +165,10 @@ return {
               return tab.is_first and tab.is_last and "" or " " .. tab.number .. " "
             end,
             fg = function(tab)
-              return tab.is_active and get_hex("Normal", "fg") or get_hex("Comment", "fg")
+              return tab.is_active and colors.text() or colors.subtle()
             end,
             bg = function(tab)
-              return tab.is_active and get_hex("CursorLine", "bg") or "NONE"
+              return tab.is_active and colors.highlight() or colors.transparent()
             end,
           },
         },
