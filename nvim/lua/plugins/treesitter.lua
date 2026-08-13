@@ -18,6 +18,7 @@ return {
         "TelescopePrompt",
         "TelescopeResults",
         "NvimTree",
+        "toggleterm"
       }
 
       local function start(buf, lang)

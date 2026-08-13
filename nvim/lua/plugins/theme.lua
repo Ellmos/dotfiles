@@ -2,6 +2,7 @@ return {
   "ellisonleao/gruvbox.nvim",
   priority = 1000,
   opts = {
+    contrast = "medium",
     overrides = {
       Normal = { bg = "NONE" },
       TabLineFill = { bg = "NONE" },

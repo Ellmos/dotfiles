@@ -11,7 +11,7 @@ return {
   },
   keys = {
     { "<leader>ff", "<Cmd>Telescope find_files<CR>", desc = "[F]ind [F]iles" },
-    { "<leader>fof", "<Cmd>Telescope oldfiles<CR>", desc = "[F]ind [O]ld [F]iles" },
+    { "<leader>fo", "<Cmd>Telescope oldfiles<CR>", desc = "[F]ind [O]ld Files" },
     { "<leader>fb", "<Cmd>Telescope buffers<CR>", desc = "[F]ind [B]uffers" },
     { "<leader>fg", "<Cmd>Telescope live_grep<CR>", desc = "[F]ind [G]rep" },
     { "<leader>fw", "<Cmd>Telescope grep_string<CR>", desc = "[F]ind [W]ord" },
