@@ -15,6 +15,14 @@ end
 vim.keymap.del('n', '<C-w>d')
 vim.keymap.del('n', '<C-w><C-d>')
 
+vim.keymap.del('x', 'gra')
+vim.keymap.del('n', 'gra')
+vim.keymap.del('n', 'gri')
+vim.keymap.del('n', 'grn')
+vim.keymap.del('n', 'grr')
+vim.keymap.del('n', 'grt')
+vim.keymap.del('n', 'grx')
+
 -------------------Utils------------------
 noremap("i", "<M-BS>", "<C-w>", "Delete previous word")
 noremap("i", "<C-BS>", "<C-w>", "Delete previous word")
@@ -34,6 +42,10 @@ noremap("n", "<C-k>", "<C-w>k", "Move to top window")
 -- Move through windows
 noremap("n", "<C-t>", "<CMD>tabn<CR>", "Move to next tabpage")
 noremap("n", "<C-S-t>", "<CMD>tabp<CR>", "Move to previous tabpage")
+
+-- Jump list navigation
+noremap("n", "<A-h>", "<C-o>", "Jump to previous location")
+noremap("n", "<A-l>", "<C-i>", "Jump to next location")
 
 -- Resize windows
 local function toggle_fullscreen()

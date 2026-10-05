@@ -71,12 +71,19 @@ return {
     end
 
     return {
+      buffers = {
+        filter_valid = function(buffer)
+          return buffer.type ~= "terminal" and buffer.type ~= "quickfix"
+        end,
+      },
+
       history = {
         enabled = true,
         size = 100,
       },
 
       sidebar = {
+        filetype = "NvimTree",
         components = {
           {
             text = "NvimTree",
@@ -178,12 +185,5 @@ return {
   keys = {
     { "<TAB>", "<Plug>(cokeline-focus-next)", desc = "Move to next buffer" },
     { "<S-TAB>", "<Plug>(cokeline-focus-prev)", desc = "Move to previous buffer" },
-    {
-      "<C-TAB>",
-      function()
-        require("cokeline.history"):last():focus()
-      end,
-      desc = "Move to previous buffer",
-    },
   },
 }

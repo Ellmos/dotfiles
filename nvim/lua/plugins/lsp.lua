@@ -54,6 +54,7 @@ return {
       yamlls = {}, -- YAML
       sqlls = {}, -- SQL
       dockerls = {}, -- Docker
+      marksman = {},
       bashls = { -- Bash
         default_config = {
           cmd = { "bash-language-server", "start" },

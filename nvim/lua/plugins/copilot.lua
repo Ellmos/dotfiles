@@ -29,6 +29,11 @@ return {
         },
         yank_diff = false,
       },
+
+      -- Disbale highlight as handle by render markdown.nvim
+      highlight_headers = false,
+      separator = "---",
+      error_header = "> [!ERROR] Error",
     },
     keys = {
       { "<leader>c", "<Cmd>CopilotChatToggle<CR>", mode = { "n", "v" }, desc = "Toggle CopilotChat" },

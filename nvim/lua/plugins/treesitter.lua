@@ -18,7 +18,12 @@ return {
         "TelescopePrompt",
         "TelescopeResults",
         "NvimTree",
-        "toggleterm"
+        "toggleterm",
+        "cybu",
+        "NeogitStatus",
+        "NeogitPopup",
+        "DiffviewFiles",
+        "blame",
       }
 
       local function start(buf, lang)

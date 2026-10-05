@@ -5,8 +5,11 @@ return {
     { "<leader>t", "<CMD>ToggleTerm<CR>", desc = "Toggle Terminal" },
     { "<ESC>", "<C-\\><C-n>", mode = "t", desc = "Exit terminal mode" },
   },
-  config = function()
-    require("toggleterm").setup()
+  opts = {
+    start_in_insert = false,
+  },
+  config = function(_, opts)
+    require("toggleterm").setup(opts)
 
     vim.api.nvim_create_autocmd("ExitPre", {
       pattern = "*",

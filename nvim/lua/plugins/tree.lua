@@ -17,6 +17,7 @@ return {
     sync_root_with_cwd = true,
     select_prompts = true,
     on_attach = function(bufnr)
+      print("nvim-tree attached to buffer " .. bufnr)
       local api = require("nvim-tree.api")
       local function opts(desc)
         return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }

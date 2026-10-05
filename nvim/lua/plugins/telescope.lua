@@ -1,5 +1,34 @@
 local actions = require("telescope.actions")
 
+-- Wraps a sorter factory so index.* files still match normally but always
+-- sink to the bottom of the results, instead of floating to the top the way
+-- short/common filenames tend to with fuzzy scoring.
+local function deprioritize_index_files(base_factory)
+  return function(opts)
+    local sorter = base_factory(opts)
+    local original_scoring_function = sorter.scoring_function
+
+    sorter.scoring_function = function(self, prompt, line, entry, ...)
+      local score = original_scoring_function(self, prompt, line, entry, ...)
+      if not score or score == -1 then
+        return score
+      end
+
+      local name = (entry and (entry.filename or entry.value)) or line
+      local tail = type(name) == "string" and vim.fn.fnamemodify(name, ":t"):lower() or ""
+      local is_index = tail == "index" or tail:match("^index%.")
+      local prompt_mentions_index = type(prompt) == "string" and prompt:lower():find("index", 1, true)
+      if is_index and not prompt_mentions_index then
+        return score + 1000
+      end
+
+      return score
+    end
+
+    return sorter
+  end
+end
+
 return {
   "nvim-telescope/telescope.nvim",
   dependencies = {
@@ -99,5 +128,12 @@ return {
     telescope.load_extension("ui-select")
     telescope.load_extension("project")
     telescope.load_extension("node-workspace")
+
+    -- fzf-native overwrites file_sorter/generic_sorter when it loads, so
+    -- wrap them afterwards to apply to every picker.
+    local telescope_config = require("telescope.config").values
+    telescope_config.file_sorter = deprioritize_index_files(telescope_config.file_sorter)
+    telescope_config.generic_sorter = deprioritize_index_files(telescope_config.generic_sorter)
   end,
 }
+
