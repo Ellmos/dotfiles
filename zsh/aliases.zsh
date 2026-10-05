@@ -34,7 +34,10 @@ alias gri='git rebase -i'
 alias grc='git rebase --continue'
 alias gra='git rebase --abort'
 alias gw='git worktree'
-
+alias gb='git bisect'
+alias gbg='git bisect good'
+alias gbb='git bisect bad'
+alias gbr='git bisect reset'
 
 alias clangf='find $(git rev-parse --show-toplevel) -name "*.h" -o -name "*.c" -o -name "*.hh" -o -name "*.cc" -o -name "*.hxx"  | xargs clang-format -i'
 alias gccc='gcc -Wextra -Wall -Werror -Wvla -std=c99 -pedantic -fsanitize=address -g -o main '
@@ -62,6 +65,8 @@ alias front="cd ~/Desktop/mti/plic/front/PLIC-App"
 alias back="cd ~/Desktop/mti/plic/back/"
 
 alias k="kubectl"
+
+alias sdkgenerator="yarn --cwd ~/dev/shared/packages/sdk-generator/js/sdk-generator-v2 start"
 
 # Keep gwt as a binary for logic, but handle `cd` in-shell so cwd really changes.
 function gwt() {

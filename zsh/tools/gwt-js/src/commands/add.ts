@@ -2,7 +2,7 @@ import * as path from "path";
 import * as fs from "fs";
 import { spawnSync } from "child_process";
 import { git, gitC, gitCTry } from "../lib/git";
-import { findRepoRoot, nextPoolSlot, GwtError } from "../lib/repo";
+import { findRepoRoot, nextPoolSlot, resolveWorktreeName, GwtError } from "../lib/repo";
 
 interface AddOptions {
   createBranch: boolean;
@@ -22,10 +22,17 @@ export function cmdAdd(name: string, branch?: string, opts: AddOptions = { creat
 
   const repoRoot = findRepoRoot();
   const bareDir = path.join(repoRoot, ".bare");
-  const target = path.join(repoRoot, name);
+  const target = resolveWorktreeName(repoRoot, name);
 
   if (fs.existsSync(target)) {
     throw new GwtError(`worktree '${resolvedBranch}' already exists at '${target}'`);
+  }
+
+  if (createBranch) {
+    const branchExists = gitCTry(bareDir, ["rev-parse", "--verify", `refs/heads/${resolvedBranch}`]);
+    if (branchExists) {
+      throw new GwtError(`branch '${resolvedBranch}' already exists; omit -c or choose another name`);
+    }
   }
 
   // Resolve base when -c is given but no -b

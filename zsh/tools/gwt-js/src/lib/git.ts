@@ -27,6 +27,13 @@ export function git(
     ...spawnOptions,
   });
 
+  if (result.error) {
+    // git binary missing, EACCES, etc. — spawnSync never actually ran the
+    // process, so result.status is null and stderr is empty; without this
+    // check that would surface as a misleading "exited with code 1".
+    throw new GitError(`failed to run git: ${result.error.message}`);
+  }
+
   const stdout =
     typeof result.stdout === "string" ? result.stdout.trimEnd() : "";
   const stderr =

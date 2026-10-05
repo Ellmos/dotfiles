@@ -1,7 +1,6 @@
 import * as path from "path";
 import * as fs from "fs";
-import { gitC } from "../lib/git";
-import { findRepoRoot, GwtError } from "../lib/repo";
+import { findRepoRoot, listWorktrees, GwtError } from "../lib/repo";
 import { getWorktreePwd } from "../lib/config";
 
 export function cmdCd(name: string): void {
@@ -32,10 +31,7 @@ export function cmdCd(name: string): void {
   }
 
   // Verify it is a registered active worktree
-  const r = gitC(bareDir, ["worktree", "list", "--porcelain"]);
-  const isActive = r.stdout
-    .split("\n")
-    .some((line) => line === `worktree ${target}`);
+  const isActive = listWorktrees(bareDir).some((wt) => wt.path === target);
 
   if (!isActive) {
     throw new GwtError(`'${name}' is not an active worktree`);

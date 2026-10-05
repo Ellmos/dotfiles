@@ -4,13 +4,15 @@ import * as path from "path";
 /**
  * Rewrite a one-line metadata file that stores an absolute path under oldRoot.
  * Mirrors rewrite_path_file() in the shell script.
+ * Returns true if the file existed and was rewritten, false otherwise —
+ * callers use this to detect metadata that didn't match the expected shape.
  */
 export function rewritePathFile(
   file: string,
   oldRoot: string,
   newRoot: string
-): void {
-  if (!fs.existsSync(file)) return;
+): boolean {
+  if (!fs.existsSync(file)) return false;
 
   const content = fs.readFileSync(file, "utf8");
   const line = content.split("\n")[0];
@@ -18,40 +20,11 @@ export function rewritePathFile(
   if (line.startsWith(`gitdir: ${oldRoot}`)) {
     const rest = line.slice(`gitdir: ${oldRoot}`.length);
     fs.writeFileSync(file, `gitdir: ${newRoot}${rest}\n`, "utf8");
+    return true;
   } else if (line.startsWith(oldRoot)) {
     const rest = line.slice(oldRoot.length);
     fs.writeFileSync(file, `${newRoot}${rest}\n`, "utf8");
+    return true;
   }
-}
-
-/**
- * Recursively find all files named `.git` under dir,
- * excluding the paths matching excludePaths.
- */
-export function findGitFiles(dir: string, excludePaths: string[]): string[] {
-  const results: string[] = [];
-
-  function walk(current: string): void {
-    let entries: fs.Dirent[];
-    try {
-      entries = fs.readdirSync(current, { withFileTypes: true });
-    } catch {
-      return;
-    }
-
-    for (const entry of entries) {
-      const fullPath = path.join(current, entry.name);
-      if (excludePaths.some((excl) => fullPath === excl || fullPath.startsWith(excl + path.sep))) {
-        continue;
-      }
-      if (entry.isDirectory()) {
-        walk(fullPath);
-      } else if (entry.isFile() && entry.name === ".git") {
-        results.push(fullPath);
-      }
-    }
-  }
-
-  walk(dir);
-  return results;
+  return false;
 }

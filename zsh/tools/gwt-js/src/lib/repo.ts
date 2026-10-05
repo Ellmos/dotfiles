@@ -10,15 +10,30 @@ export class GwtError extends Error {
 }
 
 /**
+ * True when `root` is the root of a gwt-managed bare+worktree repo
+ * (i.e. it has a `.bare` directory, as created by `gwt clone`/`gwt migrate`).
+ */
+export function isGwtRepoRoot(root: string): boolean {
+  const bareDir = path.join(root, ".bare");
+  try {
+    return fs.statSync(bareDir).isDirectory();
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Resolve the gwt repo root from any directory inside it (worktree or root).
- * Mirrors find_repo_root() in the shell script.
+ * Mirrors find_repo_root() in the shell script, plus a check that the
+ * discovered root is actually a gwt-managed repo (has a `.bare` dir) —
+ * running gwt inside a plain git repo is an error, not a silent success.
  */
 export function findRepoRoot(dir: string = process.cwd()): string {
   const r = git(["-C", dir, "rev-parse", "--git-common-dir"], {
     throwOnError: false,
   });
   if (r.status !== 0 || !r.stdout) {
-    throw new GwtError("not inside a gwt repo");
+    throw new GwtError("not inside a git repository");
   }
 
   const gitCommon = r.stdout.trim();
@@ -26,7 +41,39 @@ export function findRepoRoot(dir: string = process.cwd()): string {
     ? gitCommon
     : path.resolve(dir, gitCommon);
 
-  return path.dirname(path.resolve(absCommon));
+  const root = path.dirname(path.resolve(absCommon));
+
+  if (!isGwtRepoRoot(root)) {
+    throw new GwtError(
+      "not inside a gwt workspace (no .bare directory found) — run 'gwt migrate' to convert this repo"
+    );
+  }
+
+  return root;
+}
+
+/**
+ * Validate that `name` resolves to a path inside `repoRoot` and isn't one
+ * of the reserved top-level names gwt uses for its own bookkeeping.
+ * Returns the resolved absolute path.
+ */
+export function resolveWorktreeName(repoRoot: string, name: string): string {
+  if (!name || name.trim() === "") {
+    throw new GwtError("worktree name must not be empty");
+  }
+
+  const target = path.resolve(repoRoot, name);
+  if (target !== repoRoot && !target.startsWith(repoRoot + path.sep)) {
+    throw new GwtError(`invalid name '${name}': resolves outside the repo root`);
+  }
+
+  const topSegment = path.relative(repoRoot, target).split(path.sep)[0];
+  const reserved = new Set(["root", ".bare", ".pool", ".gwt", ".git"]);
+  if (reserved.has(topSegment)) {
+    throw new GwtError(`'${topSegment}' is a reserved name and can't be used for a worktree`);
+  }
+
+  return target;
 }
 
 /**

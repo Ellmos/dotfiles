@@ -1,7 +1,7 @@
 import * as path from "path";
 import * as fs from "fs";
-import { findRepoRoot, GwtError } from "../lib/repo";
-import { rewritePathFile, findGitFiles } from "../lib/fs";
+import { findRepoRoot, listWorktrees, GwtError } from "../lib/repo";
+import { rewritePathFile } from "../lib/fs";
 
 export function cmdRelocate(args: string[]): void {
   let srcRoot: string;
@@ -58,22 +58,42 @@ export function cmdRelocate(args: string[]): void {
   const oldRoot = srcRoot;
   fs.renameSync(oldRoot, dstRoot);
 
-  // Update bare metadata pointing to linked worktrees
-  const worktreesDir = path.join(dstRoot, ".bare", "worktrees");
+  const bareDir = path.join(dstRoot, ".bare");
+  const warnings: string[] = [];
+
+  // Update bare metadata pointing to linked worktrees. These files store
+  // the worktree's own .git file path, e.g. "<oldRoot>/<name>/.git" — once
+  // rewritten, `git worktree list` against the new bare dir will correctly
+  // resolve to the new worktree paths.
+  const worktreesDir = path.join(bareDir, "worktrees");
   if (fs.existsSync(worktreesDir)) {
     for (const entry of fs.readdirSync(worktreesDir)) {
       const metaFile = path.join(worktreesDir, entry, "gitdir");
-      rewritePathFile(metaFile, oldRoot, dstRoot);
+      if (fs.existsSync(metaFile) && !rewritePathFile(metaFile, oldRoot, dstRoot)) {
+        warnings.push(metaFile);
+      }
     }
   }
 
-  // Update each linked worktree .git file that points into .bare/worktrees/*
-  const gitFiles = findGitFiles(dstRoot, [
-    path.join(dstRoot, ".git"),
-    path.join(dstRoot, ".bare"),
-  ]);
-  for (const gitFile of gitFiles) {
-    rewritePathFile(gitFile, oldRoot, dstRoot);
+  // Update each linked worktree's own .git gitlink file back to .bare.
+  // We deliberately don't walk the filesystem tree here (that would also
+  // wander into node_modules, submodules, etc. in every worktree, which is
+  // both slow and liable to rewrite unrelated .git files) — `git worktree
+  // list` (now resolving correctly thanks to the rewrite above) already
+  // tells us exactly which paths need fixing.
+  for (const wt of listWorktrees(bareDir)) {
+    if (wt.bare || wt.path === dstRoot) continue;
+    const gitFile = path.join(wt.path, ".git");
+    if (fs.existsSync(gitFile) && !rewritePathFile(gitFile, oldRoot, dstRoot)) {
+      warnings.push(gitFile);
+    }
+  }
+
+  if (warnings.length > 0) {
+    process.stderr.write(
+      `warning: could not update the following worktree metadata files (they may still reference the old path):\n` +
+        warnings.map((w) => `  ${w}\n`).join("")
+    );
   }
 
   process.stdout.write(dstRoot + "\n");

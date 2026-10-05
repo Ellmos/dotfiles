@@ -21,13 +21,23 @@ export function cmdConfig(subcmd: string, args: string[]): void {
       if (fileArg) {
         target = path.isAbsolute(fileArg)
           ? fileArg
-          : path.join(configDir, fileArg);
+          : path.resolve(configDir, fileArg);
+        if (target !== configDir && !target.startsWith(configDir + path.sep)) {
+          throw new GwtError(`invalid file '${fileArg}': resolves outside .gwt`);
+        }
       } else {
         target = configDir;
       }
 
-      const editor = process.env.VISUAL ?? process.env.EDITOR ?? "vi";
-      const result = spawnSync(editor, [target], { stdio: "inherit" });
+      // EDITOR/VISUAL commonly carry arguments (e.g. "code --wait"); a bare
+      // spawnSync(editorString, [target]) would look for a binary literally
+      // named "code --wait" and fail silently below.
+      const editorCmd = (process.env.VISUAL ?? process.env.EDITOR ?? "vi").trim();
+      const [editorBin, ...editorArgs] = editorCmd.split(/\s+/);
+      const result = spawnSync(editorBin, [...editorArgs, target], { stdio: "inherit" });
+      if (result.error) {
+        throw new GwtError(`failed to launch editor '${editorBin}': ${result.error.message}`);
+      }
       if (result.status !== 0) {
         process.exit(result.status ?? 1);
       }

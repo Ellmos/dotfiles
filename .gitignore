@@ -3,3 +3,4 @@ backupDotfiles
 *.bak
 
 .DS_Store
+dist

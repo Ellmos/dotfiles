@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 import { Command } from "commander";
 import { GwtError } from "./lib/repo";
+import { GitError } from "./lib/git";
 import { cmdClone } from "./commands/clone";
+import { cmdMigrate } from "./commands/migrate";
 import { cmdAdd } from "./commands/add";
 import { cmdCd } from "./commands/cd";
 import { cmdConfig } from "./commands/config";
@@ -12,7 +14,14 @@ import { cmdList } from "./commands/list";
 import { zshCompletionScript } from "./completion/zsh";
 
 /**
- * Wrapper to catch GwtError, print error + command usage, and exit with code 1.
+ * Wrapper to catch errors thrown by a command action, print a clean
+ * `error: ...` message (plus usage for GwtError), and exit with code 1.
+ *
+ * Every command action can fail via a GwtError (expected, user-facing),
+ * a GitError (an underlying git invocation failed), or a plain Error from
+ * Node's fs/child_process APIs (e.g. EACCES, EXDEV, ENOENT). All three are
+ * equally "expected" failure modes for a CLI and must never surface as a
+ * raw stack trace.
  */
 function handle(fn: (...args: any[]) => void): any {
   return function(this: any, ...args: any[]) {
@@ -26,6 +35,10 @@ function handle(fn: (...args: any[]) => void): any {
           process.stderr.write("\n");
           process.stderr.write(this.helpInformation());
         }
+        process.exit(1);
+      }
+      if (err instanceof GitError || err instanceof Error) {
+        process.stderr.write(`error: ${err.message}\n`);
         process.exit(1);
       }
       throw err;
@@ -68,6 +81,15 @@ program
   .description("Clone a repo using the bare+worktree layout")
   .action(handle((url: string, folder?: string) => {
     cmdClone(url, folder);
+  }));
+
+// ── migrate ───────────────────────────────────────────────────────────────────
+
+program
+  .command("migrate [path]")
+  .description("Convert an existing plain git repo into a gwt bare+worktree workspace")
+  .action(handle((targetPath?: string) => {
+    cmdMigrate(targetPath);
   }));
 
 // ── add ───────────────────────────────────────────────────────────────────────

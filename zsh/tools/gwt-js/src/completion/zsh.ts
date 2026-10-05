@@ -15,6 +15,7 @@ _gwt() {
   local -a commands
   commands=(
     'clone:Clone a repo using the bare+worktree layout'
+    'migrate:Convert an existing plain git repo into a gwt workspace'
     'add:Acquire a worktree from pool or create new (-c to create branch)'
     'cd:Change to an active worktree'
     'config:Manage gwt config (edit/set)'
@@ -30,6 +31,9 @@ _gwt() {
   fi
 
   case $words[2] in
+    migrate)
+      (( CURRENT == 3 )) && _files -/
+      ;;
     add)
       # After -b, always complete refs as the base value
       [[ $words[CURRENT-1] == '-b' ]] && { _gwt_branches; return }
